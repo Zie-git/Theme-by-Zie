@@ -1,4 +1,14 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
+<<<<<<< HEAD
     "sections": {
         "template": {
             "type": "template-product",
@@ -21,6 +31,23 @@
                 "checkout_buttons"
             ]
         }
+=======
+  "sections": {
+    "template": {
+      "type": "template-product",
+      "settings": {
+      }
+>>>>>>> 9e93b0033f8676a69216b4301dbefa4943880060
     },
-    "order": ["template"]
+    "contact_form_7YkDNr": {
+      "type": "contact-form",
+      "settings": {
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "template",
+    "contact_form_7YkDNr"
+  ]
 }
