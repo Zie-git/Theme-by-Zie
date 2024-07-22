@@ -1,3 +1,31 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --overlay-opacity: {{ section.settings.overlay }}%;
+
+    {%- if section.settings.layout != 'full' %}
+      --padding-top: {{ section.settings.padding_top }};
+      --padding-bottom: {{ section.settings.padding_bottom }};
+    {%- else -%}
+      --padding-top: 0;
+      --padding-bottom: 0;
+    {%- endif -%}
+    --content-width: {{ section.settings.content_width_large }}%;
+
+    {%- comment -%}Extract the values for the text position's x and y axis for large screens{%- endcomment -%}
+    --text-x-axis-mobile: {% if section.settings.center_text_mobile %}center{% else %}start{% endif %};
+    --text-y-axis: {{ section.settings.text_position_mobile }};
+
+    {%- assign text_axis = section.settings.text_position_large | split: ' ' -%}
+    --text-y-axis-large: {{ text_axis | first }};
+    --text-x-axis-large: {{ text_axis | last }};
+
+    --color-foreground: {{ section.settings.color_foreground.red }}, {{ section.settings.color_foreground.green }}, {{ section.settings.color_foreground.blue }};
+    --color-background: {{ section.settings.color_background.red }}, {{ section.settings.color_background.green }}, {{ section.settings.color_background.blue }};
+    --color-accent: {{ section.settings.color_accent.red }}, {{ section.settings.color_accent.green }}, {{ section.settings.color_accent.blue }};
+  }
+{%- endstyle -%}
+
+
 <div class="image-with-text">
     {% if image_url %}
         <img src="{{ image_url }}" alt="{{ image_alt | default: 'Image Alt Text' }}" class="image">
