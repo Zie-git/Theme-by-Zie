@@ -26,11 +26,67 @@
 {%- endstyle -%}
 
 
-<div class="image-with-text">
-    {% if image_url %}
-        <img src="{{ image_url }}" alt="{{ image_alt | default: 'Image Alt Text' }}" class="image">
-    {% else %}
-      
+{%- liquid
+  case section.settings.text_size
+    when 'medium'
+      assign heading_size = 'h2'
+    when 'large'
+      assign heading_size = 'h1'
+    when 'x-large'
+      assign heading_size = 'h0'
+  endcase
+-%}
+
+{%- capture text -%}
+  {%- if section.settings.subheading != blank -%}
+    <div class="large-subtext">
+      {{ section.settings.subheading | escape }}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.title != blank -%}
+    <h2 {% if settings.animations_heading != 'none' %}is="loess-heading"{% endif %} class="{{ heading_size }} animate">
+      {% render 'heading', title: section.settings.title %}
+    </h2>
+  {%- endif -%}
+
+  {%- if section.settings.text != blank -%}
+    <div class="rte body-text">
+      {{ section.settings.text }}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.first_button_label != blank or section.settings.second_button_label != blank -%}
+    <div class="button-group">
+      {%- if section.settings.first_button_label != blank -%}
+        <a href="{{ section.settings.first_button_link }}" class="button {% if section.settings.first_button_style %}button--secondary{% else %} button--primary{% endif %} button--color-overriden tap">
+          {{ section.settings.first_button_label | escape }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.second_button_label != blank -%}
+        <a href="{{ section.settings.second_button_link }}" class="button {% if section.settings.second_button_style %}button--secondary{% else %} button--primary{% endif %} button--color-overriden tap">
+          {{ section.settings.second_button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- if section.settings.layout != 'full' -%}
+  {% if section.settings.layout == 'fixed-soft' %}<div class="color-soft-background">{% endif %}
+    <div class="section-vertical-spacer container container--capped">
+{%- endif -%}
+
+<div class="{% if section.settings.layout != 'full' %}border-radius {% if section.settings.enable_shadow %}shadow{% endif %}{% endif %}">
+  <div class="banner {% if section.settings.link != blank %}banner--link{% endif %} banner-mobile--{{ section.settings.height_mobile }} banner-large--{{ section.settings.height_large }} {% if section.settings.layout != 'full' %}border-radius{% endif %} {% if section.settings.text_below_image_mobile %}banner--no-radius-mobile{% endif %}">
+    <div class="banner__text banner__text--overlay {% if section.settings.text_below_image_mobile %}hide-mobile{% endif %} {% if section.settings.layout == 'full' %}section-vertical-spacer{% endif %}">
+      <div class="rich-text-wrapper container">
+        <div class="rich-text rich-text--large-contained">
+          {{ text }}
+        </div>
+      </div>
+    </div>
+
     <{% if section.settings.link != blank %}a href="{{ section.settings.link }}"{% else %}div{% endif %} class="image banner__media {% if section.settings.image == blank %}image--placeholder{% endif %}" parallax="{{ section.settings.enable_parallax }}">
       {%- capture sizes -%}{% if section.settings.full_width %}100vw{% else %}min({{ settings.styles_max_width }}px, 100vw){% endif %}{%- endcapture -%}
 
@@ -44,14 +100,26 @@
       {%- else -%}
         {{ 'lifestyle-1' | placeholder_svg_tag }}
       {%- endif -%}
-      
-    {% endif %}
-    <div class="text-container">
-        <h2>{{ heading | default: 'Heading Text' }}</h2>
-        <p>{{ description | default: 'Description of the image and text' }}</p>
+
+    </{% if section.settings.link != blank %}a{% else %}div{% endif %}>
+  </div>
+
+  {%- if section.settings.text_below_image_mobile -%}
+    <div class="banner-text-below-mobile color {% if section.settings.inverse_colors %}color-inverse-with-accent-2{% else %}color-default-with-accent-1{% endif %} hide-tablet-and-up">
+      <div class="rich-text-wrapper container">
+        <div class="rich-text">
+          {{ text }}
+        </div>
+      </div>
     </div>
+  {%- endif -%}
 </div>
 
+
+{%- if section.settings.layout != 'full' -%}
+  </div>
+  {% if section.settings.layout == 'fixed-soft' %}</div>{% endif %}
+{%- endif -%}
 
 
 
