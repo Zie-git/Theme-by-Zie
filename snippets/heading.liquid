@@ -1,0 +1,15 @@
+{%- if settings.animations_heading != 'none' -%}
+  <span class="text-wrapper">
+    {%- if settings.animations_heading == 'fade-in-words' -%}
+      {%- assign words = title | escape | split: ' ' -%}
+
+      {%- for word in words -%}
+        <span class="word">{{ word }}&nbsp;</span>
+      {%- endfor -%}
+    {%- else -%}
+      <span class="letters">{{ title | escape }}</span>
+    {%- endif -%}
+  </span>
+{%- else -%}
+  <span>{{ title | escape }}</span>
+{%- endif -%}
