@@ -2,8 +2,7 @@
     {% if image_url %}
         <img src="{{ image_url }}" alt="{{ image_alt | default: 'Image Alt Text' }}" class="image">
     {% else %}
-        <!-- Placeholder image URL -->
-        <img src="https://via.placeholder.com/300x200?text=Placeholder+Image" alt="Placeholder Image" class="image">
+        {% render 'product-card-placeholder' %}
     {% endif %}
     <div class="text-container">
         <h2>{{ heading | default: 'Heading Text' }}</h2>
