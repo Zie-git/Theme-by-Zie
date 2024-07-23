@@ -3,13 +3,12 @@
         <img src="{{ image_url }}" alt="{{ image_alt | default: 'Image Alt Text' }}" class="image">
     {% else %}
         <!-- Placeholder image URL -->
-      
         {{ 'lifestyle-1' | placeholder_svg_tag }}
-
     {% endif %}
+    
     <div class="text-container">
-        <h2>{{ heading | default: 'Heading Text' }}</h2>
-        <p>{{ description | default: 'Description of the image and text' }}</p>
+        <h2>{{ section.settings.title | escape }}</h2>
+        <p>{{ section.settings.description | escape }}</p>
     </div>
 </div>
 
@@ -20,7 +19,14 @@
         {
             "type": "text",
             "id": "title",
-            "label": "Title"
+            "label": "Title",
+            "default": "Heading Text"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description",
+            "default": "Description of the image and text"
         }
     ],
     "presets": [
