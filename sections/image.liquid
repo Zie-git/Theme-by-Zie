@@ -3,8 +3,8 @@
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
             <div class="text-overlay">
                 <div class="text-container">
-                    <h2>{{ section.settings.title | escape }}</h2>
-                    <p>{{ section.settings.description | escape }}</p>
+                    <{{ section.settings.heading_tag }} style="font-size: {{ section.settings.heading_font_size }}px;">{{ section.settings.title | escape }}</{{ section.settings.heading_tag }}>
+                    <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
                     {% if section.settings.button_text and section.settings.button_link %}
                         <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_text | escape }}</a>
                     {% endif %}
@@ -208,7 +208,52 @@
             "type": "url",
             "id": "button_link",
             "label": "Button Link",
-           
+        },
+        {
+            "type": "select",
+            "id": "heading_tag",
+            "label": "Heading Tag",
+            "options": [
+                {
+                    "value": "h1",
+                    "label": "H1"
+                },
+                {
+                    "value": "h2",
+                    "label": "H2"
+                },
+                {
+                    "value": "h3",
+                    "label": "H3"
+                },
+                {
+                    "value": "h4",
+                    "label": "H4"
+                },
+                {
+                    "value": "h5",
+                    "label": "H5"
+                }
+            ],
+            "default": "h2"
+        },
+        {
+            "type": "range",
+            "id": "heading_font_size",
+            "label": "Heading Font Size (px)",
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "default": 24
+        },
+        {
+            "type": "range",
+            "id": "text_font_size",
+            "label": "Text Font Size (px)",
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "default": 16
         }
     ],
     "presets": [
