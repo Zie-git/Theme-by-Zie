@@ -12,7 +12,14 @@
     "image_yT8EyU": {
       "type": "image",
       "settings": {
-        "title": "Image heading"
+        "title": "Image heading",
+        "description": "Description of the image and text",
+        "image": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
+        "image_alt": "Default Alt Text",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "template": {
