@@ -1,6 +1,6 @@
 <div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
-    {% if image_url %}
-        <img src="{{ image_url }}" alt="{{ image_alt | default: 'Image Alt Text' }}" class="image">
+    {% if section.settings.image != blank %}
+        <img src="{{ section.settings.image }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" class="image">
     {% else %}
         <!-- Placeholder image URL -->
         {{ 'lifestyle-1' | placeholder_svg_tag }}
@@ -27,6 +27,17 @@
             "id": "description",
             "label": "Description",
             "default": "Description of the image and text"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "type": "text",
+            "id": "image_alt",
+            "label": "Image Alt Text",
+            "default": "Default Alt Text"
         },
         {
             "type": "range",
@@ -72,5 +83,3 @@
     ]
 }
 {% endschema %}
-
-
