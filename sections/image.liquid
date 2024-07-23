@@ -1,7 +1,6 @@
 <div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
     {% if section.settings.image %}
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
-            <!-- Set custom property for overlay opacity -->
             <div class="image-overlay" style="opacity: {{ section.settings.overlay_brightness | divided_by: 100 }};"></div>
             <div class="text-overlay">
                 <div class="text-container">
