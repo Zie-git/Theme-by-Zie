@@ -1,19 +1,27 @@
 <div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
     {% if section.settings.image %}
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
+            <div class="text-overlay">
+                <div class="text-container">
+                    <h2>{{ section.settings.title | escape }}</h2>
+                    <p>{{ section.settings.description | escape }}</p>
+                    {% if section.settings.button_text and section.settings.button_link %}
+                        <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_text | escape }}</a>
+                    {% endif %}
+                </div>
+            </div>
             <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" style="width: 100%; height: 100%; object-fit: {{ section.settings.image_view }};">
         </div>
     {% else %}
         {{ 'lifestyle-1' | placeholder_svg_tag }}
     {% endif %}
-    
-    <div class="text-container">
-        <h2>{{ section.settings.title | escape }}</h2>
-        <p>{{ section.settings.description | escape }}</p>
-    </div>
 </div>
 
 {% stylesheet %}
+.image-container {
+    position: relative;
+}
+
 .image-container.full-screen {
     height: 100vh; /* Full screen height */
 }
@@ -40,6 +48,34 @@
 
 .image-container.height-extra-large {
     height: 600px;
+}
+
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    padding: 20px;
+    color: #fff; /* Adjust text color as needed */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.text-container {
+    max-width: 300px; /* Adjust width as needed */
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff; /* Button color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #0056b3; /* Button hover color */
 }
 {% endstylesheet %}
 
@@ -161,6 +197,18 @@
             "max": 500,
             "step": 10,
             "default": 0
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "Click Here"
+        },
+        {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link",
+           
         }
     ],
     "presets": [
