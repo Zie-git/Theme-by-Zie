@@ -1,8 +1,8 @@
 <div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
     {% if section.settings.image %}
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
-            <div class="image-overlay" style="background-color: rgba(0, 0, 0, {{ section.settings.overlay | divided_by: 100 }});"></div>
-            <div class="text-overlay">
+            <div class="image-overlay" style="background-color: rgba(0, 0, 0, {{ section.settings.overlay | divided_by: 100 }});">
+         
                 <div class="text-container">
                     <h2 style="font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }};">{{ section.settings.title | escape }}</h2>
                     <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
