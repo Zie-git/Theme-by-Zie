@@ -1,9 +1,8 @@
 <div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
     {% if section.settings.image %}
-      
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
-           <div class="img-overlay"></div>
-          <div class="text-overlay">
+            <div class="img-overlay" style="background: rgba(0, 0, 0, {{ section.settings.overlay_brightness | divided_by: 100 }});"></div>
+            <div class="text-overlay">
                 <div class="text-container">
                     <h2 style="font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }};">{{ section.settings.title | escape }}</h2>
                     <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
@@ -17,7 +16,6 @@
     {% else %}
         {{ 'lifestyle-1' | placeholder_svg_tag }}
     {% endif %}
-  
 </div>
 
 {% stylesheet %}
@@ -52,7 +50,7 @@
 .image-container.height-extra-large {
     height: 600px;
 }
-.img-overlay{
+.img-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -61,7 +59,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-      background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 }
   
 .text-overlay {
@@ -221,8 +218,7 @@
         {
             "type": "url",
             "id": "button_link",
-            "label": "Button Link",
-    
+            "label": "Button Link"
         },
         {
             "type": "range",
@@ -285,6 +281,15 @@
                 }
             ],
             "default": "400"
+        },
+        {
+            "type": "range",
+            "id": "overlay_brightness",
+            "label": "Overlay Brightness (%)",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 50
         }
     ],
     "presets": [
