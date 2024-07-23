@@ -3,7 +3,7 @@
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
             <div class="text-overlay">
                 <div class="text-container">
-                    <{{ section.settings.heading_tag }} style="font-size: {{ section.settings.heading_font_size }}px;">{{ section.settings.title | escape }}</{{ section.settings.heading_tag }}>
+                    <h2 style="font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }};">{{ section.settings.title | escape }}</h2>
                     <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
                     {% if section.settings.button_text and section.settings.button_link %}
                         <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_text | escape }}</a>
@@ -208,34 +208,7 @@
             "type": "url",
             "id": "button_link",
             "label": "Button Link",
-        },
-        {
-            "type": "select",
-            "id": "heading_tag",
-            "label": "Heading Tag",
-            "options": [
-                {
-                    "value": "h1",
-                    "label": "H1"
-                },
-                {
-                    "value": "h2",
-                    "label": "H2"
-                },
-                {
-                    "value": "h3",
-                    "label": "H3"
-                },
-                {
-                    "value": "h4",
-                    "label": "H4"
-                },
-                {
-                    "value": "h5",
-                    "label": "H5"
-                }
-            ],
-            "default": "h2"
+    
         },
         {
             "type": "range",
@@ -254,6 +227,50 @@
             "max": 100,
             "step": 1,
             "default": 16
+        },
+        {
+            "type": "select",
+            "id": "heading_font_weight",
+            "label": "Heading Font Weight",
+            "options": [
+                {
+                    "value": "100",
+                    "label": "Thin"
+                },
+                {
+                    "value": "200",
+                    "label": "Extra Light"
+                },
+                {
+                    "value": "300",
+                    "label": "Light"
+                },
+                {
+                    "value": "400",
+                    "label": "Normal"
+                },
+                {
+                    "value": "500",
+                    "label": "Medium"
+                },
+                {
+                    "value": "600",
+                    "label": "Semi Bold"
+                },
+                {
+                    "value": "700",
+                    "label": "Bold"
+                },
+                {
+                    "value": "800",
+                    "label": "Extra Bold"
+                },
+                {
+                    "value": "900",
+                    "label": "Black"
+                }
+            ],
+            "default": "400"
         }
     ],
     "presets": [
