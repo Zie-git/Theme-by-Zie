@@ -1,6 +1,7 @@
 <div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
     {% if section.settings.image %}
-        <div class="image-container" style="background-image: url('{{ section.settings.image | img_url: 'original' }}'); background-size: {{ section.settings.image_view }};">
+        <div class="image-container" style="background-image: url('{{ section.settings.image | img_url: 'original' }}'); background-size: {{ section.settings.image_view }}; background-position: center; background-repeat: no-repeat; width: 100%; height: auto;">
+            <!-- The following img tag is for accessibility and fallback. -->
             <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" class="image" style="display: none;">
         </div>
         <p>Image URL: {{ section.settings.image }}</p> <!-- Debug statement -->
@@ -13,6 +14,7 @@
         <p>{{ section.settings.description | escape }}</p>
     </div>
 </div>
+
 
 
 {% schema %}
