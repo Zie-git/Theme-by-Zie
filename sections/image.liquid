@@ -1,6 +1,9 @@
 <div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
     {% if section.settings.image %}
-        <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" class="image">
+        <div class="image-container" style="background-image: url('{{ section.settings.image | img_url: 'original' }}'); background-size: {{ section.settings.image_view }};">
+            <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" class="image" style="display: none;">
+        </div>
+        <p>Image URL: {{ section.settings.image }}</p> <!-- Debug statement -->
     {% else %}
         {{ 'lifestyle-1' | placeholder_svg_tag }}
     {% endif %}
@@ -10,6 +13,7 @@
         <p>{{ section.settings.description | escape }}</p>
     </div>
 </div>
+
 
 {% schema %}
 {
@@ -37,6 +41,26 @@
             "id": "image_alt",
             "label": "Image Alt Text",
             "default": "Default Alt Text"
+        },
+        {
+            "type": "select",
+            "id": "image_view",
+            "label": "Image View",
+            "options": [
+                {
+                    "value": "cover",
+                    "label": "Cover"
+                },
+                {
+                    "value": "contain",
+                    "label": "Contain"
+                },
+                {
+                    "value": "original",
+                    "label": "Original"
+                }
+            ],
+            "default": "cover"
         },
         {
             "type": "range",
