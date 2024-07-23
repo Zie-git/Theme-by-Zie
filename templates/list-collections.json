@@ -26,7 +26,8 @@
         "button_link": "shopify:\/\/blogs\/news",
         "heading_font_size": 50,
         "text_font_size": 20,
-        "heading_font_weight": "700"
+        "heading_font_weight": "700",
+        "overlay_brightness": 35
       }
     },
     "template": {
