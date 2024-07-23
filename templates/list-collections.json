@@ -16,6 +16,8 @@
         "description": "Description of the image and text",
         "image": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
         "image_alt": "Default Alt Text",
+        "image_view": "cover",
+        "image_height": "large",
         "padding_top": 20,
         "padding_bottom": 20,
         "margin_top": 0,
