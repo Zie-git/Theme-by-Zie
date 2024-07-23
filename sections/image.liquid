@@ -1,6 +1,6 @@
 <div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
     {% if section.settings.image %}
-        <div class="image-container" style="height: 300px;">
+        <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}" style="height: auto;">
             <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" style="width: 100%; height: 100%; object-fit: {{ section.settings.image_view }};">
         </div>
     {% else %}
@@ -12,6 +12,37 @@
         <p>{{ section.settings.description | escape }}</p>
     </div>
 </div>
+
+{% stylesheet %}
+.image-container.full-screen {
+    height: 100vh; /* Full screen height */
+}
+
+.image-container.adaptive {
+    height: auto; /* Adaptive image height */
+}
+
+.image-container.height-extra-small {
+    height: 200px;
+}
+
+.image-container.height-small {
+    height: 300px;
+}
+
+.image-container.height-medium {
+    height: 400px;
+}
+
+.image-container.height-large {
+    height: 500px;
+}
+
+.image-container.height-extra-large {
+    height: 600px;
+}
+{% endstylesheet %}
+
 
 {% schema %}
 {
@@ -61,6 +92,42 @@
             "default": "cover"
         },
         {
+            "type": "select",
+            "id": "image_height",
+            "label": "Image Height on Large Screens",
+            "options": [
+                {
+                    "value": "extra-small",
+                    "label": "Extra Small"
+                },
+                {
+                    "value": "small",
+                    "label": "Small"
+                },
+                {
+                    "value": "medium",
+                    "label": "Medium"
+                },
+                {
+                    "value": "large",
+                    "label": "Large"
+                },
+                {
+                    "value": "extra-large",
+                    "label": "Extra Large"
+                },
+                {
+                    "value": "adaptive",
+                    "label": "Adaptive Image"
+                },
+                {
+                    "value": "full-screen",
+                    "label": "Full Screen"
+                }
+            ],
+            "default": "medium"
+        },
+        {
             "type": "range",
             "id": "padding_top",
             "label": "Padding Top (px)",
@@ -103,4 +170,5 @@
         }
     ]
 }
+
 {% endschema %}
