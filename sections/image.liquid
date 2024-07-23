@@ -2,8 +2,9 @@
     {% if section.settings.image %}
       
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
-            <div class="text-overlay">
-              <div class="img-overlay"></div>
+           <div class="img-overlay"></div>
+          <div class="text-overlay">
+              
                 <div class="text-container">
                     <h2 style="font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }};">{{ section.settings.title | escape }}</h2>
                     <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
