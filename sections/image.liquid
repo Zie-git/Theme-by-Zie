@@ -2,12 +2,7 @@
     {% if section.settings.image %}
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
             <div class="img-overlay" style="background: rgba(0, 0, 0, {{ section.settings.overlay_brightness }}%)"></div>
-
-          
-            <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" style="width: 100%; height: 100%; object-fit: {{ section.settings.image_view }};">
-        </div>
-
-                <div class="text-overlay">
+          <div class="text-overlay">
                 <div class="text-container">
                     <h2 style="font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }};">{{ section.settings.title | escape }}</h2>
                     <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
@@ -16,7 +11,9 @@
                     {% endif %}
                 </div>
             </div>
-      
+          
+            <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" style="width: 100%; height: 100%; object-fit: {{ section.settings.image_view }};">
+        </div>
     {% else %}
         {{ 'lifestyle-1' | placeholder_svg_tag }}
     {% endif %}
