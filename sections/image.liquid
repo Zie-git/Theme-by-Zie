@@ -2,7 +2,7 @@
     {% if section.settings.image %}
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
             <div class="img-overlay" style="background: rgba(0, 0, 0, {{ section.settings.overlay_brightness }}%);"></div>
-            <div class="text-overlay">
+            <div class="text-overlay {{ section.settings.text_alignment }}">
                 <div class="text-container">
                     <h2 style="font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }};">{{ section.settings.title | escape }}</h2>
                     <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
@@ -66,14 +66,48 @@
 
 .text-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     padding: 20px;
     color: #fff; /* Adjust text color as needed */
     width: 100%;
     max-width: 1200px; /* Constrain text to 1200px width */
     box-sizing: border-box;
+}
+
+/* Text alignment classes */
+.text-overlay.top-left {
+    top: 0;
+    left: 0;
+    transform: none;
+}
+
+.text-overlay.center-left {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.text-overlay.center-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-overlay.right-left {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.text-overlay.top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.text-overlay.right-top {
+    top: 0;
+    right: 0;
+    transform: none;
 }
 
 .text-container {
@@ -296,6 +330,38 @@
             "max": 100,
             "step": 1,
             "default": 50
+        },
+        {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Text Alignment",
+            "options": [
+                {
+                    "value": "top-left",
+                    "label": "Top Left"
+                },
+                {
+                    "value": "center-left",
+                    "label": "Center Left"
+                },
+                {
+                    "value": "center-center",
+                    "label": "Center Center"
+                },
+                {
+                    "value": "right-left",
+                    "label": "Right Left"
+                },
+                {
+                    "value": "top-center",
+                    "label": "Top Center"
+                },
+                {
+                    "value": "right-top",
+                    "label": "Right Top"
+                }
+            ],
+            "default": "center-center"
         }
     ],
     "presets": [
