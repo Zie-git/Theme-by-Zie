@@ -3,8 +3,8 @@
         <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
             <div class="img-overlay" style="background: rgba(0, 0, 0, {{ section.settings.overlay_brightness }}%);"></div>
             <div class="text-overlay-container">
-                <div class="text-overlay {{ section.settings.text_alignment }}" style="max-width: {{ section.settings.text_container_width }}px;">
-                    <div class="text-container">
+                <div class="text-overlay1" style="max-width: {{ section.settings.text_container_width }}px;">
+                    <div class="text-overlay {{ section.settings.text_alignment }}">
                         <h2 style="font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }};">{{ section.settings.title | escape }}</h2>
                         <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
                         {% if section.settings.button_text and section.settings.button_link %}
