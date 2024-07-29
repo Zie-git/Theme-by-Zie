@@ -63,17 +63,19 @@
     height: 100%;
     background: rgba(0, 0, 0, 0); /* Initial background */
 }
-.contwidh{
-      top: 50%;
+
+.contwidh {
+    position: absolute;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    position: absolute;
     padding: 20px;
     color: #fff; /* Adjust text color as needed */
     width: 100%;
     box-sizing: border-box;
     height: 100%;
 }
+
 .text-overlay {
     position: absolute;
     padding: 20px;
@@ -134,6 +136,54 @@
 
 .button:hover {
     background-color: #0056b3; /* Button hover color */
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .contwidh {
+        max-width: 1000px;
+    }
+    .text-overlay {
+        font-size: 90%;
+    }
+}
+
+@media (max-width: 992px) {
+    .contwidh {
+        max-width: 800px;
+    }
+    .text-overlay {
+        font-size: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .contwidh {
+        max-width: 600px;
+    }
+    .text-overlay {
+        font-size: 70%;
+    }
+    .text-overlay {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contwidh {
+        max-width: 100%;
+        padding: 10px;
+    }
+    .text-overlay {
+        font-size: 60%;
+    }
+    .text-overlay {
+        top: 0;
+        left: 0;
+        transform: none;
+        position: relative;
+        text-align: center;
+    }
 }
 
 {% endstylesheet %}
