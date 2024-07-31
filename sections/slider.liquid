@@ -7,7 +7,13 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
-        <div class="slide-text">{{ section.settings.text_1 }}</div>
+        <div class="overlay">
+          <h2 class="overlay-title">{{ section.settings.title_1 }}</h2>
+          <p class="overlay-text">{{ section.settings.text_1 }}</p>
+          {% if section.settings.button_text_1 %}
+            <a href="{{ section.settings.button_url_1 }}" class="overlay-button">{{ section.settings.button_text_1 }}</a>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
     {% if section.settings.num_slides >= 2 %}
@@ -17,7 +23,13 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
-        <div class="slide-text">{{ section.settings.text_2 }}</div>
+        <div class="overlay">
+          <h2 class="overlay-title">{{ section.settings.title_2 }}</h2>
+          <p class="overlay-text">{{ section.settings.text_2 }}</p>
+          {% if section.settings.button_text_2 %}
+            <a href="{{ section.settings.button_url_2 }}" class="overlay-button">{{ section.settings.button_text_2 }}</a>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
     {% if section.settings.num_slides >= 3 %}
@@ -27,7 +39,13 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
-        <div class="slide-text">{{ section.settings.text_3 }}</div>
+        <div class="overlay">
+          <h2 class="overlay-title">{{ section.settings.title_3 }}</h2>
+          <p class="overlay-text">{{ section.settings.text_3 }}</p>
+          {% if section.settings.button_text_3 %}
+            <a href="{{ section.settings.button_url_3 }}" class="overlay-button">{{ section.settings.button_text_3 }}</a>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
     {% if section.settings.num_slides >= 4 %}
@@ -37,7 +55,13 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
-        <div class="slide-text">{{ section.settings.text_4 }}</div>
+        <div class="overlay">
+          <h2 class="overlay-title">{{ section.settings.title_4 }}</h2>
+          <p class="overlay-text">{{ section.settings.text_4 }}</p>
+          {% if section.settings.button_text_4 %}
+            <a href="{{ section.settings.button_url_4 }}" class="overlay-button">{{ section.settings.button_text_4 }}</a>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
     {% if section.settings.num_slides >= 5 %}
@@ -47,7 +71,13 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
-        <div class="slide-text">{{ section.settings.text_5 }}</div>
+        <div class="overlay">
+          <h2 class="overlay-title">{{ section.settings.title_5 }}</h2>
+          <p class="overlay-text">{{ section.settings.text_5 }}</p>
+          {% if section.settings.button_text_5 %}
+            <a href="{{ section.settings.button_url_5 }}" class="overlay-button">{{ section.settings.button_text_5 }}</a>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
   </div>
@@ -78,13 +108,37 @@
   display: block;
 }
 
-.slide-text {
+.overlay {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.overlay-title {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.overlay-text {
+  margin: 10px 0;
+}
+
+.overlay-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.overlay-button:hover {
+  background: #0056b3;
 }
 
 .image-cover {
@@ -158,8 +212,23 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       "type": "text",
+      "id": "title_1",
+      "label": "Title 1"
+    },
+    {
+      "type": "text",
       "id": "text_1",
       "label": "Text 1"
+    },
+    {
+      "type": "text",
+      "id": "button_text_1",
+      "label": "Button Text 1"
+    },
+    {
+      "type": "url",
+      "id": "button_url_1",
+      "label": "Button URL 1"
     },
     {
       "type": "image_picker",
@@ -168,8 +237,23 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       "type": "text",
+      "id": "title_2",
+      "label": "Title 2"
+    },
+    {
+      "type": "text",
       "id": "text_2",
       "label": "Text 2"
+    },
+    {
+      "type": "text",
+      "id": "button_text_2",
+      "label": "Button Text 2"
+    },
+    {
+      "type": "url",
+      "id": "button_url_2",
+      "label": "Button URL 2"
     },
     {
       "type": "image_picker",
@@ -178,8 +262,23 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       "type": "text",
+      "id": "title_3",
+      "label": "Title 3"
+    },
+    {
+      "type": "text",
       "id": "text_3",
       "label": "Text 3"
+    },
+    {
+      "type": "text",
+      "id": "button_text_3",
+      "label": "Button Text 3"
+    },
+    {
+      "type": "url",
+      "id": "button_url_3",
+      "label": "Button URL 3"
     },
     {
       "type": "image_picker",
@@ -188,8 +287,23 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       "type": "text",
+      "id": "title_4",
+      "label": "Title 4"
+    },
+    {
+      "type": "text",
       "id": "text_4",
       "label": "Text 4"
+    },
+    {
+      "type": "text",
+      "id": "button_text_4",
+      "label": "Button Text 4"
+    },
+    {
+      "type": "url",
+      "id": "button_url_4",
+      "label": "Button URL 4"
     },
     {
       "type": "image_picker",
@@ -198,8 +312,23 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       "type": "text",
+      "id": "title_5",
+      "label": "Title 5"
+    },
+    {
+      "type": "text",
       "id": "text_5",
       "label": "Text 5"
+    },
+    {
+      "type": "text",
+      "id": "button_text_5",
+      "label": "Button Text 5"
+    },
+    {
+      "type": "url",
+      "id": "button_url_5",
+      "label": "Button URL 5"
     },
     {
       "type": "select",
