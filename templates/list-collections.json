@@ -37,10 +37,16 @@
       "settings": {
         "title": "Collections"
       }
+    },
+    "slider_zKNzVC": {
+      "type": "slider",
+      "settings": {
+      }
     }
   },
   "order": [
     "image_yT8EyU",
-    "template"
+    "template",
+    "slider_zKNzVC"
   ]
 }
