@@ -1,4 +1,4 @@
-<div class="slider" style="height: {{ section.settings.slider_height }}px; width: {{ section.settings.slider_width }}px;">
+<div class="slider">
   <div class="slider-inner">
     <div class="slider-item">
       {% if section.settings.image_1 != blank %}
@@ -45,7 +45,6 @@
 
 .slider-item img {
   width: 100%;
-  height: 100%;
   display: block;
 }
 
@@ -139,18 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       ],
       "default": "cover"
-    },
-    {
-      "type": "number",
-      "id": "slider_height",
-      "label": "Slider Height (px)",
-      "default": 500
-    },
-    {
-      "type": "number",
-      "id": "slider_width",
-      "label": "Slider Width (px)",
-      "default": 1200
     }
   ],
   "presets": [
