@@ -41,6 +41,9 @@
     "slider_zKNzVC": {
       "type": "slider",
       "settings": {
+        "image_1": "shopify:\/\/shop_images\/pexels-vishven-solanki-1441477-2779018.jpg",
+        "image_2": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
+        "image_3": "shopify:\/\/shop_images\/pexels-alexandr-borecky-128389-393047.jpg"
       }
     }
   },
