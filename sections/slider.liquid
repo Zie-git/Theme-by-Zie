@@ -1,20 +1,26 @@
 <div class="slider">
   <div class="slider-inner">
-    {% if section.settings.image_1 != blank %}
-      <div class="slider-item">
+    <div class="slider-item">
+      {% if section.settings.image_1 != blank %}
         <img src="{{ section.settings.image_1 | img_url: 'master' }}" alt="Image 1">
-      </div>
-    {% endif %}
-    {% if section.settings.image_2 != blank %}
-      <div class="slider-item">
+      {% else %}
+        <img src="{{ 'placeholder-image.jpg' | asset_url }}" alt="Placeholder Image 1">
+      {% endif %}
+    </div>
+    <div class="slider-item">
+      {% if section.settings.image_2 != blank %}
         <img src="{{ section.settings.image_2 | img_url: 'master' }}" alt="Image 2">
-      </div>
-    {% endif %}
-    {% if section.settings.image_3 != blank %}
-      <div class="slider-item">
+      {% else %}
+        <img src="{{ 'placeholder-image.jpg' | asset_url }}" alt="Placeholder Image 2">
+      {% endif %}
+    </div>
+    <div class="slider-item">
+      {% if section.settings.image_3 != blank %}
         <img src="{{ section.settings.image_3 | img_url: 'master' }}" alt="Image 3">
-      </div>
-    {% endif %}
+      {% else %}
+        <img src="{{ 'placeholder-image.jpg' | asset_url }}" alt="Placeholder Image 3">
+      {% endif %}
+    </div>
   </div>
   <button class="prev">❮</button>
   <button class="next">❯</button>
@@ -81,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
-
 
 {% schema %}
 {
