@@ -7,6 +7,7 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
+        <div class="slide-text">{{ section.settings.text_1 }}</div>
       </div>
     {% endif %}
     {% if section.settings.num_slides >= 2 %}
@@ -16,6 +17,7 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
+        <div class="slide-text">{{ section.settings.text_2 }}</div>
       </div>
     {% endif %}
     {% if section.settings.num_slides >= 3 %}
@@ -25,6 +27,7 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
+        <div class="slide-text">{{ section.settings.text_3 }}</div>
       </div>
     {% endif %}
     {% if section.settings.num_slides >= 4 %}
@@ -34,6 +37,7 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
+        <div class="slide-text">{{ section.settings.text_4 }}</div>
       </div>
     {% endif %}
     {% if section.settings.num_slides >= 5 %}
@@ -43,6 +47,7 @@
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
+        <div class="slide-text">{{ section.settings.text_5 }}</div>
       </div>
     {% endif %}
   </div>
@@ -63,6 +68,7 @@
 }
 
 .slider-item {
+  position: relative;
   min-width: 100%;
   box-sizing: border-box;
 }
@@ -70,6 +76,15 @@
 .slider-item img {
   width: 100%;
   display: block;
+}
+
+.slide-text {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
 }
 
 .image-cover {
@@ -142,9 +157,19 @@ document.addEventListener('DOMContentLoaded', function() {
       "label": "Image 1"
     },
     {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1"
+    },
+    {
       "type": "image_picker",
       "id": "image_2",
       "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text 2"
     },
     {
       "type": "image_picker",
@@ -152,14 +177,29 @@ document.addEventListener('DOMContentLoaded', function() {
       "label": "Image 3"
     },
     {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text 3"
+    },
+    {
       "type": "image_picker",
       "id": "image_4",
       "label": "Image 4"
     },
     {
+      "type": "text",
+      "id": "text_4",
+      "label": "Text 4"
+    },
+    {
       "type": "image_picker",
       "id": "image_5",
       "label": "Image 5"
+    },
+    {
+      "type": "text",
+      "id": "text_5",
+      "label": "Text 5"
     },
     {
       "type": "select",
