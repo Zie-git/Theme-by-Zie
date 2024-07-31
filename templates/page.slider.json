@@ -14,15 +14,14 @@
       "settings": {
       }
     },
-    "contact_form_khLfYW": {
-      "type": "contact-form",
+    "slider": {
+      "type": "slider",
       "settings": {
-        "title": ""
       }
     }
   },
   "order": [
     "template",
-    "contact_form_khLfYW"
+    "slider"
   ]
 }
