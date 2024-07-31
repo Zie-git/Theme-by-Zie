@@ -1,6 +1,113 @@
+<div class="slider">
+  <div class="slider-inner">
+    {% if section.settings.image_1 != blank %}
+      <div class="slider-item">
+        <img src="{{ section.settings.image_1 | img_url: 'master' }}" alt="Image 1">
+      </div>
+    {% endif %}
+    {% if section.settings.image_2 != blank %}
+      <div class="slider-item">
+        <img src="{{ section.settings.image_2 | img_url: 'master' }}" alt="Image 2">
+      </div>
+    {% endif %}
+    {% if section.settings.image_3 != blank %}
+      <div class="slider-item">
+        <img src="{{ section.settings.image_3 | img_url: 'master' }}" alt="Image 3">
+      </div>
+    {% endif %}
+  </div>
+  <button class="prev">❮</button>
+  <button class="next">❯</button>
+</div>
+
+<style>
+.slider {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.slider-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slider-item {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.slider-item img {
+  width: 100%;
+  display: block;
+}
+
+button.prev,
+button.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button.prev {
+  left: 10px;
+}
+
+button.next {
+  right: 10px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let currentIndex = 0;
+  const sliderInner = document.querySelector('.slider-inner');
+  const sliderItems = document.querySelectorAll('.slider-item');
+  const totalItems = sliderItems.length;
+  
+  document.querySelector('.prev').addEventListener('click', function() {
+    currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
+    sliderInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+  });
+  
+  document.querySelector('.next').addEventListener('click', function() {
+    currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
+    sliderInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+  });
+});
+</script>
+
+
 {% schema %}
-  {
-    "name": "Slider",
-    "settings": []
-  }
+{
+  "name": "Slider",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
