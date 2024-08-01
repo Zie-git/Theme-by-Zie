@@ -95,17 +95,22 @@
 .slider-inner {
   display: flex;
   transition: transform 0.5s ease;
+  width: {{ section.settings.slider_width }};
+  height: {{ section.settings.slider_height }};
 }
 
 .slider-item {
   position: relative;
-  min-width: 100%;
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
 }
 
 .slider-item img {
   width: 100%;
-  display: block;
+  height: 100%;
+  object-fit: cover; /* or use original/stretch based on settings */
 }
 
 .overlay {
@@ -139,18 +144,6 @@
 
 .overlay-button:hover {
   background: #0056b3;
-}
-
-.image-cover {
-  object-fit: cover;
-}
-
-.image-original {
-  object-fit: none;
-}
-
-.image-stretch {
-  object-fit: fill;
 }
 
 button.prev,
@@ -192,6 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sliderInner.style.transform = `translateX(-${currentIndex * 100}%)`;
   });
 });
+
 </script>
 
 {% schema %}
