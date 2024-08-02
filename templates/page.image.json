@@ -8,26 +8,6 @@
 * ------------------------------------------------------------
 */
 {
-<<<<<<< HEAD
-    "sections": {
-      "template": {
-        "type": "template-page",
-        "settings": {
-        }
-      },
-      "image": {
-        "type": "image",
-        "settings": {
-        }
-      }
-    },
-    "order": [
-      "template",
-      "image"
-    ]
-  }
-  
-=======
   "sections": {
     "template": {
       "type": "template-page",
@@ -45,4 +25,3 @@
     "image"
   ]
 }
->>>>>>> 7b21acbedb7ca2e97ea97440bf1d7cdc54fc6889
