@@ -44,14 +44,17 @@
       "type": "slider",
       "settings": {
         "num_slides": 3,
+        "image_1": "shopify:\/\/shop_images\/pexels-alexandr-borecky-128389-393047.jpg",
         "title_1": "",
         "text_1": "",
         "button_text_1": "",
         "button_url_1": "",
+        "image_2": "shopify:\/\/shop_images\/pexels-vishven-solanki-1441477-2779018.jpg",
         "title_2": "",
         "text_2": "",
         "button_text_2": "",
         "button_url_2": "",
+        "image_3": "shopify:\/\/shop_images\/download_1_9962ac6e-4e57-448f-8ef9-64e7f6f845f8.jpg",
         "title_3": "",
         "text_3": "",
         "button_text_3": "",
@@ -66,7 +69,7 @@
         "button_url_5": "",
         "image_view": "cover",
         "slider_width": "100%",
-        "slider_height": "auto"
+        "slider_height": "500px"
       }
     }
   },
