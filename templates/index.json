@@ -39,10 +39,40 @@
         "featured_collection": "all",
         "number_of_products_to_show": 4
       }
+    },
+    "slider_ERRfTm": {
+      "type": "slider",
+      "settings": {
+        "num_slides": 3,
+        "title_1": "",
+        "text_1": "",
+        "button_text_1": "",
+        "button_url_1": "",
+        "title_2": "",
+        "text_2": "",
+        "button_text_2": "",
+        "button_url_2": "",
+        "title_3": "",
+        "text_3": "",
+        "button_text_3": "",
+        "button_url_3": "",
+        "title_4": "",
+        "text_4": "",
+        "button_text_4": "",
+        "button_url_4": "",
+        "title_5": "",
+        "text_5": "",
+        "button_text_5": "",
+        "button_url_5": "",
+        "image_view": "cover",
+        "slider_width": "100%",
+        "slider_height": "auto"
+      }
     }
   },
   "order": [
     "image_DMaHcK",
-    "featured-collection"
+    "featured-collection",
+    "slider_ERRfTm"
   ]
 }
