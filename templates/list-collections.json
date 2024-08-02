@@ -1,8 +1,79 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
-    "sections": {
-        "template": {
-            "type": "template-list-collections"
-        }
+  "sections": {
+    "image_yT8EyU": {
+      "type": "image",
+      "settings": {
+        "title": "Image heading",
+        "description": "Description of the image and text",
+        "image": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
+        "image_alt": "Default Alt Text",
+        "image_view": "cover",
+        "image_height": "extra-large",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "button_text": "See more",
+        "button_link": "shopify:\/\/blogs\/news",
+        "heading_font_size": 50,
+        "text_font_size": 20,
+        "heading_font_weight": "700",
+        "overlay_brightness": 30,
+        "text_alignment": "center-left",
+        "text_container_width": "1200"
+      }
     },
-    "order": ["template"]
+    "template": {
+      "type": "template-list-collections",
+      "settings": {
+        "title": "Collections"
+      }
+    },
+    "slider_zKNzVC": {
+      "type": "slider",
+      "settings": {
+        "num_slides": 3,
+        "image_1": "shopify:\/\/shop_images\/pexels-vishven-solanki-1441477-2779018.jpg",
+        "title_1": "Test",
+        "text_1": "",
+        "button_text_1": "",
+        "button_url_1": "",
+        "image_2": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
+        "title_2": "",
+        "text_2": "",
+        "button_text_2": "",
+        "button_url_2": "",
+        "image_3": "shopify:\/\/shop_images\/pexels-alexandr-borecky-128389-393047.jpg",
+        "title_3": "",
+        "text_3": "",
+        "button_text_3": "",
+        "button_url_3": "",
+        "title_4": "",
+        "text_4": "",
+        "button_text_4": "",
+        "button_url_4": "",
+        "title_5": "",
+        "text_5": "",
+        "button_text_5": "",
+        "button_url_5": "",
+        "image_view": "stretch",
+        "slider_width": "100%",
+        "slider_height": "500px"
+      }
+    }
+  },
+  "order": [
+    "image_yT8EyU",
+    "template",
+    "slider_zKNzVC"
+  ]
 }
