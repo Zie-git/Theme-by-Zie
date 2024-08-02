@@ -1,11 +1,48 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
-    "sections": {
-        "featured-collection": {
-            "type": "featured-collection",
-            "settings": {
-                "featured_collection": "all"
-            }
-        }
+  "sections": {
+    "image_DMaHcK": {
+      "type": "image",
+      "settings": {
+        "title": "Heading Text",
+        "description": "Description of the image and text",
+        "image": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
+        "image_alt": "Default Alt Text",
+        "image_view": "cover",
+        "image_height": "medium",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "button_text": "Click Here",
+        "button_link": "",
+        "heading_font_size": 24,
+        "text_font_size": 16,
+        "heading_font_weight": "400",
+        "overlay_brightness": 50,
+        "text_alignment": "center-center",
+        "text_container_width": "1200"
+      }
     },
-    "order": ["featured-collection"]
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured Collection",
+        "featured_collection": "all",
+        "number_of_products_to_show": 4
+      }
+    }
+  },
+  "order": [
+    "image_DMaHcK",
+    "featured-collection"
+  ]
 }
