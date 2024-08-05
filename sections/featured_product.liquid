@@ -8,6 +8,7 @@
           {% for image in product.images %}
             <img src="{{ image | img_url: 'thumb' }}" alt="{{ product.title }}" class="thumbnail-image">
           {% endfor %}
+          <button class="thumbnail-prev">Previous</button>
           <button class="thumbnail-next">Next</button>
         </div>
       </div>
@@ -128,15 +129,23 @@
   cursor: pointer;
 }
 
-.featured-product .thumbnail-next {
+.featured-product .thumbnail-next,
+.featured-product .thumbnail-prev {
   background: none;
   border: none;
   font-size: 16px;
   cursor: pointer;
   padding: 5px;
   position: absolute;
-  right: 0;
   bottom: 10px;
+}
+
+.featured-product .thumbnail-prev {
+  left: 0;
+}
+
+.featured-product .thumbnail-next {
+  right: 0;
 }
 
 .featured-product .product-details {
@@ -245,15 +254,16 @@
     });
 
     const nextButton = document.querySelector(".thumbnail-next");
+    const prevButton = document.querySelector(".thumbnail-prev");
     let currentThumbnailIndex = 0;
 
     nextButton.addEventListener("click", function() {
-      const totalThumbnails = thumbnails.length;
-      if (currentThumbnailIndex < totalThumbnails - 1) {
-        currentThumbnailIndex++;
-      } else {
-        currentThumbnailIndex = 0;
-      }
+      currentThumbnailIndex = (currentThumbnailIndex + 1) % thumbnails.length;
+      mainImage.src = thumbnails[currentThumbnailIndex].src.replace('thumb', 'medium');
+    });
+
+    prevButton.addEventListener("click", function() {
+      currentThumbnailIndex = (currentThumbnailIndex - 1 + thumbnails.length) % thumbnails.length;
       mainImage.src = thumbnails[currentThumbnailIndex].src.replace('thumb', 'medium');
     });
   });
