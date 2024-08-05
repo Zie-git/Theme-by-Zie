@@ -84,7 +84,9 @@
         "image_3": "shopify:\/\/shop_images\/pexels-vishven-solanki-1441477-2779018.jpg",
         "image_4": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
         "heading_font_size": 32,
-        "subtitle_font_size": 16
+        "subtitle_font_size": 16,
+        "padding_top": 10,
+        "padding_bottom": 10
       }
     }
   },
