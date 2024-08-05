@@ -88,12 +88,19 @@
         "padding_top": 10,
         "padding_bottom": 10
       }
+    },
+    "featured_product_37FeLH": {
+      "type": "featured_product",
+      "settings": {
+        "product": "classic-fit-cotton-t-shirt"
+      }
     }
   },
   "order": [
     "image_DMaHcK",
     "featured-collection",
     "slider_ERRfTm",
-    "image_prmotion_xhPHRP"
+    "image_prmotion_xhPHRP",
+    "featured_product_37FeLH"
   ]
 }
