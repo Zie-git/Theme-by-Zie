@@ -7,8 +7,13 @@
       </div>
       <div class="product-details">
         <h2>{{ product.title }}</h2>
+        <div class="product-price">
+          {% if product.compare_at_price > product.price %}
+            <span class="compare-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+          <span class="price">{{ product.price | money }}</span>
+        </div>
         <div class="product-variants">
-          <!-- Assuming you have variants, you might want to loop through them -->
           {% for variant in product.variants %}
             <label>
               <input type="radio" name="variant" value="{{ variant.id }}">
@@ -110,6 +115,17 @@ width: 50%;
 .featured-product .product-details h2 {
   font-size: 24px;
   margin-bottom: 10px;
+}
+
+.featured-product .product-price {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.featured-product .compare-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 10px;
 }
 
 .featured-product .product-variants label {
