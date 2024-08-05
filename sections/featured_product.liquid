@@ -5,11 +5,10 @@
       <div class="product-image">
         <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}" id="main-product-image">
         <div class="product-thumbnails">
-          <button class="thumbnail-prev">&lt;</button>
           {% for image in product.images %}
             <img src="{{ image | img_url: 'thumb' }}" alt="{{ product.title }}" class="thumbnail-image">
           {% endfor %}
-          <button class="thumbnail-next">&gt;</button>
+          <button class="thumbnail-next">Next</button>
         </div>
       </div>
       <div class="product-details">
@@ -121,24 +120,23 @@
   gap: 5px;
   margin-top: 10px;
   overflow-x: auto;
-  align-items: center;
 }
 
 .featured-product .thumbnail-image {
   width: 50px;
   height: 50px;
   cursor: pointer;
-  object-fit: cover; /* Ensure thumbnails are not blurry */
 }
 
-.featured-product .thumbnail-prev, .featured-product .thumbnail-next {
+.featured-product .thumbnail-next {
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 16px;
   cursor: pointer;
   padding: 5px;
-  color: #333;
-  outline: none;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
 }
 
 .featured-product .product-details {
@@ -247,7 +245,6 @@
     });
 
     const nextButton = document.querySelector(".thumbnail-next");
-    const prevButton = document.querySelector(".thumbnail-prev");
     let currentThumbnailIndex = 0;
 
     nextButton.addEventListener("click", function() {
@@ -256,16 +253,6 @@
         currentThumbnailIndex++;
       } else {
         currentThumbnailIndex = 0;
-      }
-      mainImage.src = thumbnails[currentThumbnailIndex].src.replace('thumb', 'medium');
-    });
-
-    prevButton.addEventListener("click", function() {
-      const totalThumbnails = thumbnails.length;
-      if (currentThumbnailIndex > 0) {
-        currentThumbnailIndex--;
-      } else {
-        currentThumbnailIndex = totalThumbnails - 1;
       }
       mainImage.src = thumbnails[currentThumbnailIndex].src.replace('thumb', 'medium');
     });
