@@ -1,6 +1,34 @@
+<!-- sections/featured-product.liquid -->
+<div class="featured-product">
+  {% if section.settings.product %}
+    {% assign product = all_products[section.settings.product] %}
+    <div class="product">
+      <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+      <h2>{{ product.title }}</h2>
+      <p>{{ product.description }}</p>
+      <a href="{{ product.url }}" class="btn">View Product</a>
+    </div>
+  {% else %}
+    <p>Please select a product in the section settings.</p>
+  {% endif %}
+</div>
+
 {% schema %}
-  {
-    "name": "Section name",
-    "settings": []
-  }
+{
+  "name": "Featured Product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Select a product to feature"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
