@@ -1,4 +1,4 @@
-<div class="featured-product">
+<div class="featured-product" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
   {% if section.settings.product %}
     {% assign product = all_products[section.settings.product] %}
     <div class="product-container">
@@ -38,7 +38,25 @@
       "id": "product",
       "label": "Product",
       "info": "Select a product to feature"
-    }
+    },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding Top (px)",
+            "min": 0,
+            "max": 1000,
+            "step": 10,
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding Bottom (px)",
+            "min": 0,
+            "max": 1000,
+            "step": 10,
+            "default": 20
+        }
   ],
   "presets": [
     {
