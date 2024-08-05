@@ -131,3 +131,39 @@
   background-color: #0056b3;
 }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const addToCartButton = document.querySelector(".btn.add-to-cart");
+    addToCartButton.addEventListener("click", function() {
+      const selectedVariant = document.querySelector("input[name='variant']:checked");
+      const quantity = document.getElementById("quantity").value;
+      
+      if (selectedVariant && quantity > 0) {
+        const variantId = selectedVariant.value;
+
+        fetch("/cart/add.js", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: quantity
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert("Product added to cart!");
+          // Optionally, update cart count or show a modal/cart drawer
+        })
+        .catch(error => {
+          console.error("Error adding to cart:", error);
+        });
+      } else {
+        alert("Please select a variant and enter a valid quantity.");
+      }
+    });
+  });
+</script>
