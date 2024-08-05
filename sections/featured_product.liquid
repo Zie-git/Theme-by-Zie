@@ -3,10 +3,10 @@
     {% assign product = all_products[section.settings.product] %}
     <div class="product-container">
       <div class="product-image">
-        <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}" id="main-product-image">
+        <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}" id="main-product-image">
         <div class="product-thumbnails">
           {% for image in product.images %}
-            <img src="{{ image | img_url: 'thumb' }}" alt="{{ product.title }}" class="thumbnail-image {% if forloop.first %}active{% endif %}">
+            <img src="{{ image | img_url: 'large' }}" alt="{{ product.title }}" class="thumbnail-image {% if forloop.first %}active{% endif %}">
           {% endfor %}
           <button class="thumbnail-prev">&#9664;</button>
           <button class="thumbnail-next">&#9654;</button>
@@ -88,6 +88,7 @@
 }
 {% endschema %}
 
+
 <style>
 .featured-product {
   padding: 20px;
@@ -111,7 +112,7 @@
 .featured-product .product-image img {
   max-width: 100%;
   height: auto;
-  width: 100%;
+  width: auto; /* Adjusted to avoid stretching */
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -217,6 +218,7 @@
 .featured-product .btn.add-to-cart:hover {
   background-color: #0056b3;
 }
+
 </style>
 
 <script>
@@ -259,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   thumbnails.forEach((thumbnail, index) => {
     thumbnail.addEventListener("click", function() {
-      mainImage.src = thumbnail.src.replace('thumb', 'medium');
+      mainImage.src = thumbnail.src.replace('large', 'large');
       thumbnails.forEach(img => img.classList.remove('active'));
       thumbnail.classList.add('active');
       currentThumbnailIndex = index;
@@ -272,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function() {
   nextButton.addEventListener("click", function() {
     currentThumbnailIndex = (currentThumbnailIndex + 1) % thumbnails.length;
     const nextThumbnail = thumbnails[currentThumbnailIndex];
-    mainImage.src = nextThumbnail.src.replace('thumb', 'medium');
+    mainImage.src = nextThumbnail.src.replace('large', 'large');
     thumbnails.forEach(img => img.classList.remove('active'));
     nextThumbnail.classList.add('active');
   });
@@ -280,10 +282,11 @@ document.addEventListener("DOMContentLoaded", function() {
   prevButton.addEventListener("click", function() {
     currentThumbnailIndex = (currentThumbnailIndex - 1 + thumbnails.length) % thumbnails.length;
     const prevThumbnail = thumbnails[currentThumbnailIndex];
-    mainImage.src = prevThumbnail.src.replace('thumb', 'medium');
+    mainImage.src = prevThumbnail.src.replace('large', 'large');
     thumbnails.forEach(img => img.classList.remove('active'));
     prevThumbnail.classList.add('active');
   });
 });
+
 
 </script>
