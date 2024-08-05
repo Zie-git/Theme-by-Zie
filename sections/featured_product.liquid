@@ -3,7 +3,13 @@
     {% assign product = all_products[section.settings.product] %}
     <div class="product-container">
       <div class="product-image">
-        <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+        <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}" id="main-product-image">
+        <div class="product-thumbnails">
+          {% for image in product.images %}
+            <img src="{{ image | img_url: 'thumb' }}" alt="{{ product.title }}" class="thumbnail-image">
+          {% endfor %}
+          <button class="thumbnail-next">Next</button>
+        </div>
       </div>
       <div class="product-details">
         <h2>{{ product.title }}</h2>
@@ -89,7 +95,6 @@
   border-radius: 8px;
   margin: 0 auto;
 }
-  .product-variants{column-count: 2;}
 
 .featured-product .product-container {
   display: flex;
@@ -98,7 +103,8 @@
 }
 
 .featured-product .product-image {
-width: 50%;
+  width: 50%;
+  position: relative;
 }
 
 .featured-product .product-image img {
@@ -109,8 +115,32 @@ width: 50%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.featured-product .product-thumbnails {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.featured-product .thumbnail-image {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.featured-product .thumbnail-next {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+}
+
 .featured-product .product-details {
-width: 50%;
+  width: 50%;
 }
 
 .featured-product .product-details h2 {
@@ -203,6 +233,28 @@ width: 50%;
       } else {
         alert("Please select a variant and enter a valid quantity.");
       }
+    });
+
+    const thumbnails = document.querySelectorAll(".thumbnail-image");
+    const mainImage = document.getElementById("main-product-image");
+
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener("click", function() {
+        mainImage.src = thumbnail.src.replace('thumb', 'medium');
+      });
+    });
+
+    const nextButton = document.querySelector(".thumbnail-next");
+    let currentThumbnailIndex = 0;
+
+    nextButton.addEventListener("click", function() {
+      const totalThumbnails = thumbnails.length;
+      if (currentThumbnailIndex < totalThumbnails - 1) {
+        currentThumbnailIndex++;
+      } else {
+        currentThumbnailIndex = 0;
+      }
+      mainImage.src = thumbnails[currentThumbnailIndex].src.replace('thumb', 'medium');
     });
   });
 </script>
