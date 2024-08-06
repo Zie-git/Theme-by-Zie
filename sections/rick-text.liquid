@@ -8,7 +8,9 @@
         {% endif %}
       {% when 'heading' %}
         {% if block.settings.heading %}
-          <h2>{{ block.settings.heading }}</h2>
+          <h1 style="font-family: {{ section.settings.heading_font }}; font-size: {{ section.settings.heading_font_size }}; font-weight: {{ section.settings.heading_font_weight }};">
+            {{ block.settings.heading }}
+          </h1>
         {% endif %}
       {% when 'text' %}
         <div class="rich-text-content">{{ block.settings.rich_text_content | strip_html }}</div>
@@ -20,6 +22,7 @@
   {% endfor %}
 
 </div>
+
 
 
 <style>
@@ -35,8 +38,7 @@
   margin-bottom: 10px;
 }
 
-.rich-text-section h2 {
-  font-size: 24px;
+.rich-text-section h1 {
   margin: 0 0 10px;
 }
 
@@ -58,6 +60,7 @@
 .rich-text-button:hover {
   background-color: #0056b3;
 }
+
 </style>
 
 
@@ -129,6 +132,31 @@
       ],
       "default": "24px",
       "info": "Select the font size for the heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "bold",
+          "label": "Bold"
+        },
+        {
+          "value": "bolder",
+          "label": "Bolder"
+        },
+        {
+          "value": "lighter",
+          "label": "Lighter"
+        }
+      ],
+      "default": "normal",
+      "info": "Select the font weight for the heading"
     },
     {
       "type": "text",
@@ -234,7 +262,4 @@
     }
   ]
 }
-
-
-
 {% endschema %}
