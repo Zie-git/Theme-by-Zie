@@ -131,6 +131,14 @@
         "padding_bottom": 20,
         "layout_order": "text_first"
       }
+    },
+    "rick_text_QRiEed": {
+      "type": "rick-text",
+      "settings": {
+        "rich_text_content": "<p>Enter your text here<\/p>",
+        "text_alignment": "left",
+        "text_color": "#000000"
+      }
     }
   },
   "order": [
@@ -140,6 +148,7 @@
     "featured-collection",
     "image_prmotion_xhPHRP",
     "image_prmotion_kcwd9C",
-    "image_with_text_DaXj6c"
+    "image_with_text_DaXj6c",
+    "rick_text_QRiEed"
   ]
 }

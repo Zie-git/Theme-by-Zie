@@ -1,15 +1,48 @@
-
-
 <div class="rich-text-section" style="text-align: {{ section.settings.text_alignment }}; color: {{ section.settings.text_color }}">
+  {% if section.settings.icon_class %}
+    <i class="{{ section.settings.icon_class }}"></i>
+  {% endif %}
+  <h2>{{ section.settings.heading }}</h2>
   {{ section.settings.rich_text_content | escape }}
+  {% if section.settings.button_text %}
+    <a href="{{ section.settings.button_link }}" class="rich-text-button">{{ section.settings.button_text }}</a>
+  {% endif %}
 </div>
 
 <style>
+.rich-text-section {
+  margin: 20px 0;
+}
+
+.rich-text-section i {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.rich-text-section h2 {
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+
 .rich-text-section p {
   margin: 0 0 1em;
 }
-</style>
 
+.rich-text-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.rich-text-button:hover {
+  background-color: #0056b3;
+}
+</style>
 
 <!-- rich-text.liquid -->
 {% schema %}
@@ -17,10 +50,18 @@
   "name": "Rich Text",
   "settings": [
     {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Heading",
+      "info": "Enter the heading text"
+    },
+    {
       "type": "richtext",
       "id": "rich_text_content",
       "label": "Content",
-      "default": "<p>Enter your text here</p>"
+      "default": "<p>Enter your text here</p>",
+      "info": "Add the main content here"
     },
     {
       "type": "select",
@@ -46,7 +87,28 @@
       "type": "color",
       "id": "text_color",
       "label": "Text Color",
-      "default": "#000000"
+      "default": "#000000",
+      "info": "Choose the text color"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Click Me",
+      "info": "Enter the text for the button"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "info": "Enter the URL for the button"
+    },
+    {
+      "type": "text",
+      "id": "icon_class",
+      "label": "Icon Class",
+      "default": "fa-heart",  // Provide a default value or handle blank values in code
+      "info": "Enter the FontAwesome icon class (e.g., 'fa-heart')"
     }
   ],
   "presets": [
