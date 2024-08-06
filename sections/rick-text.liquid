@@ -1,17 +1,24 @@
 <div class="rich-text-section" style="text-align: {{ section.settings.text_alignment }}; color: {{ section.settings.text_color }}">
-  {% if section.settings.show_icon and section.settings.icon_class %}
-    <i class="{{ section.settings.icon_class }}"></i>
-  {% endif %}
-  
-  {% if section.settings.show_heading %}
-    <h2>{{ section.settings.heading }}</h2>
-  {% endif %}
-  
-  {{ section.settings.rich_text_content | escape }}
-  
-  {% if section.settings.show_button and section.settings.button_text %}
-    <a href="{{ section.settings.button_link }}" class="rich-text-button">{{ section.settings.button_text }}</a>
-  {% endif %}
+
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'icon' %}
+        {% if block.settings.icon_class %}
+          <i class="{{ block.settings.icon_class }}"></i>
+        {% endif %}
+      {% when 'heading' %}
+        {% if block.settings.heading %}
+          <h2>{{ block.settings.heading }}</h2>
+        {% endif %}
+      {% when 'text' %}
+        {{ block.settings.rich_text_content | escape }}
+      {% when 'button' %}
+        {% if block.settings.button_text and block.settings.button_link %}
+          <a href="{{ block.settings.button_link }}" class="rich-text-button">{{ block.settings.button_text }}</a>
+        {% endif %}
+    {% endcase %}
+  {% endfor %}
+
 </div>
 
 <style>
@@ -49,63 +56,12 @@
 }
 </style>
 
+
 <!-- rich-text.liquid -->
 {% schema %}
 {
   "name": "Rich Text",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_icon",
-      "label": "Show Icon",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "icon_class",
-      "label": "Icon Class",
-      "default": "fa-heart",
-      "info": "Enter the FontAwesome icon class (e.g., 'fa-heart')"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_heading",
-      "label": "Show Heading",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Your Heading",
-      "info": "Enter the heading text"
-    },
-    {
-      "type": "richtext",
-      "id": "rich_text_content",
-      "label": "Content",
-      "default": "<p>Enter your text here</p>",
-      "info": "Add the main content here"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_button",
-      "label": "Show Button",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Click Me",
-      "info": "Enter the text for the button"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link",
-      "info": "Enter the URL for the button"
-    },
     {
       "type": "select",
       "id": "text_alignment",
@@ -134,6 +90,66 @@
       "info": "Choose the text color"
     }
   ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "Icon Class",
+          "default": "fa-heart",
+          "info": "Enter the FontAwesome icon class (e.g., 'fa-heart')"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Your Heading",
+          "info": "Enter the heading text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Rich Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "rich_text_content",
+          "label": "Content",
+          "default": "<p>Enter your text here</p>",
+          "info": "Add the main content here"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Click Me",
+          "info": "Enter the text for the button"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link",
+          "info": "Enter the URL for the button"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Rich Text",
@@ -141,5 +157,6 @@
     }
   ]
 }
+
 
 {% endschema %}
