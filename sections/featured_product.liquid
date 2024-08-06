@@ -24,7 +24,7 @@
           {% for variant in product.variants %}
             <label>
               <input type="radio" name="variant" value="{{ variant.id }}">
-              <span class="color-swatch" style="background-color: {{ variant.option1 | downcase }};"></span>
+              {{ variant.title }}
             </label>
           {% endfor %}
         </div>
@@ -88,7 +88,9 @@
 }
 {% endschema %}
 
+
 <style>
+
 .featured-product {
   padding: 20px;
   background-color: #f9f9f9;
@@ -115,11 +117,9 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-.product-variants {
-  column-count: 2;
+.product-variants{
+column-count: 2;
 }
-
 .featured-product .product-thumbnails {
   display: flex;
   gap: 5px;
@@ -222,14 +222,6 @@
   background-color: #0056b3;
 }
 
-.color-swatch {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  margin-right: 5px;
-}
 </style>
 
 <script>
@@ -298,4 +290,6 @@ document.addEventListener("DOMContentLoaded", function() {
     prevThumbnail.classList.add('active');
   });
 });
+
+
 </script>
