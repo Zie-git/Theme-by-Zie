@@ -134,8 +134,40 @@
     },
     "rick_text_QRiEed": {
       "type": "rick-text",
+      "blocks": {
+        "icon_kigycr": {
+          "type": "icon",
+          "settings": {
+            "icon_class": "fa-heart"
+          }
+        },
+        "heading_tmLn6w": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your Heading"
+          }
+        },
+        "text_GgtcRi": {
+          "type": "text",
+          "settings": {
+            "rich_text_content": "<p>Enter your text here<\/p>"
+          }
+        },
+        "button_ViCTgM": {
+          "type": "button",
+          "settings": {
+            "button_text": "Click Me",
+            "button_link": "shopify:\/\/collections\/t-shirts"
+          }
+        }
+      },
+      "block_order": [
+        "icon_kigycr",
+        "heading_tmLn6w",
+        "text_GgtcRi",
+        "button_ViCTgM"
+      ],
       "settings": {
-        "rich_text_content": "<p>Enter your text here<\/p>",
         "text_alignment": "left",
         "text_color": "#000000"
       }
