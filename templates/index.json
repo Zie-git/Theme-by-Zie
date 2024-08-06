@@ -169,7 +169,11 @@
       ],
       "settings": {
         "text_alignment": "center",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "heading_font": "Arial",
+        "heading_font_size": "28px",
+        "text_font": "Arial",
+        "text_font_size": "12px"
       }
     }
   },
