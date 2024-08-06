@@ -22,17 +22,10 @@
         </div>
         <div class="product-variants">
           {% for variant in product.variants %}
-            {% if variant.option1 contains "#" %}
-              <label class="color-swatch" title="{{ variant.title }}">
-                <input type="radio" name="variant" value="{{ variant.id }}">
-                <span class="color-swatch-circle" style="background-color: {{ variant.option1 }};"></span>
-              </label>
-            {% else %}
-              <label>
-                <input type="radio" name="variant" value="{{ variant.id }}">
-                {{ variant.title }}
-              </label>
-            {% endif %}
+            <label>
+              <input type="radio" name="variant" value="{{ variant.id }}">
+              {{ variant.title }}
+            </label>
           {% endfor %}
         </div>
         <p>{{ product.description }}</p>
@@ -95,7 +88,9 @@
 }
 {% endschema %}
 
+
 <style>
+
 .featured-product {
   padding: 20px;
   background-color: #f9f9f9;
@@ -122,7 +117,9 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
+.product-variants{
+column-count: 2;
+}
 .featured-product .product-thumbnails {
   display: flex;
   gap: 5px;
@@ -193,19 +190,6 @@
   margin-right: 5px;
 }
 
-.featured-product .product-variants .color-swatch {
-  display: inline-block;
-  cursor: pointer;
-}
-
-.featured-product .product-variants .color-swatch-circle {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-}
-
 .featured-product .product-quantity {
   margin-bottom: 10px;
 }
@@ -237,6 +221,7 @@
 .featured-product .btn.add-to-cart:hover {
   background-color: #0056b3;
 }
+
 </style>
 
 <script>
@@ -245,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function() {
   addToCartButton.addEventListener("click", function() {
     const selectedVariant = document.querySelector("input[name='variant']:checked");
     const quantity = document.getElementById("quantity").value;
-
+    
     if (selectedVariant && quantity > 0) {
       const variantId = selectedVariant.value;
 
@@ -283,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
       thumbnails.forEach(img => img.classList.remove('active'));
       thumbnail.classList.add('active');
       currentThumbnailIndex = index;
-    }); 
+    });
   });
 
   const nextButton = document.querySelector(".thumbnail-next");
@@ -305,4 +290,6 @@ document.addEventListener("DOMContentLoaded", function() {
     prevThumbnail.classList.add('active');
   });
 });
+
+
 </script>
