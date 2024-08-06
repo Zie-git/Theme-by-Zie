@@ -116,6 +116,21 @@
         "padding_bottom": 20,
         "layout_order": "image_first"
       }
+    },
+    "image_with_text_DaXj6c": {
+      "type": "image-with-text",
+      "settings": {
+        "heading": "Default Heading",
+        "body_text": "Default body text goes here.",
+        "button_link": "",
+        "button_text": "Click Here",
+        "image_1": "shopify:\/\/shop_images\/pexels-vishven-solanki-1441477-2779018.jpg",
+        "heading_font_size": 32,
+        "subtitle_font_size": 16,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "layout_order": "text_first"
+      }
     }
   },
   "order": [
@@ -124,6 +139,7 @@
     "slider_ERRfTm",
     "featured-collection",
     "image_prmotion_xhPHRP",
-    "image_prmotion_kcwd9C"
+    "image_prmotion_kcwd9C",
+    "image_with_text_DaXj6c"
   ]
 }
