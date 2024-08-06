@@ -11,7 +11,7 @@
           <h2>{{ block.settings.heading }}</h2>
         {% endif %}
       {% when 'text' %}
-        {{ block.settings.rich_text_content | escape }}
+        <div class="rich-text-content">{{ block.settings.rich_text_content | escape }}</div>
       {% when 'button' %}
         {% if block.settings.button_text and block.settings.button_link %}
           <a href="{{ block.settings.button_link }}" class="rich-text-button">{{ block.settings.button_text }}</a>
@@ -23,7 +23,9 @@
 
 <style>
 .rich-text-section {
-  margin: 20px 0;
+  margin: 20px auto; /* Center the section itself */
+  max-width: 1000px; /* Optional: Limit the maximum width */
+  padding: 20px; /* Optional: Add padding for better spacing */
 }
 
 .rich-text-section i {
@@ -37,7 +39,7 @@
   margin: 0 0 10px;
 }
 
-.rich-text-section p {
+.rich-text-content p {
   margin: 0 0 1em;
 }
 
