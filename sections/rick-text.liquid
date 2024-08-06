@@ -1,6 +1,59 @@
+
+
+<div class="rich-text-section" style="text-align: {{ section.settings.text_alignment }}; color: {{ section.settings.text_color }}">
+  {{ section.settings.rich_text_content | escape }}
+</div>
+
+<style>
+.rich-text-section p {
+  margin: 0 0 1em;
+}
+</style>
+
+
+<!-- rich-text.liquid -->
 {% schema %}
-  {
-    "name": "Section name",
-    "settings": []
-  }
+{
+  "name": "Rich Text",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "rich_text_content",
+      "label": "Content",
+      "default": "<p>Enter your text here</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich Text",
+      "category": "Text"
+    }
+  ]
+}
 {% endschema %}
