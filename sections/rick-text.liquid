@@ -1,4 +1,4 @@
-<div class="rich-text-section" style="text-align: {{ section.settings.text_alignment }}; color: {{ section.settings.text_color }};">
+<div class="rich-text-section" style="text-align: {{ section.settings.text_alignment }}; color: {{ section.settings.text_color }}; font-family: {{ section.settings.text_font }}; font-size: {{ section.settings.text_font_size }};">
 
   {% for block in section.blocks %}
     {% case block.type %}
@@ -8,24 +8,19 @@
         {% endif %}
       {% when 'heading' %}
         {% if block.settings.heading %}
-          <h2 style="font-family: {{ section.settings.heading_font }}; font-size: {{ section.settings.heading_font_size }};">
-            {{ block.settings.heading }}
-          </h2>
+          <h2>{{ block.settings.heading }}</h2>
         {% endif %}
       {% when 'text' %}
-        <div class="rich-text-content" style="font-family: {{ section.settings.text_font }}; font-size: {{ section.settings.text_font_size }};">
-          {{ block.settings.rich_text_content | escape }}
-        </div>
+        <div class="rich-text-content">{{ block.settings.rich_text_content | strip_html }}</div>
       {% when 'button' %}
         {% if block.settings.button_text and block.settings.button_link %}
-          <a href="{{ block.settings.button_link }}" class="rich-text-button">
-            {{ block.settings.button_text }}
-          </a>
+          <a href="{{ block.settings.button_link }}" class="rich-text-button">{{ block.settings.button_text }}</a>
         {% endif %}
     {% endcase %}
   {% endfor %}
 
 </div>
+
 
 <style>
 .rich-text-section {
@@ -41,11 +36,13 @@
 }
 
 .rich-text-section h2 {
+  font-size: 24px;
   margin: 0 0 10px;
 }
 
-.rich-text-content p {
-  margin: 0 0 1em;
+.rich-text-content {
+  font-family: inherit; /* Inherit font family from parent */
+  font-size: inherit; /* Inherit font size from parent */
 }
 
 .rich-text-button {
