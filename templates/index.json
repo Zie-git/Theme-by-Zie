@@ -172,8 +172,9 @@
         "text_color": "#000000",
         "heading_font": "Arial",
         "heading_font_size": "28px",
+        "heading_font_weight": "bold",
         "text_font": "Arial",
-        "text_font_size": "12px"
+        "text_font_size": "16px"
       }
     }
   },
