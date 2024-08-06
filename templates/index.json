@@ -18,8 +18,8 @@
         "image_alt": "Default Alt Text",
         "image_view": "cover",
         "image_height": "medium",
-        "padding_top": 20,
-        "padding_bottom": 20,
+        "padding_top": 0,
+        "padding_bottom": 0,
         "margin_top": 0,
         "margin_bottom": 0,
         "button_text": "Click Here",
@@ -92,7 +92,10 @@
     "featured_product_37FeLH": {
       "type": "featured_product",
       "settings": {
-        "product": "gg-watch"
+        "product": "gg-watch",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "max_width": 1200
       }
     }
   },
