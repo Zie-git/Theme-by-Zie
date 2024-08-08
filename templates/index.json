@@ -179,6 +179,9 @@
     },
     "reviews_Q43BQ3": {
       "type": "reviews",
+      "custom_css": [
+        "h2{padding-bottom: 20px;}"
+      ],
       "settings": {
         "section_heading": "Testimonials and Reviews",
         "testimonial_heading": "What Our Customers Say",
