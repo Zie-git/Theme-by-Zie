@@ -1,5 +1,4 @@
 <div class="rich-text-section" style="text-align: {{ section.settings.text_alignment }}; color: {{ section.settings.text_color }}; font-family: {{ section.settings.text_font }}; font-size: {{ section.settings.text_font_size }};">
-
   {% for block in section.blocks %}
     {% case block.type %}
       {% when 'icon' %}
@@ -20,10 +19,7 @@
         {% endif %}
     {% endcase %}
   {% endfor %}
-
 </div>
-
-
 
 <style>
 .rich-text-section {
@@ -35,16 +31,17 @@
 .rich-text-section i {
   display: block;
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 20px; /* Consistent margin */
 }
 
 .rich-text-section h1 {
-  margin: 0 0 10px;
+  margin: 0 0 20px; /* Consistent margin */
 }
 
 .rich-text-content {
   font-family: inherit; /* Inherit font family from parent */
   font-size: inherit; /* Inherit font size from parent */
+  margin-bottom: 20px; /* Consistent margin */
 }
 
 .rich-text-button {
@@ -55,12 +52,12 @@
   text-decoration: none;
   border-radius: 5px;
   font-size: 16px;
+  margin-top: 20px; /* Consistent margin */
 }
 
 .rich-text-button:hover {
   background-color: #0056b3;
 }
-
 </style>
 
 
