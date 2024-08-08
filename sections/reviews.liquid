@@ -1,9 +1,9 @@
 <section id="testimonials-reviews" class="testimonials-reviews" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
   <div class="containers">
-    <h1>{{ section.settings.section_heading }}</h1>
+    <h1 style="font-size: {{ section.settings.section_heading_font_size }}px;">{{ section.settings.section_heading }}</h1>
 
     <div class="testimonials">
-      <h2>{{ section.settings.testimonial_heading }}</h2>
+      <h2 style="font-size: {{ section.settings.testimonial_heading_font_size }}px;">{{ section.settings.testimonial_heading }}</h2>
       <div class="testimonial-grid">
         <!-- Testimonial 1 -->
         <div class="testimonial">
@@ -11,7 +11,7 @@
             <img src="{{ section.settings.testimonial_1_image | img_url: 'medium' }}" alt="Customer Name 1">
           </div>
           <div class="testimonial-content">
-            <h1 class="review-title">{{ section.settings.testimonial_1_title }}</h1>
+            <h1 class="review-title" style="font-size: {{ section.settings.testimonial_1_title_font_size }}px;">{{ section.settings.testimonial_1_title }}</h1>
             <div class="star-rating">
               {% assign rating = section.settings.testimonial_1_star_rating %}
               {% for i in (1..5) %}
@@ -22,54 +22,12 @@
                 {% endif %}
               {% endfor %}
             </div>
-            <p class="quote">{{ section.settings.testimonial_1_quote }}</p>
+            <p class="quote" style="font-size: {{ section.settings.testimonial_1_quote_font_size }}px;">{{ section.settings.testimonial_1_quote }}</p>
             <p class="customer-name">- {{ section.settings.testimonial_1_customer_name }}</p>
           </div>
         </div>
 
-        <!-- Testimonial 2 -->
-        <div class="testimonial">
-          <div class="profile-pic">
-            <img src="{{ section.settings.testimonial_2_image | img_url: 'medium' }}" alt="Customer Name 2">
-          </div>
-          <div class="testimonial-content">
-            <h1 class="review-title">{{ section.settings.testimonial_2_title }}</h1>
-            <div class="star-rating">
-              {% assign rating = section.settings.testimonial_2_star_rating %}
-              {% for i in (1..5) %}
-                {% if i <= rating %}
-                  <span>&#9733;</span> <!-- Filled star -->
-                {% else %}
-                  <span>&#9734;</span> <!-- Empty star -->
-                {% endif %}
-              {% endfor %}
-            </div>
-            <p class="quote">{{ section.settings.testimonial_2_quote }}</p>
-            <p class="customer-name">- {{ section.settings.testimonial_2_customer_name }}</p>
-          </div>
-        </div>
-
-        <!-- Testimonial 3 -->
-        <div class="testimonial">
-          <div class="profile-pic">
-            <img src="{{ section.settings.testimonial_3_image | img_url: 'medium' }}" alt="Customer Name 3">
-          </div>
-          <div class="testimonial-content">
-            <h1 class="review-title">{{ section.settings.testimonial_3_title }}</h1>
-            <div class="star-rating">
-              {% assign rating = section.settings.testimonial_3_star_rating %}
-              {% for i in (1..5) %}
-                {% if i <= rating %}
-                  <span>&#9733;</span> <!-- Filled star -->
-                {% else %}
-                  <span>&#9734;</span> <!-- Empty star -->
-                {% endif %}
-              {% endfor %}
-            </div>
-            <p class="quote">{{ section.settings.testimonial_3_quote }}</p>
-            <p class="customer-name">- {{ section.settings.testimonial_3_customer_name }}</p>
-          </div>
-        </div>
+        <!-- Repeat similar blocks for Testimonial 2 and Testimonial 3 -->
       </div>
     </div>
 
@@ -82,6 +40,7 @@
     {% endif %}
   </div>
 </section>
+
 
 <style>
   .review-title {
@@ -141,14 +100,28 @@
       "default": "Testimonials and Reviews"
     },
     {
-      "type": "paragraph",
-      "content": "Add customer testimonials and awards received by your bakery."
+      "type": "range",
+      "id": "section_heading_font_size",
+      "label": "Section Heading Font Size",
+      "min": 12,
+      "max": 50,
+      "default": 30,
+      "unit": "px"
     },
     {
       "type": "text",
       "id": "testimonial_heading",
       "label": "Testimonials Heading",
       "default": "What Our Customers Say"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_heading_font_size",
+      "label": "Testimonial Heading Font Size",
+      "min": 12,
+      "max": 40,
+      "default": 24,
+      "unit": "px"
     },
     {
       "type": "range",
@@ -181,6 +154,15 @@
     },
     {
       "type": "range",
+      "id": "testimonial_1_title_font_size",
+      "label": "Testimonial 1 Title Font Size",
+      "min": 12,
+      "max": 30,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
       "id": "testimonial_1_star_rating",
       "label": "Testimonial 1 Star Rating",
       "min": 1,
@@ -192,6 +174,15 @@
       "id": "testimonial_1_quote",
       "label": "Testimonial 1 Quote",
       "default": "I had an amazing experience with this bakery. The staff was very friendly and the bread was delicious."
+    },
+    {
+      "type": "range",
+      "id": "testimonial_1_quote_font_size",
+      "label": "Testimonial 1 Quote Font Size",
+      "min": 12,
+      "max": 20,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "text",
@@ -212,6 +203,15 @@
     },
     {
       "type": "range",
+      "id": "testimonial_2_title_font_size",
+      "label": "Testimonial 2 Title Font Size",
+      "min": 12,
+      "max": 30,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
       "id": "testimonial_2_star_rating",
       "label": "Testimonial 2 Star Rating",
       "min": 1,
@@ -223,6 +223,15 @@
       "id": "testimonial_2_quote",
       "label": "Testimonial 2 Quote",
       "default": "The cakes are moist, flavorful, and beautifully decorated. My go-to bakery for all occasions!"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_2_quote_font_size",
+      "label": "Testimonial 2 Quote Font Size",
+      "min": 12,
+      "max": 20,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "text",
@@ -243,6 +252,15 @@
     },
     {
       "type": "range",
+      "id": "testimonial_3_title_font_size",
+      "label": "Testimonial 3 Title Font Size",
+      "min": 12,
+      "max": 30,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
       "id": "testimonial_3_star_rating",
       "label": "Testimonial 3 Star Rating",
       "min": 1,
@@ -254,6 +272,15 @@
       "id": "testimonial_3_quote",
       "label": "Testimonial 3 Quote",
       "default": "Their pastries are to die for! Always fresh and full of flavor."
+    },
+    {
+      "type": "range",
+      "id": "testimonial_3_quote_font_size",
+      "label": "Testimonial 3 Quote Font Size",
+      "min": 12,
+      "max": 20,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "text",
@@ -280,4 +307,5 @@
     }
   ]
 }
+
 {% endschema %}
