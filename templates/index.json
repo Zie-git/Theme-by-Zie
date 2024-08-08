@@ -132,51 +132,6 @@
         "layout_order": "text_first"
       }
     },
-    "rick_text_QRiEed": {
-      "type": "rick-text",
-      "blocks": {
-        "icon_kigycr": {
-          "type": "icon",
-          "settings": {
-            "icon_class": "fa-heart"
-          }
-        },
-        "heading_tmLn6w": {
-          "type": "heading",
-          "settings": {
-            "heading": "Your Heading"
-          }
-        },
-        "text_GgtcRi": {
-          "type": "text",
-          "settings": {
-            "rich_text_content": "<p>Enter your text here<\/p>"
-          }
-        },
-        "button_ViCTgM": {
-          "type": "button",
-          "settings": {
-            "button_text": "Click Me",
-            "button_link": "shopify:\/\/collections\/t-shirts"
-          }
-        }
-      },
-      "block_order": [
-        "icon_kigycr",
-        "heading_tmLn6w",
-        "text_GgtcRi",
-        "button_ViCTgM"
-      ],
-      "settings": {
-        "text_alignment": "center",
-        "text_color": "#000000",
-        "heading_font": "Arial",
-        "heading_font_size": "28px",
-        "heading_font_weight": "bold",
-        "text_font": "Arial",
-        "text_font_size": "16px"
-      }
-    },
     "reviews_Q43BQ3": {
       "type": "reviews",
       "custom_css": [
@@ -205,6 +160,44 @@
         "button_text": "See All Reviews",
         "button_link": ""
       }
+    },
+    "rick_text_RdMNLU": {
+      "type": "rick-text",
+      "blocks": {
+        "heading_BCTBVf": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your Heading"
+          }
+        },
+        "text_LGyiQR": {
+          "type": "text",
+          "settings": {
+            "rich_text_content": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. <\/p>"
+          }
+        },
+        "button_jakcY9": {
+          "type": "button",
+          "settings": {
+            "button_text": "Click Me",
+            "button_link": "shopify:\/\/collections\/t-shirts"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BCTBVf",
+        "text_LGyiQR",
+        "button_jakcY9"
+      ],
+      "settings": {
+        "text_alignment": "center",
+        "text_color": "#000000",
+        "heading_font": "Arial",
+        "heading_font_size": "24px",
+        "heading_font_weight": "normal",
+        "text_font": "Arial",
+        "text_font_size": "16px"
+      }
     }
   },
   "order": [
@@ -215,7 +208,7 @@
     "image_prmotion_xhPHRP",
     "image_prmotion_kcwd9C",
     "image_with_text_DaXj6c",
-    "rick_text_QRiEed",
-    "reviews_Q43BQ3"
+    "reviews_Q43BQ3",
+    "rick_text_RdMNLU"
   ]
 }
