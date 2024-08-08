@@ -132,35 +132,6 @@
         "layout_order": "text_first"
       }
     },
-    "reviews_Q43BQ3": {
-      "type": "reviews",
-      "custom_css": [
-        "h3 {padding-bottom: 20px;}"
-      ],
-      "settings": {
-        "section_heading": "Testimonials and Reviews",
-        "testimonial_heading": "What Our Customers Say",
-        "padding_top": 20,
-        "padding_bottom": 20,
-        "testimonial_1_image": "shopify:\/\/shop_images\/main-slider-1-2.jpg",
-        "testimonial_1_title": "Title Here",
-        "testimonial_1_star_rating": 5,
-        "testimonial_1_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        "testimonial_1_customer_name": "John Doe",
-        "testimonial_2_image": "shopify:\/\/shop_images\/a-woman-in-her-shop.jpg",
-        "testimonial_2_title": "Title Here",
-        "testimonial_2_star_rating": 5,
-        "testimonial_2_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        "testimonial_2_customer_name": "Jane Smith",
-        "testimonial_3_image": "shopify:\/\/shop_images\/model-with-leather-jacket-over-shoulders.jpg",
-        "testimonial_3_title": "Title Here",
-        "testimonial_3_star_rating": 5,
-        "testimonial_3_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        "testimonial_3_customer_name": "Alice Johnson",
-        "button_text": "See All Reviews",
-        "button_link": ""
-      }
-    },
     "rick_text_RdMNLU": {
       "type": "rick-text",
       "blocks": {
@@ -198,6 +169,35 @@
         "text_font": "Arial",
         "text_font_size": "16px"
       }
+    },
+    "reviews_Q43BQ3": {
+      "type": "reviews",
+      "custom_css": [
+        "h3 {padding-bottom: 20px;}"
+      ],
+      "settings": {
+        "section_heading": "Testimonials and Reviews",
+        "testimonial_heading": "What Our Customers Say",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "testimonial_1_image": "shopify:\/\/shop_images\/main-slider-1-2.jpg",
+        "testimonial_1_title": "Title Here",
+        "testimonial_1_star_rating": 5,
+        "testimonial_1_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "testimonial_1_customer_name": "John Doe",
+        "testimonial_2_image": "shopify:\/\/shop_images\/a-woman-in-her-shop.jpg",
+        "testimonial_2_title": "Title Here",
+        "testimonial_2_star_rating": 5,
+        "testimonial_2_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "testimonial_2_customer_name": "Jane Smith",
+        "testimonial_3_image": "shopify:\/\/shop_images\/model-with-leather-jacket-over-shoulders.jpg",
+        "testimonial_3_title": "Title Here",
+        "testimonial_3_star_rating": 5,
+        "testimonial_3_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "testimonial_3_customer_name": "Alice Johnson",
+        "button_text": "See All Reviews",
+        "button_link": ""
+      }
     }
   },
   "order": [
@@ -208,7 +208,7 @@
     "image_prmotion_xhPHRP",
     "image_prmotion_kcwd9C",
     "image_with_text_DaXj6c",
-    "reviews_Q43BQ3",
-    "rick_text_RdMNLU"
+    "rick_text_RdMNLU",
+    "reviews_Q43BQ3"
   ]
 }
