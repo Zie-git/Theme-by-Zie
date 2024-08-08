@@ -1,9 +1,9 @@
 <section id="testimonials-reviews" class="testimonials-reviews" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
   <div class="containers">
-    <h1 style="font-size: {{ section.settings.section_heading_font_size }}px;">{{ section.settings.section_heading }}</h1>
+    <h1>{{ section.settings.section_heading }}</h1>
 
     <div class="testimonials">
-      <h2 style="font-size: {{ section.settings.testimonial_heading_font_size }}px;">{{ section.settings.testimonial_heading }}</h2>
+      <h2>{{ section.settings.testimonial_heading }}</h2>
       <div class="testimonial-grid">
         <!-- Testimonial 1 -->
         <div class="testimonial">
@@ -11,7 +11,7 @@
             <img src="{{ section.settings.testimonial_1_image | img_url: 'medium' }}" alt="Customer Name 1">
           </div>
           <div class="testimonial-content">
-            <h1 class="review-title" style="font-size: {{ section.settings.testimonial_1_title_font_size }}px;">{{ section.settings.testimonial_1_title }}</h1>
+            <h1 class="review-title">{{ section.settings.testimonial_1_title }}</h1>
             <div class="star-rating">
               {% assign rating = section.settings.testimonial_1_star_rating %}
               {% for i in (1..5) %}
@@ -22,12 +22,54 @@
                 {% endif %}
               {% endfor %}
             </div>
-            <p class="quote" style="font-size: {{ section.settings.testimonial_1_quote_font_size }}px;">{{ section.settings.testimonial_1_quote }}</p>
+            <p class="quote">{{ section.settings.testimonial_1_quote }}</p>
             <p class="customer-name">- {{ section.settings.testimonial_1_customer_name }}</p>
           </div>
         </div>
 
-        <!-- Repeat similar blocks for Testimonial 2 and Testimonial 3 -->
+        <!-- Testimonial 2 -->
+        <div class="testimonial">
+          <div class="profile-pic">
+            <img src="{{ section.settings.testimonial_2_image | img_url: 'medium' }}" alt="Customer Name 2">
+          </div>
+          <div class="testimonial-content">
+            <h1 class="review-title">{{ section.settings.testimonial_2_title }}</h1>
+            <div class="star-rating">
+              {% assign rating = section.settings.testimonial_2_star_rating %}
+              {% for i in (1..5) %}
+                {% if i <= rating %}
+                  <span>&#9733;</span> <!-- Filled star -->
+                {% else %}
+                  <span>&#9734;</span> <!-- Empty star -->
+                {% endif %}
+              {% endfor %}
+            </div>
+            <p class="quote">{{ section.settings.testimonial_2_quote }}</p>
+            <p class="customer-name">- {{ section.settings.testimonial_2_customer_name }}</p>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial">
+          <div class="profile-pic">
+            <img src="{{ section.settings.testimonial_3_image | img_url: 'medium' }}" alt="Customer Name 3">
+          </div>
+          <div class="testimonial-content">
+            <h1 class="review-title">{{ section.settings.testimonial_3_title }}</h1>
+            <div class="star-rating">
+              {% assign rating = section.settings.testimonial_3_star_rating %}
+              {% for i in (1..5) %}
+                {% if i <= rating %}
+                  <span>&#9733;</span> <!-- Filled star -->
+                {% else %}
+                  <span>&#9734;</span> <!-- Empty star -->
+                {% endif %}
+              {% endfor %}
+            </div>
+            <p class="quote">{{ section.settings.testimonial_3_quote }}</p>
+            <p class="customer-name">- {{ section.settings.testimonial_3_customer_name }}</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -40,7 +82,6 @@
     {% endif %}
   </div>
 </section>
-
 
 <style>
   .review-title {
