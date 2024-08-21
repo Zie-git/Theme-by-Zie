@@ -198,6 +198,23 @@
         "button_text": "See All Reviews",
         "button_link": ""
       }
+    },
+    "image_gallery_dAtyXR": {
+      "type": "image-gallery",
+      "settings": {
+        "image_count": 9,
+        "columns": "3",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "image_1": "shopify:\/\/shop_images\/a-close-up-of-luxury-watch.jpg",
+        "image_2": "shopify:\/\/shop_images\/torso-of-a-person-checking-their-watch.jpg",
+        "image_3": "shopify:\/\/shop_images\/pocket-watch-on-black.jpg",
+        "image_4": "shopify:\/\/shop_images\/arms-reach-up-with-a-smart-watch-on.jpg",
+        "image_5": "shopify:\/\/shop_images\/gold-pocket-watch-on-a-black-notebook.jpg",
+        "image_6": "shopify:\/\/shop_images\/arm-with-a-smart-watch-on-wrist.jpg",
+        "image_7": "shopify:\/\/shop_images\/classic-quartz-wrist-watch.jpg",
+        "image_8": "shopify:\/\/shop_images\/variety-of-watches-lined-up-in-rows.jpg"
+      }
     }
   },
   "order": [
@@ -209,6 +226,7 @@
     "image_prmotion_kcwd9C",
     "image_with_text_DaXj6c",
     "rick_text_RdMNLU",
-    "reviews_Q43BQ3"
+    "reviews_Q43BQ3",
+    "image_gallery_dAtyXR"
   ]
 }
