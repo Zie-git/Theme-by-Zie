@@ -94,7 +94,6 @@
   padding-bottom: {{ section.settings.padding_bottom | default: 20 }}px;
 }
 
-
 .image-gallery .gallery-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -121,6 +120,9 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  {% if section.settings.enable_shadow %}
+  box-shadow: 0 4px 8px rgba({{ section.settings.shadow_color | replace: '#', '' | slice: 0, 2 | append: ',' | append: section.settings.shadow_opacity | append: ')' }});
+  {% endif %}
 }
 
 .image-gallery .gallery-item a {
@@ -136,7 +138,9 @@
 
 .image-gallery .gallery-item:hover {
   transform: scale(1.03); /* Slightly zoom in */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Add shadow */
+  {% if section.settings.enable_shadow %}
+  box-shadow: 0 4px 8px rgba({{ section.settings.shadow_color | replace: '#', '' | slice: 0, 2 | append: ',' | append: section.settings.shadow_opacity | append: ')' }});
+  {% endif %}
 }
 </style>
 
@@ -249,6 +253,27 @@ document.addEventListener('DOMContentLoaded', function() {
       "default": "#ffffff"
     },
     {
+      "type": "checkbox",
+      "id": "enable_shadow",
+      "label": "Enable Image Shadow",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "shadow_color",
+      "label": "Shadow Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "label": "Shadow Opacity (0-1)",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.3
+    },
+    {
       "type": "image_picker",
       "id": "image_1",
       "label": "Image 1"
@@ -292,27 +317,12 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "image_picker",
       "id": "image_9",
       "label": "Image 9"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_10",
-      "label": "Image 10"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_11",
-      "label": "Image 11"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_12",
-      "label": "Image 12"
     }
   ],
   "presets": [
     {
-      "name": "Image Gallery",
-      "category": "Image"
+      "name": "Default",
+      "category": "Custom"
     }
   ]
 }
