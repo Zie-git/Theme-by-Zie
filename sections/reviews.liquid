@@ -1,0 +1,283 @@
+<section id="testimonials-reviews" class="testimonials-reviews" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="containers">
+    <h1>{{ section.settings.section_heading }}</h1>
+
+    <div class="testimonials">
+      <h3>{{ section.settings.testimonial_heading }}</h3>
+      <div class="testimonial-grid">
+        <!-- Testimonial 1 -->
+        <div class="testimonial">
+          <div class="profile-pic">
+            <img src="{{ section.settings.testimonial_1_image | img_url: 'medium' }}" alt="Customer Name 1">
+          </div>
+          <div class="testimonial-content">
+            <h1 class="review-title">{{ section.settings.testimonial_1_title }}</h1>
+            <div class="star-rating">
+              {% assign rating = section.settings.testimonial_1_star_rating %}
+              {% for i in (1..5) %}
+                {% if i <= rating %}
+                  <span>&#9733;</span> <!-- Filled star -->
+                {% else %}
+                  <span>&#9734;</span> <!-- Empty star -->
+                {% endif %}
+              {% endfor %}
+            </div>
+            <p class="quote">{{ section.settings.testimonial_1_quote }}</p>
+            <p class="customer-name">- {{ section.settings.testimonial_1_customer_name }}</p>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial">
+          <div class="profile-pic">
+            <img src="{{ section.settings.testimonial_2_image | img_url: 'medium' }}" alt="Customer Name 2">
+          </div>
+          <div class="testimonial-content">
+            <h1 class="review-title">{{ section.settings.testimonial_2_title }}</h1>
+            <div class="star-rating">
+              {% assign rating = section.settings.testimonial_2_star_rating %}
+              {% for i in (1..5) %}
+                {% if i <= rating %}
+                  <span>&#9733;</span> <!-- Filled star -->
+                {% else %}
+                  <span>&#9734;</span> <!-- Empty star -->
+                {% endif %}
+              {% endfor %}
+            </div>
+            <p class="quote">{{ section.settings.testimonial_2_quote }}</p>
+            <p class="customer-name">- {{ section.settings.testimonial_2_customer_name }}</p>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial">
+          <div class="profile-pic">
+            <img src="{{ section.settings.testimonial_3_image | img_url: 'medium' }}" alt="Customer Name 3">
+          </div>
+          <div class="testimonial-content">
+            <h1 class="review-title">{{ section.settings.testimonial_3_title }}</h1>
+            <div class="star-rating">
+              {% assign rating = section.settings.testimonial_3_star_rating %}
+              {% for i in (1..5) %}
+                {% if i <= rating %}
+                  <span>&#9733;</span> <!-- Filled star -->
+                {% else %}
+                  <span>&#9734;</span> <!-- Empty star -->
+                {% endif %}
+              {% endfor %}
+            </div>
+            <p class="quote">{{ section.settings.testimonial_3_quote }}</p>
+            <p class="customer-name">- {{ section.settings.testimonial_3_customer_name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if section.settings.button_text != '' %}
+      <div class="testimonial-button">
+        <a href="{{ section.settings.button_link }}" class="button">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .review-title {
+    margin: 0;
+  }
+  .containers {
+    width: 1200px;
+    margin: auto;
+    text-align: center;
+  }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .testimonial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #F8B856;
+    padding: 32px;
+  }
+  .profile-pic img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  .star-rating span {
+    color: gold;
+    font-size: 35px;
+  }
+  .star-rating span:last-child {
+    color: gold; /* Color for empty stars */
+  }
+  .testimonial-button {
+    margin-top: 30px;
+  }
+  .testimonial-button .button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Testimonials and Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Testimonials and Reviews"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add customer testimonials and awards received by your bakery."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_heading",
+      "label": "Testimonials Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_1_image",
+      "label": "Testimonial 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_1_title",
+      "label": "Testimonial 1 Title",
+      "default": "Title Here"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_1_star_rating",
+      "label": "Testimonial 1 Star Rating",
+      "min": 1,
+      "max": 5,
+      "default": 5
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_1_quote",
+      "label": "Testimonial 1 Quote",
+      "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_1_customer_name",
+      "label": "Testimonial 1 Customer Name",
+      "default": "John Doe"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_2_image",
+      "label": "Testimonial 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_2_title",
+      "label": "Testimonial 2 Title",
+      "default": "Title Here"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_2_star_rating",
+      "label": "Testimonial 2 Star Rating",
+      "min": 1,
+      "max": 5,
+      "default": 5
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_2_quote",
+      "label": "Testimonial 2 Quote",
+      "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
+    },
+    {
+      "type": "text",
+      "id": "testimonial_2_customer_name",
+      "label": "Testimonial 2 Customer Name",
+      "default": "Jane Smith"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_3_image",
+      "label": "Testimonial 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_3_title",
+      "label": "Testimonial 3 Title",
+      "default": "Title Here"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_3_star_rating",
+      "label": "Testimonial 3 Star Rating",
+      "min": 1,
+      "max": 5,
+      "default": 5
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_3_quote",
+      "label": "Testimonial 3 Quote",
+      "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
+    },
+    {
+      "type": "text",
+      "id": "testimonial_3_customer_name",
+      "label": "Testimonial 3 Customer Name",
+      "default": "Alice Johnson"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "See All Reviews"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials and Reviews",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
