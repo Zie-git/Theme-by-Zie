@@ -5,20 +5,23 @@
       {% for i in (1..image_count) %}
         {% assign image_var = 'image_' | append: i %}
         <div class="gallery-item">
-          {% if section.settings[image_var] %}
-            <a href="{{ section.settings[image_var] | img_url: 'original' }}" class="lightbox-trigger">
-              <img src="{{ section.settings[image_var] | img_url: '720x720' }}" alt="Gallery Image {{ i }}">
-            </a>
-          {% else %}
-            <a href="https://via.placeholder.com/720" class="lightbox-trigger">
-              <img src="https://via.placeholder.com/720" alt="Placeholder Image {{ i }}">
-            </a>
-          {% endif %}
+          <div class="image-wrapper">
+            {% if section.settings[image_var] %}
+              <a href="{{ section.settings[image_var] | img_url: 'original' }}" class="lightbox-trigger">
+                <img src="{{ section.settings[image_var] | img_url: '720x720' }}" alt="Gallery Image {{ i }}">
+              </a>
+            {% else %}
+              <a href="https://via.placeholder.com/720" class="lightbox-trigger">
+                <img src="https://via.placeholder.com/720" alt="Placeholder Image {{ i }}">
+              </a>
+            {% endif %}
+          </div>
         </div>
       {% endfor %}
     </div>
   </div>
 </div>
+
 
 <!-- Lightbox HTML -->
 <div id="lightbox" class="lightbox">
@@ -112,14 +115,15 @@
   padding-top: 100%; /* Aspect ratio of 1:1 */
 }
 
-.image-gallery .gallery-item img {
+.image-gallery .image-wrapper {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   {% if section.settings.enable_shadow %}
   box-shadow: 0 4px 8px rgba(
@@ -131,18 +135,15 @@
   {% endif %}
 }
 
-.image-gallery .gallery-item:hover {
-  transform: scale(1.03); /* Slightly zoom in */
-  /* Removed box-shadow from hover state */
-}
-
-
-
-.image-gallery .gallery-item a {
-  display: block;
-  text-decoration: none;
+.image-gallery .gallery-item img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-gallery .gallery-item:hover .image-wrapper {
+  transform: scale(1.03); /* Slightly zoom in */
 }
 
 .image-gallery .gallery-item:hover img {
