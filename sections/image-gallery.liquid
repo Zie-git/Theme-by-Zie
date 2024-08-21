@@ -124,13 +124,8 @@
   object-fit: cover;
   display: block;
 
-  {% if section.settings.enable_shadow %}
-  box-shadow: 0 4px 8px rgba(
-    {{ section.settings.shadow_color | remove: '#' | slice: 0, 2 | prepend: '0x' | plus: 0 }},
-    {{ section.settings.shadow_color | remove: '#' | slice: 2, 2 | prepend: '0x' | plus: 0 }},
-    {{ section.settings.shadow_color | remove: '#' | slice: 4, 2 | prepend: '0x' | plus: 0 }},
-    {{ section.settings.shadow_opacity }}
-  );
+ {% if section.settings.enable_shadow %}
+  box-shadow: 0 4px 8px {{ section.settings.shadow_color | color_modify: "alpha", section.settings.shadow_opacity }};
   {% endif %}
 }
 
