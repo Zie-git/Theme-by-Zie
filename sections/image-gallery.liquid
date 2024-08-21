@@ -89,9 +89,11 @@
 }
 
 .image-gallery {
+  background-color: {{ section.settings.background_color }};
   padding-top: {{ section.settings.padding_top | default: 20 }}px;
   padding-bottom: {{ section.settings.padding_bottom | default: 20 }}px;
 }
+
 
 .image-gallery .gallery-container {
   max-width: 1200px;
@@ -239,6 +241,12 @@ document.addEventListener('DOMContentLoaded', function() {
       "max": 100,
       "step": 1,
       "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
     },
     {
       "type": "image_picker",
