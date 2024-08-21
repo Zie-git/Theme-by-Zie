@@ -121,9 +121,15 @@
   object-fit: cover;
   display: block;
   {% if section.settings.enable_shadow %}
-  box-shadow: 0 4px 8px rgba({{ section.settings.shadow_color | replace: '#', '' | slice: 0, 2 | append: ',' | append: section.settings.shadow_opacity | append: ')' }});
+  box-shadow: 0 4px 8px rgba(
+    {{ section.settings.shadow_color | replace: '#', '' | slice: 0, 2 | prepend: '0x' | plus: 0 }},
+    {{ section.settings.shadow_color | replace: '#', '' | slice: 2, 2 | prepend: '0x' | plus: 0 }},
+    {{ section.settings.shadow_color | replace: '#', '' | slice: 4, 2 | prepend: '0x' | plus: 0 }},
+    {{ section.settings.shadow_opacity }}
+  );
   {% endif %}
 }
+
 
 .image-gallery .gallery-item a {
   display: block;
