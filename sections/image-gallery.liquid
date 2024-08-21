@@ -120,15 +120,22 @@
   height: 100%;
   object-fit: cover;
   display: block;
+
   {% if section.settings.enable_shadow %}
   box-shadow: 0 4px 8px rgba(
-    {{ section.settings.shadow_color | replace: '#', '' | slice: 0, 2 | prepend: '0x' | plus: 0 }},
-    {{ section.settings.shadow_color | replace: '#', '' | slice: 2, 2 | prepend: '0x' | plus: 0 }},
-    {{ section.settings.shadow_color | replace: '#', '' | slice: 4, 2 | prepend: '0x' | plus: 0 }},
+    {{ section.settings.shadow_color | remove: '#' | slice: 0, 2 | prepend: '0x' | plus: 0 }},
+    {{ section.settings.shadow_color | remove: '#' | slice: 2, 2 | prepend: '0x' | plus: 0 }},
+    {{ section.settings.shadow_color | remove: '#' | slice: 4, 2 | prepend: '0x' | plus: 0 }},
     {{ section.settings.shadow_opacity }}
   );
   {% endif %}
 }
+
+.image-gallery .gallery-item:hover {
+  transform: scale(1.03); /* Slightly zoom in */
+  /* Removed box-shadow from hover state */
+}
+
 
 
 .image-gallery .gallery-item a {
@@ -140,13 +147,6 @@
 
 .image-gallery .gallery-item:hover img {
   opacity: 0.8; /* Slightly fade the image */
-}
-
-.image-gallery .gallery-item:hover {
-  transform: scale(1.03); /* Slightly zoom in */
-  {% if section.settings.enable_shadow %}
-  box-shadow: 0 4px 8px rgba({{ section.settings.shadow_color | replace: '#', '' | slice: 0, 2 | append: ',' | append: section.settings.shadow_opacity | append: ')' }});
-  {% endif %}
 }
 </style>
 
