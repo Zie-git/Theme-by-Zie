@@ -110,7 +110,7 @@
 
 .image-gallery .gallery-item {
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Ensure the shadow can be seen */
   width: 100%;
   padding-top: 100%; /* Aspect ratio of 1:1 */
 }
@@ -123,12 +123,12 @@
   height: 100%;
   object-fit: cover;
   display: block;
-
- {% if section.settings.enable_shadow %}
+  
+  {% if section.settings.enable_shadow %}
   box-shadow: 0 4px 8px {{ section.settings.shadow_color | color_modify: "alpha", section.settings.shadow_opacity }};
   {% endif %}
 }
-
+  
 .image-gallery .gallery-item:hover {
   transform: scale(1.03); /* Slightly zoom in */
   /* Removed box-shadow from hover state */
