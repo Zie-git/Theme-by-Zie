@@ -115,15 +115,14 @@
   padding-top: 100%; /* Aspect ratio of 1:1 */
 }
 
-.image-gallery .image-wrapper {
+.image-gallery .gallery-item img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: cover;
+  display: block;
 
   {% if section.settings.enable_shadow %}
   box-shadow: 0 4px 8px rgba(
@@ -135,15 +134,18 @@
   {% endif %}
 }
 
-.image-gallery .gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.image-gallery .gallery-item:hover {
+  transform: scale(1.03); /* Slightly zoom in */
+  /* Removed box-shadow from hover state */
 }
 
-.image-gallery .gallery-item:hover .image-wrapper {
-  transform: scale(1.03); /* Slightly zoom in */
+
+
+.image-gallery .gallery-item a {
+  display: block;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
 }
 
 .image-gallery .gallery-item:hover img {
