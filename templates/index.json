@@ -18,8 +18,8 @@
         "image_alt": "Default Alt Text",
         "image_view": "cover",
         "image_height": "medium",
-        "padding_top": 20,
-        "padding_bottom": 20,
+        "padding_top": 0,
+        "padding_bottom": 0,
         "margin_top": 0,
         "margin_bottom": 0,
         "button_text": "Click Here",
@@ -32,12 +32,13 @@
         "text_container_width": "1200"
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
+    "featured_product_37FeLH": {
+      "type": "featured_product",
       "settings": {
-        "title": "Featured Collection",
-        "featured_collection": "all",
-        "number_of_products_to_show": 4
+        "product": "gg-watch",
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "max_width": 1200
       }
     },
     "slider_ERRfTm": {
@@ -72,6 +73,14 @@
         "slider_height": "500px"
       }
     },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured Collection",
+        "featured_collection": "all",
+        "number_of_products_to_show": 4
+      }
+    },
     "image_prmotion_xhPHRP": {
       "type": "image-prmotion",
       "settings": {
@@ -84,14 +93,145 @@
         "image_3": "shopify:\/\/shop_images\/pexels-vishven-solanki-1441477-2779018.jpg",
         "image_4": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
         "heading_font_size": 32,
-        "subtitle_font_size": 16
+        "subtitle_font_size": 16,
+        "padding_top": 10,
+        "padding_bottom": 10,
+        "layout_order": "text_first"
+      }
+    },
+    "image_prmotion_kcwd9C": {
+      "type": "image-prmotion",
+      "settings": {
+        "heading": "Default Heading",
+        "body_text": "Default body text goes here.",
+        "button_link": "",
+        "button_text": "Click Here",
+        "image_1": "shopify:\/\/shop_images\/main-slider-1-1.jpg",
+        "image_2": "shopify:\/\/shop_images\/download_1.jpg",
+        "image_3": "shopify:\/\/shop_images\/main-slider-1-2.jpg",
+        "image_4": "shopify:\/\/shop_images\/pexels-pixabay-267391.jpg",
+        "heading_font_size": 32,
+        "subtitle_font_size": 16,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "layout_order": "image_first"
+      }
+    },
+    "image_with_text_DaXj6c": {
+      "type": "image-with-text",
+      "settings": {
+        "heading": "Default Heading",
+        "body_text": "Default body text goes here.",
+        "button_link": "",
+        "button_text": "Click Here",
+        "image_1": "shopify:\/\/shop_images\/pexels-vishven-solanki-1441477-2779018.jpg",
+        "heading_font_size": 32,
+        "subtitle_font_size": 16,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "layout_order": "text_first"
+      }
+    },
+    "rick_text_RdMNLU": {
+      "type": "rick-text",
+      "blocks": {
+        "heading_BCTBVf": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your Heading"
+          }
+        },
+        "text_LGyiQR": {
+          "type": "text",
+          "settings": {
+            "rich_text_content": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. <\/p>"
+          }
+        },
+        "button_jakcY9": {
+          "type": "button",
+          "settings": {
+            "button_text": "Click Me",
+            "button_link": "shopify:\/\/collections\/t-shirts"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BCTBVf",
+        "text_LGyiQR",
+        "button_jakcY9"
+      ],
+      "settings": {
+        "text_alignment": "center",
+        "text_color": "#000000",
+        "heading_font": "Arial",
+        "heading_font_size": "24px",
+        "heading_font_weight": "normal",
+        "text_font": "Arial",
+        "text_font_size": "16px"
+      }
+    },
+    "reviews_Q43BQ3": {
+      "type": "reviews",
+      "custom_css": [
+        "h3 {padding-bottom: 20px;}"
+      ],
+      "settings": {
+        "section_heading": "Testimonials and Reviews",
+        "testimonial_heading": "What Our Customers Say",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "testimonial_1_image": "shopify:\/\/shop_images\/main-slider-1-2.jpg",
+        "testimonial_1_title": "Title Here",
+        "testimonial_1_star_rating": 5,
+        "testimonial_1_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "testimonial_1_customer_name": "John Doe",
+        "testimonial_2_image": "shopify:\/\/shop_images\/a-woman-in-her-shop.jpg",
+        "testimonial_2_title": "Title Here",
+        "testimonial_2_star_rating": 5,
+        "testimonial_2_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "testimonial_2_customer_name": "Jane Smith",
+        "testimonial_3_image": "shopify:\/\/shop_images\/model-with-leather-jacket-over-shoulders.jpg",
+        "testimonial_3_title": "Title Here",
+        "testimonial_3_star_rating": 5,
+        "testimonial_3_quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "testimonial_3_customer_name": "Alice Johnson",
+        "button_text": "See All Reviews",
+        "button_link": ""
+      }
+    },
+    "image_gallery_dAtyXR": {
+      "type": "image-gallery",
+      "settings": {
+        "image_count": 9,
+        "columns": "3",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "background_color": "#ffffff",
+        "enable_shadow": true,
+        "shadow_color": "#000000",
+        "shadow_opacity": 0.6,
+        "image_1": "shopify:\/\/shop_images\/a-close-up-of-luxury-watch.jpg",
+        "image_2": "shopify:\/\/shop_images\/torso-of-a-person-checking-their-watch.jpg",
+        "image_3": "shopify:\/\/shop_images\/pocket-watch-on-black.jpg",
+        "image_4": "shopify:\/\/shop_images\/arms-reach-up-with-a-smart-watch-on.jpg",
+        "image_5": "shopify:\/\/shop_images\/gold-pocket-watch-on-a-black-notebook.jpg",
+        "image_6": "shopify:\/\/shop_images\/arm-with-a-smart-watch-on-wrist.jpg",
+        "image_7": "shopify:\/\/shop_images\/classic-quartz-wrist-watch.jpg",
+        "image_8": "shopify:\/\/shop_images\/variety-of-watches-lined-up-in-rows.jpg",
+        "image_9": "shopify:\/\/shop_images\/mens-suit-watch.jpg"
       }
     }
   },
   "order": [
     "image_DMaHcK",
-    "featured-collection",
+    "featured_product_37FeLH",
     "slider_ERRfTm",
-    "image_prmotion_xhPHRP"
+    "featured-collection",
+    "image_prmotion_xhPHRP",
+    "image_prmotion_kcwd9C",
+    "image_with_text_DaXj6c",
+    "rick_text_RdMNLU",
+    "reviews_Q43BQ3",
+    "image_gallery_dAtyXR"
   ]
 }
