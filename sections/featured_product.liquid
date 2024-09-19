@@ -391,11 +391,63 @@ width: 100%;
 
 
 
-
-  input[type="radio"] {
-  color: green;
-    width: 300px;
+/* Hide the default radio input */
+.product-variants input[type="radio"] {
+  display: none;
 }
+
+/* Style the label */
+.product-variants .variant-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-size: 16px;
+  user-select: none;
+}
+
+/* Create the custom square radio button */
+.product-variants .custom-radio {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-color: #eee;
+  border: 2px solid #ccc;
+  position: relative;
+}
+
+/* Radio button checked style */
+.product-variants input[type="radio"]:checked + .custom-radio {
+  background-color: #2196F3; /* Change the color when checked */
+  border-color: #2196F3;
+}
+
+/* Indicator inside the square */
+.product-variants .custom-radio:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: white;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+/* Display the indicator when the radio is checked */
+.product-variants input[type="radio"]:checked + .custom-radio:after {
+  display: block;
+}
+
+/* Disabled radio button style */
+.product-variants input[type="radio"]:disabled + .custom-radio {
+  background-color: #f5f5f5;
+  border-color: #999;
+  cursor: not-allowed;
+}
+
 
   
 </style>
