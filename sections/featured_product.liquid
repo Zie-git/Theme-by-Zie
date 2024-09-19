@@ -389,6 +389,36 @@ width: 100%;
 
 
 
+.product-variants input[type="radio"] {
+  appearance: none; /* Removes the default radio button styling */
+  width: 20px;      /* Define the width */
+  height: 20px;     /* Define the height */
+  border: 2px solid #333; /* Add a border */
+  background-color: #fff; /* Background color */
+  border-radius: 0; /* Remove the rounded corners to make it square */
+  position: relative;
+}
+
+.product-variants input[type="radio"]:checked {
+  background-color: #007bff; /* Color when the radio is checked */
+}
+
+.product-variants input[type="radio"]::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  visibility: hidden;
+}
+
+.product-variants input[type="radio"]:checked::after {
+  visibility: visible;
+  background-color: #fff;
+}
 
 
 
