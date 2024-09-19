@@ -417,6 +417,33 @@ width: 100%;
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+  const sectionId = "{{ section.id }}";
+  const variantInputs = document.querySelectorAll(`input[name='variant-${sectionId}']`);
+  const variantLabels = document.querySelectorAll(`.product-variants label`);
+
+  variantInputs.forEach((input, index) => {
+    input.addEventListener("change", function() {
+      // Remove border from all labels
+      variantLabels.forEach(label => {
+        label.style.borderColor = "transparent"; // Reset all labels
+      });
+
+      // Add border to the selected label
+      if (this.checked) {
+        variantLabels[index].style.borderColor = "blue"; // Highlight selected variant
+      }
+    });
+  });
+});
+
+
+
+
+
+
+
+  
+document.addEventListener("DOMContentLoaded", function() {
   const mainImage = document.getElementById(`main-product-image-{{ section.id }}`);
   const lightbox = document.createElement('div');
   lightbox.classList.add('lightbox');
