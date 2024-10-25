@@ -22,7 +22,6 @@
   </div>
 </div>
 
-
 <!-- Lightbox HTML -->
 <div id="lightbox" class="lightbox">
   <span class="close">&times;</span>
@@ -34,7 +33,7 @@
 <style>
 /* Lightbox container */
 .lightbox {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -43,7 +42,7 @@
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.8);
-  text-align: center; /* Center the content */
+  text-align: center;
 }
 
 /* Lightbox image */
@@ -51,8 +50,8 @@
   display: inline-block;
   max-width: 80%;
   max-height: 80%;
-  vertical-align: middle; /* Center vertically */
-  margin: auto; /* Center horizontally */
+  vertical-align: middle;
+  margin: auto;
   padding-top: 169px;
 }
 
@@ -65,7 +64,7 @@
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
-  z-index: 1001; /* Ensure it is above the lightbox content */
+  z-index: 1001;
 }
 
 /* Navigation buttons */
@@ -80,7 +79,7 @@
   font-size: 24px;
   cursor: pointer;
   user-select: none;
-  z-index: 1001; /* Ensure they are above the lightbox content */
+  z-index: 1001;
 }
 
 .lightbox .prev {
@@ -110,9 +109,9 @@
 
 .image-gallery .gallery-item {
   position: relative;
-  overflow: visible; /* Ensure the shadow can be seen */
+  overflow: visible;
   width: 100%;
-  padding-top: 100%; /* Aspect ratio of 1:1 */
+  padding-top: 100%;
 }
 
 .image-gallery .gallery-item img {
@@ -128,13 +127,10 @@
   box-shadow: 0 4px 8px {{ section.settings.shadow_color | color_modify: "alpha", section.settings.shadow_opacity }};
   {% endif %}
 }
-  
+
 .image-gallery .gallery-item:hover {
-  transform: scale(1.03); /* Slightly zoom in */
-  /* Removed box-shadow from hover state */
+  transform: scale(1.03);
 }
-
-
 
 .image-gallery .gallery-item a {
   display: block;
@@ -144,7 +140,7 @@
 }
 
 .image-gallery .gallery-item:hover img {
-  opacity: 0.8; /* Slightly fade the image */
+  opacity: 0.8;
 }
 </style>
 
@@ -160,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var imageLinks = Array.from(document.querySelectorAll('.lightbox-trigger'));
   
   function showLightbox(index) {
-    if (index < 0 || index >= imageLinks.length) return; // Out of bounds
+    if (index < 0 || index >= imageLinks.length) return;
     currentIndex = index;
     lightboxImg.src = imageLinks[currentIndex].href;
     lightbox.style.display = 'block';
@@ -202,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
 
 {% schema %}
 {
