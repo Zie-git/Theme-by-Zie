@@ -5,20 +5,23 @@
       {% for i in (1..image_count) %}
         {% assign image_var = 'image_' | append: i %}
         <div class="gallery-item">
-          {% if section.settings[image_var] %}
-            <a href="{{ section.settings[image_var] | img_url: 'original' }}" class="lightbox-trigger">
-              <img src="{{ section.settings[image_var] | img_url: '720x720' }}" alt="Gallery Image {{ i }}">
-            </a>
-          {% else %}
-            <a href="https://via.placeholder.com/720" class="lightbox-trigger">
-              <img src="https://via.placeholder.com/720" alt="Placeholder Image {{ i }}">
-            </a>
-          {% endif %}
+          <div class="image-wrapper">
+            {% if section.settings[image_var] %}
+              <a href="{{ section.settings[image_var] | img_url: 'original' }}" class="lightbox-trigger">
+                <img src="{{ section.settings[image_var] | img_url: '720x720' }}" alt="Gallery Image {{ i }}">
+              </a>
+            {% else %}
+              <a href="https://via.placeholder.com/720" class="lightbox-trigger">
+                <img src="https://via.placeholder.com/720" alt="Placeholder Image {{ i }}">
+              </a>
+            {% endif %}
+          </div>
         </div>
       {% endfor %}
     </div>
   </div>
 </div>
+
 
 <!-- Lightbox HTML -->
 <div id="lightbox" class="lightbox">
@@ -89,6 +92,7 @@
 }
 
 .image-gallery {
+  background-color: {{ section.settings.background_color }};
   padding-top: {{ section.settings.padding_top | default: 20 }}px;
   padding-bottom: {{ section.settings.padding_bottom | default: 20 }}px;
 }
@@ -106,7 +110,7 @@
 
 .image-gallery .gallery-item {
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Ensure the shadow can be seen */
   width: 100%;
   padding-top: 100%; /* Aspect ratio of 1:1 */
 }
@@ -119,7 +123,18 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  
+  {% if section.settings.enable_shadow %}
+  box-shadow: 0 4px 8px {{ section.settings.shadow_color | color_modify: "alpha", section.settings.shadow_opacity }};
+  {% endif %}
 }
+  
+.image-gallery .gallery-item:hover {
+  transform: scale(1.03); /* Slightly zoom in */
+  /* Removed box-shadow from hover state */
+}
+
+
 
 .image-gallery .gallery-item a {
   display: block;
@@ -130,11 +145,6 @@
 
 .image-gallery .gallery-item:hover img {
   opacity: 0.8; /* Slightly fade the image */
-}
-
-.image-gallery .gallery-item:hover {
-  transform: scale(1.03); /* Slightly zoom in */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Add shadow */
 }
 </style>
 
@@ -241,6 +251,33 @@ document.addEventListener('DOMContentLoaded', function() {
       "default": 20
     },
     {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shadow",
+      "label": "Enable Image Shadow",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "shadow_color",
+      "label": "Shadow Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "label": "Shadow Opacity (0-1)",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.3
+    },
+    {
       "type": "image_picker",
       "id": "image_1",
       "label": "Image 1"
@@ -284,27 +321,12 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "image_picker",
       "id": "image_9",
       "label": "Image 9"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_10",
-      "label": "Image 10"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_11",
-      "label": "Image 11"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_12",
-      "label": "Image 12"
     }
   ],
   "presets": [
     {
-      "name": "Image Gallery",
-      "category": "Image"
+      "name": "Default",
+      "category": "Custom"
     }
   ]
 }
