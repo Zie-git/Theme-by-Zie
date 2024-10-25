@@ -34,6 +34,7 @@
     },
     "featured_product_37FeLH": {
       "type": "featured_product",
+      "disabled": true,
       "settings": {
         "product": "gg-watch",
         "padding_top": 30,
