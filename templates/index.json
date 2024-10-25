@@ -202,21 +202,6 @@
         "button_text": "See All Reviews",
         "button_link": ""
       }
-    },
-    "image_gallery_wiLakm": {
-      "type": "image-gallery",
-      "settings": {
-        "image_count": 6,
-        "columns": "3",
-        "padding_top": 20,
-        "padding_bottom": 20,
-        "image_1": "shopify://shop_images/variety-of-watches-lined-up-in-rows.jpg",
-        "image_2": "shopify://shop_images/gold-pocket-watch-on-a-black-notebook.jpg",
-        "image_3": "shopify://shop_images/a-close-up-of-luxury-watch.jpg",
-        "image_4": "shopify://shop_images/arm-with-a-smart-watch-on-wrist.jpg",
-        "image_5": "shopify://shop_images/download_1_9962ac6e-4e57-448f-8ef9-64e7f6f845f8.jpg",
-        "image_6": "shopify://shop_images/pocket-watch-on-black.jpg"
-      }
     }
   },
   "order": [
@@ -228,7 +213,6 @@
     "image_prmotion_kcwd9C",
     "image_with_text_DaXj6c",
     "rick_text_RdMNLU",
-    "reviews_Q43BQ3",
-    "image_gallery_wiLakm"
+    "reviews_Q43BQ3"
   ]
 }
