@@ -174,25 +174,27 @@ document.addEventListener('DOMContentLoaded', function() {
   const sliderInner = document.querySelector('.slider-inner');
   const sliderItems = document.querySelectorAll('.slider-item');
   const totalItems = sliderItems.length;
-  
+
   function updateSlider() {
     sliderInner.style.transform = `translateX(-${currentIndex * 100}%)`;
   }
-  
+
   document.querySelector('.prev').addEventListener('click', function() {
     currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
     updateSlider();
   });
-  
+
   document.querySelector('.next').addEventListener('click', function() {
     currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
     updateSlider();
   });
-  
-  // Swipe functionality
+
+  // Variables for swipe and drag functionality
   let startX = 0;
   let endX = 0;
+  let isDragging = false;
 
+  // Touch Events (for mobile)
   sliderInner.addEventListener('touchstart', function(e) {
     startX = e.touches[0].clientX;
   });
@@ -202,16 +204,54 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   sliderInner.addEventListener('touchend', function() {
-    if (startX > endX + 50) { // Swipe left
+    handleSwipe();
+  });
+
+  // Mouse Events (for desktop)
+  sliderInner.addEventListener('mousedown', function(e) {
+    startX = e.clientX;
+    isDragging = true;
+  });
+
+  sliderInner.addEventListener('mousemove', function(e) {
+    if (isDragging) {
+      endX = e.clientX;
+    }
+  });
+
+  sliderInner.addEventListener('mouseup', function() {
+    if (isDragging) {
+      handleSwipe();
+      isDragging = false;
+    }
+  });
+
+  sliderInner.addEventListener('mouseleave', function() {
+    if (isDragging) {
+      handleSwipe();
+      isDragging = false;
+    }
+  });
+
+  // Swipe handler to check swipe direction
+  function handleSwipe() {
+    const swipeThreshold = 50; // Minimum swipe distance
+
+    if (startX > endX + swipeThreshold) { // Swipe left
       currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
       updateSlider();
-    } else if (startX < endX - 50) { // Swipe right
+    } else if (startX < endX - swipeThreshold) { // Swipe right
       currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
       updateSlider();
     }
-  });
+
+    // Reset swipe values
+    startX = 0;
+    endX = 0;
+  }
 });
 </script>
+
 
 {% schema %}
 {
