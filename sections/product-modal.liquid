@@ -1,5 +1,5 @@
 <!-- Buy Now Button to Open Modal -->
-<button class="btn" id="buyNowBtn">Buy Now2</button>
+<button class="btn" id="buyNowBtn">Buy Now3</button>
 
 <!-- Product Modal -->
 {% if settings.enable_modal and settings.selected_product %}
@@ -40,6 +40,13 @@
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5); /* Overlay color */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+}
+
+.modal.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 
 .modal-content {
@@ -73,25 +80,30 @@
 <script>
 // Wait for the DOM content to be fully loaded before adding event listeners
 document.addEventListener("DOMContentLoaded", function() {
-  // Select the modal, the button, and the close button
   const modal = document.getElementById("productModal");
   const openBtn = document.getElementById("buyNowBtn");
   const closeBtn = document.getElementById("closeModalBtn");
 
+  // Function to open the modal
+  function openModal() {
+    modal.classList.add("show");
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    modal.classList.remove("show");
+  }
+
   // Open the modal when the "Buy Now" button is clicked
-  openBtn.addEventListener("click", function() {
-    modal.style.display = "block";
-  });
+  openBtn.addEventListener("click", openModal);
 
   // Close the modal when the "X" button is clicked
-  closeBtn.addEventListener("click", function() {
-    modal.style.display = "none";
-  });
+  closeBtn.addEventListener("click", closeModal);
 
-  // Close the modal if the user clicks anywhere outside the modal content
+  // Close the modal if the user clicks outside the modal content
   window.addEventListener("click", function(event) {
     if (event.target === modal) {
-      modal.style.display = "none";
+      closeModal();
     }
   });
 });
