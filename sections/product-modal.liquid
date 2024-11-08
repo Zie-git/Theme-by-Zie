@@ -1,5 +1,5 @@
 <!-- Buy Now Button to Open Modal -->
-<button class="btn" onclick="openModal()">Buy Now</button>
+<button class="btn" onclick="openModal()">Buy Now1</button>
 
 <!-- Product Modal -->
 {% if settings.enable_modal and settings.selected_product %}
@@ -67,16 +67,19 @@
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  // Open Modal Function
-  window.openModal = function() {
-    document.getElementById("productModal").style.display = "block";
-  };
+// Open Modal Function
+function openModal() {
+  document.getElementById("productModal").style.display = "block";
+}
 
-  // Close Modal Function
-  window.closeModal = function() {
-    document.getElementById("productModal").style.display = "none";
-  };
+// Close Modal Function
+function closeModal() {
+  document.getElementById("productModal").style.display = "none";
+}
+
+// Ensure functions are available when DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+  // Modal functions should now be properly available
 });
 </script>
 
