@@ -1,6 +1,9 @@
 <!-- Buy Now Button to Open Modal -->
 {% if settings.enable_modal and settings.selected_product %}
-<button class="btn" onclick="openModal()">Buy Now</button>
+  <p>Debug: Modal is enabled and a product is selected.</p>
+  <button class="btn" onclick="openModal()">Buy Now</button>
+{% else %}
+  <p>Debug: Modal is disabled or no product selected.</p>
 {% endif %}
 
 <!-- Product Modal -->
