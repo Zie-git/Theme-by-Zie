@@ -51,9 +51,9 @@
       "settings": {
         "num_slides": 3,
         "image_1": "shopify://shop_images/pexels-alexandr-borecky-128389-393047.jpg",
-        "title_1": "",
-        "text_1": "",
-        "button_text_1": "",
+        "title_1": "Title 1",
+        "text_1": "Hello This is test",
+        "button_text_1": "Learn more",
         "button_url_1": "",
         "image_2": "shopify://shop_images/pexels-vishven-solanki-1441477-2779018.jpg",
         "title_2": "",
