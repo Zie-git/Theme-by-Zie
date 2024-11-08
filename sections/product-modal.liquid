@@ -1,6 +1,7 @@
 <!-- Buy Now Button to Open Modal -->
-{% if settings.enable_modal and settings.selected_product %}
-  <p>Debug: Modal is enabled and product "{{ settings.selected_product }}" is selected.</p>
+{% assign enable_modal = settings.enable_modal | default: true %}
+{% if enable_modal and settings.selected_product %}
+  <p>Debug: Modal is enabled and a product is selected.</p>
   <button class="btn" onclick="openModal()">Buy Now</button>
 {% else %}
   <p>Debug: Modal is disabled or no product selected.</p>
