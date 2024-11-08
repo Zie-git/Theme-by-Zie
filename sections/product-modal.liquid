@@ -1,7 +1,5 @@
 <!-- Buy Now Button to Open Modal -->
-
-  <button class="btn" onclick="openModal()">Buy Now</button>
-
+<button class="btn" onclick="openModal()">Buy Now</button>
 
 <!-- Product Modal -->
 {% if settings.enable_modal and settings.selected_product %}
@@ -33,7 +31,7 @@
 <style>
 /* Modal styling */
 .modal {
-  display: none;
+  display: none; /* Hidden by default */
   position: fixed;
   z-index: 1;
   left: 0;
@@ -69,12 +67,17 @@
 </style>
 
 <script>
-function openModal() {
-  document.getElementById("productModal").style.display = "block";
-}
-function closeModal() {
-  document.getElementById("productModal").style.display = "none";
-}
+document.addEventListener("DOMContentLoaded", function() {
+  // Open Modal Function
+  window.openModal = function() {
+    document.getElementById("productModal").style.display = "block";
+  };
+
+  // Close Modal Function
+  window.closeModal = function() {
+    document.getElementById("productModal").style.display = "none";
+  };
+});
 </script>
 
 <!-- Schema for Theme Settings -->
@@ -120,4 +123,3 @@ function closeModal() {
   ]
 }
 {% endschema %}
-
