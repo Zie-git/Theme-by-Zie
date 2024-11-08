@@ -1,20 +1,31 @@
+<!-- Buy Now Button to Open Modal -->
+{% if settings.enable_modal and settings.selected_product %}
+<button class="btn" onclick="openModal()">Buy Now</button>
+{% endif %}
+
 <!-- Product Modal -->
-{% if settings.enable_modal %}
+{% if settings.enable_modal and settings.selected_product %}
 <div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
   <div class="modal-content" style="background-color: {{ settings.modal_background }}">
     <span class="close" onclick="closeModal()">&times;</span>
     <h2>{{ settings.modal_title }}</h2>
-    <!-- Product Image -->
-    <div class="modal-image">
-      <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
-    </div>
-    <!-- Product Details -->
-    <div class="modal-details">
-      <h3>{{ product.title }}</h3>
-      <p>{{ product.price | money }}</p>
-      <div>{{ product.description | strip_html | truncatewords: 20 }}</div>
-      <button class="btn" onclick="addToCart('{{ product.id }}')">Add to Cart</button>
-    </div>
+
+    {% assign modal_product = all_products[settings.selected_product] %}
+    {% if modal_product %}
+      <!-- Product Image -->
+      <div class="modal-image">
+        <img src="{{ modal_product.featured_image | img_url: 'medium' }}" alt="{{ modal_product.title }}">
+      </div>
+      <!-- Product Details -->
+      <div class="modal-details">
+        <h3>{{ modal_product.title }}</h3>
+        <p>{{ modal_product.price | money }}</p>
+        <div>{{ modal_product.description | strip_html | truncatewords: 20 }}</div>
+        <button class="btn" onclick="addToCart('{{ modal_product.id }}')">Add to Cart</button>
+      </div>
+    {% else %}
+      <p>Product not found.</p>
+    {% endif %}
   </div>
 </div>
 {% endif %}
@@ -84,6 +95,11 @@ function closeModal() {
       "default": "Product Details"
     },
     {
+      "type": "product",
+      "id": "selected_product",
+      "label": "Select Product for Modal"
+    },
+    {
       "type": "color",
       "id": "modal_background",
       "label": "Modal Background Color",
@@ -104,3 +120,4 @@ function closeModal() {
   ]
 }
 {% endschema %}
+
