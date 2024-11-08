@@ -1,11 +1,11 @@
 <!-- Buy Now Button to Open Modal -->
-<button class="btn" onclick="openModal()">Buy Now1</button>
+<button class="btn" id="buyNowBtn">Buy Now2</button>
 
 <!-- Product Modal -->
 {% if settings.enable_modal and settings.selected_product %}
 <div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
   <div class="modal-content" style="background-color: {{ settings.modal_background }}">
-    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="close" id="closeModalBtn">&times;</span>
     <h2>{{ settings.modal_title }}</h2>
 
     {% assign modal_product = all_products[settings.selected_product] %}
@@ -33,14 +33,15 @@
 .modal {
   display: none; /* Hidden by default */
   position: fixed;
-  z-index: 1;
+  z-index: 1000; /* Ensure the modal is on top of other content */
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* Default overlay color */
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay color */
 }
+
 .modal-content {
   background-color: #fff;
   margin: 10% auto;
@@ -49,6 +50,7 @@
   width: 80%;
   max-width: 500px;
 }
+
 .close {
   color: #aaa;
   float: right;
@@ -56,30 +58,42 @@
   font-weight: bold;
   cursor: pointer;
 }
+
 .modal-image img {
   width: 100%;
   height: auto;
   margin-bottom: 15px;
 }
+
 .modal-details h3 {
   margin-top: 0;
 }
 </style>
 
 <script>
-// Open Modal Function
-function openModal() {
-  document.getElementById("productModal").style.display = "block";
-}
-
-// Close Modal Function
-function closeModal() {
-  document.getElementById("productModal").style.display = "none";
-}
-
-// Ensure functions are available when DOM is fully loaded
+// Wait for the DOM content to be fully loaded before adding event listeners
 document.addEventListener("DOMContentLoaded", function() {
-  // Modal functions should now be properly available
+  // Select the modal, the button, and the close button
+  const modal = document.getElementById("productModal");
+  const openBtn = document.getElementById("buyNowBtn");
+  const closeBtn = document.getElementById("closeModalBtn");
+
+  // Open the modal when the "Buy Now" button is clicked
+  openBtn.addEventListener("click", function() {
+    modal.style.display = "block";
+  });
+
+  // Close the modal when the "X" button is clicked
+  closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+  });
+
+  // Close the modal if the user clicks anywhere outside the modal content
+  window.addEventListener("click", function(event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
 });
 </script>
 
