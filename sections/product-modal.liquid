@@ -1,0 +1,100 @@
+<!-- Product Modal -->
+{% if settings.enable_modal %}
+<div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
+  <div class="modal-content" style="background-color: {{ settings.modal_background }}">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>{{ settings.modal_title }}</h2>
+    <!-- Product Image -->
+    <div class="modal-image">
+      <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+    </div>
+    <!-- Product Details -->
+    <div class="modal-details">
+      <h3>{{ product.title }}</h3>
+      <p>{{ product.price | money }}</p>
+      <div>{{ product.description | strip_html | truncatewords: 20 }}</div>
+      <button class="btn" onclick="addToCart('{{ product.id }}')">Add to Cart</button>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<style>
+/* Modal styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Default overlay color */
+}
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal-image img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+.modal-details h3 {
+  margin-top: 0;
+}
+</style>
+
+<script>
+function openModal() {
+  document.getElementById("productModal").style.display = "block";
+}
+function closeModal() {
+  document.getElementById("productModal").style.display = "none";
+}
+</script>
+
+<!-- Schema for Theme Settings -->
+{% schema %}
+{
+  "name": "Product Modal",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_modal",
+      "label": "Enable Product Modal",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "modal_title",
+      "label": "Modal Title",
+      "default": "Product Details"
+    },
+    {
+      "type": "color",
+      "id": "modal_background",
+      "label": "Modal Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "modal_overlay",
+      "label": "Overlay Background Color",
+      "default": "rgba(0, 0, 0, 0.5)"
+    }
+  ]
+}
+{% endschema %}
