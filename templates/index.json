@@ -214,6 +214,15 @@
         "image_1": "shopify://shop_images/mens-suit-watch.jpg",
         "image_2": "shopify://shop_images/classic-quartz-wrist-watch.jpg"
       }
+    },
+    "product_modal_RtDLDW": {
+      "type": "product-modal",
+      "settings": {
+        "enable_modal": true,
+        "modal_title": "Product Details",
+        "modal_background": "#ffffff",
+        "modal_overlay": "rgba(0, 0, 0, 0.5)"
+      }
     }
   },
   "order": [
@@ -226,6 +235,7 @@
     "image_with_text_DaXj6c",
     "rick_text_RdMNLU",
     "reviews_Q43BQ3",
-    "image_gallery_qE4XBy"
+    "image_gallery_qE4XBy",
+    "product_modal_RtDLDW"
   ]
 }
