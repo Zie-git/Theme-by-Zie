@@ -175,17 +175,42 @@ document.addEventListener('DOMContentLoaded', function() {
   const sliderItems = document.querySelectorAll('.slider-item');
   const totalItems = sliderItems.length;
   
+  function updateSlider() {
+    sliderInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+  
   document.querySelector('.prev').addEventListener('click', function() {
     currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
-    sliderInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateSlider();
   });
   
   document.querySelector('.next').addEventListener('click', function() {
     currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
-    sliderInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateSlider();
+  });
+  
+  // Swipe functionality
+  let startX = 0;
+  let endX = 0;
+
+  sliderInner.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+  });
+
+  sliderInner.addEventListener('touchmove', function(e) {
+    endX = e.touches[0].clientX;
+  });
+
+  sliderInner.addEventListener('touchend', function() {
+    if (startX > endX + 50) { // Swipe left
+      currentIndex = (currentIndex === totalItems - 1) ? 0 : currentIndex + 1;
+      updateSlider();
+    } else if (startX < endX - 50) { // Swipe right
+      currentIndex = (currentIndex === 0) ? totalItems - 1 : currentIndex - 1;
+      updateSlider();
+    }
   });
 });
-
 </script>
 
 {% schema %}
