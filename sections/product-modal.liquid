@@ -1,6 +1,8 @@
-
-
+<!-- Buy Now Button to Open Modal -->
+{% if settings.enable_modal and settings.selected_product %}
 <button class="btn" onclick="openModal()">Buy Now</button>
+{% endif %}
+
 <!-- Product Modal -->
 {% if settings.enable_modal and settings.selected_product %}
 <div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
