@@ -122,6 +122,9 @@
               </div>
             {% endif %}
 
+            
+<div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
+              <div class="modal-content" style="background-color: {{ settings.modal_background }}">
             <!-- Color Picker as Color Boxes for Variants -->
             {% if product.variants.size > 1 %}
               <div class="color-options">
@@ -162,10 +165,12 @@
               <div class="loading-spinner" style="display: none;">Loading...</div>
             </form>
           </div>
+             </div>
         </div>
       {% endif %}
     {% endfor %}
   </div>
+      </div>
 </div>
 
 
