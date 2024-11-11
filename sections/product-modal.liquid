@@ -153,7 +153,7 @@
             {% endif %}
 
             <!-- Order Now Button -->
-            <form method="post" action="/cart/add" class="product-form-{{ block.id }} modal">
+            <form method="post" action="/cart/add" class="product-form-{{ block.id }}">
               <!-- Initially set to the selected variant's ID -->
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="variant-id-{{ block.id }}">
               <button type="submit" class="order-now" onclick="addToCartAndCheckout(event, this)">
