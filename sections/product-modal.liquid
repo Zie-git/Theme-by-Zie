@@ -2,7 +2,7 @@
 <button class="btn" id="buyNowBtn">Buy Now3</button>
 
 <!-- Product Modal -->
-{% if settings.enable_modal and settings.selected_product %}
+
 <div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
   <div class="modal-content" style="background-color: {{ settings.modal_background }}">
     <span class="close" id="closeModalBtn">&times;</span>
@@ -21,12 +21,12 @@
         <div>{{ modal_product.description | strip_html | truncatewords: 20 }}</div>
         <button class="btn" onclick="addToCart('{{ modal_product.id }}')">Add to Cart</button>
       </div>
-    {% else %}
+
       <p>Product not found.</p>
     {% endif %}
   </div>
 </div>
-{% endif %}
+
 
 <style>
 /* Modal styling */
