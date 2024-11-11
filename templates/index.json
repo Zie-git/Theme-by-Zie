@@ -217,12 +217,22 @@
     },
     "product_modal_RtDLDW": {
       "type": "product-modal",
+      "blocks": {
+        "product1_QHVB9N": {
+          "type": "product1",
+          "settings": {
+            "product": "gg-watch-version-2",
+            "button_text": "Buy 1"
+          }
+        }
+      },
+      "block_order": [
+        "product1_QHVB9N"
+      ],
       "settings": {
-        "enable_modal": true,
-        "modal_title": "Product Details",
-        "selected_product": "gg-watch-version-2",
-        "modal_background": "#ffffff",
-        "modal_overlay": "#000000"
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "width": 100
       }
     }
   },
