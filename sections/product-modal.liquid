@@ -78,35 +78,28 @@
 </style>
 
 <script>
-// Wait for the DOM content to be fully loaded before adding event listeners
 document.addEventListener("DOMContentLoaded", function() {
   const modal = document.getElementById("productModal");
   const openBtn = document.getElementById("buyNowBtn");
   const closeBtn = document.getElementById("closeModalBtn");
 
-  // Function to open the modal
-  function openModal() {
-    modal.classList.add("show");
+  if (modal && openBtn && closeBtn) {
+    openBtn.addEventListener("click", function() {
+      modal.classList.add("show");
+    });
+
+    closeBtn.addEventListener("click", function() {
+      modal.classList.remove("show");
+    });
+
+    window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.classList.remove("show");
+      }
+    });
   }
-
-  // Function to close the modal
-  function closeModal() {
-    modal.classList.remove("show");
-  }
-
-  // Open the modal when the "Buy Now" button is clicked
-  openBtn.addEventListener("click", openModal);
-
-  // Close the modal when the "X" button is clicked
-  closeBtn.addEventListener("click", closeModal);
-
-  // Close the modal if the user clicks outside the modal content
-  window.addEventListener("click", function(event) {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
 });
+
 </script>
 
 <!-- Schema for Theme Settings -->
