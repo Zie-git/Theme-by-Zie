@@ -184,7 +184,7 @@
 
 
 <script>
-  // Update hidden variant input based on selected color box
+  // Update hidden variant input and modal image based on selected color box
   document.querySelectorAll('.color-box').forEach(box => {
     box.addEventListener('click', function() {
       const variantId = this.getAttribute('data-variant-id');
@@ -192,13 +192,19 @@
       const hiddenInput = document.querySelector('.variant-id-' + blockId);
       const newImageUrl = this.getAttribute('data-image');
       const productImage = document.querySelector('#product-image-' + blockId);
+      const modalImage = document.querySelector('#modal-product-image');
 
       // Update hidden variant input value
       hiddenInput.value = variantId;
-      
+
       // Change product image based on variant
       if (productImage && newImageUrl) {
         productImage.src = newImageUrl;
+      }
+
+      // Change modal image based on variant
+      if (modalImage && newImageUrl) {
+        modalImage.src = newImageUrl;
       }
 
       // Update selected color box style
@@ -217,6 +223,7 @@
       }
     });
   });
+
 
   // Function to calculate savings percentage and display it
   function calculateSavings() {
@@ -282,27 +289,33 @@
 
 
 
+
   document.addEventListener("DOMContentLoaded", function() {
-  const modal = document.getElementById("productModal");
-  const openBtn = document.getElementById("buyNowBtn");
-  const closeBtn = document.getElementById("closeModalBtn");
+    const modal = document.getElementById("productModal");
+    const openBtn = document.getElementById("buyNowBtn");
+    const closeBtn = document.getElementById("closeModalBtn");
+    const modalImage = document.getElementById("modal-product-image");
 
-  if (modal && openBtn && closeBtn) {
-    openBtn.addEventListener("click", function() {
-      modal.classList.add("show");
-    });
+    if (modal && openBtn && closeBtn) {
+      openBtn.addEventListener("click", function() {
+        const firstVariantImage = document.querySelector('.color-box.selected')?.getAttribute('data-image');
+        if (firstVariantImage && modalImage) {
+          modalImage.src = firstVariantImage; // Set modal image to selected variant
+        }
+        modal.classList.add("show");
+      });
 
-    closeBtn.addEventListener("click", function() {
-      modal.classList.remove("show");
-    });
-
-    window.addEventListener("click", function(event) {
-      if (event.target === modal) {
+      closeBtn.addEventListener("click", function() {
         modal.classList.remove("show");
-      }
-    });
-  }
-});
+      });
+
+      window.addEventListener("click", function(event) {
+        if (event.target === modal) {
+          modal.classList.remove("show");
+        }
+      });
+    }
+  });
 </script>
 
 
