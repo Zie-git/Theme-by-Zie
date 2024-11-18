@@ -381,19 +381,22 @@ document.addEventListener("DOMContentLoaded", function() {
   .featured-products {
     margin: auto;
   }
-  .products-grid {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    align-items: center;
-  }
-  .product-card {
-    border: 1px solid #f57f29;
-    padding: 10px;
-    width: 100%;
-    text-align: center;
-    position: relative;
-  }
+  
+.products-grid {
+  display: flex;
+  justify-content: space-between; /* Distribute products evenly with space between */
+  align-items: stretch; /* Ensure all product cards are the same height */
+  gap: 20px; /* Space between product cards */
+}
+  
+.product-card {
+  flex: 1 1 30%; /* This will allow the product cards to take up 30% of the row space, adjust as necessary */
+  text-align: center;
+  position: relative;
+  border: 1px solid #f57f29;
+  padding: 10px;
+}
+  
   .product-image {
     position: relative;
   }
