@@ -278,48 +278,21 @@
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function() {
   const modal = document.getElementById("productModal");
-  const modalImage = document.getElementById("modal-product-image");
-  const modalVariantInput = document.getElementById("modal-variant-id");
-  const colorBoxes = document.querySelectorAll(".color-box");
-
-  colorBoxes.forEach((box) => {
-    box.addEventListener("click", function () {
-      const variantId = this.getAttribute("data-variant-id");
-      const newImageUrl = this.getAttribute("data-image");
-
-      // Update the hidden input inside the modal
-      modalVariantInput.value = variantId;
-
-      // Update the modal product image
-      if (modalImage && newImageUrl) {
-        modalImage.src = newImageUrl;
-      }
-
-      // Update selected color box style
-      document.querySelectorAll(".color-box").forEach((box) => {
-        box.classList.remove("selected");
-      });
-      this.classList.add("selected");
-    });
-  });
-
   const openBtn = document.getElementById("buyNowBtn");
   const closeBtn = document.getElementById("closeModalBtn");
 
   if (modal && openBtn && closeBtn) {
-    openBtn.addEventListener("click", function () {
-      const initialImageUrl = document.querySelector(".color-box.selected").getAttribute("data-image");
-      modalImage.src = initialImageUrl; // Set initial modal image
+    openBtn.addEventListener("click", function() {
       modal.classList.add("show");
     });
 
-    closeBtn.addEventListener("click", function () {
+    closeBtn.addEventListener("click", function() {
       modal.classList.remove("show");
     });
 
-    window.addEventListener("click", function (event) {
+    window.addEventListener("click", function(event) {
       if (event.target === modal) {
         modal.classList.remove("show");
       }
