@@ -121,51 +121,48 @@
                 <span class="selling-price">{{ product.price | money }}</span>
               </div>
             {% endif %}
-
-            
-<div id="productModal-{{ block.id }}" class="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModalBtn-{{ block.id }}">&times;</span>
-    <div class="modal-product-image">
-      <img id="modal-product-image-{{ block.id }}" src="" alt="Product Image">
-    </div>
-    {% if product.variants.size > 1 %}
-      <div class="color-options">
-        <label>Choose Color:</label>
-        <div class="variant-boxes">
-          {% for variant in product.variants %}
-            {% if variant.available %}
-              <div 
-                class="color-box" 
-                style="background-color: {{ variant.option1 | downcase }};" 
-                data-variant-id="{{ variant.id }}" 
-                data-block-id="{{ block.id }}" 
-                data-image="{{ variant.image | img_url: '2048x2048' }}"
-              ></div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    {% endif %}
-            <!-- Order Now Button -->
-            <form method="post" action="/cart/add" class="product-form-{{ block.id }}">
-              <!-- Initially set to the selected variant's ID -->
-              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="variant-id-{{ block.id }}">
-              <button type="submit" class="order-now" onclick="addToCartAndCheckout(event, this)">
-                {{ block.settings.button_text }}
-              </button>
-              <div class="loading-spinner" style="display: none;">Loading...</div>
-            </form>
-  </div>
-</div>
-
-<button class="btn" id="buyNowBtn-{{ block.id }}">Buy Now</button>
-            
+            <div id="productModal-{{ block.id }}" class="modal">
+              <div class="modal-content">
+                <span class="close" id="closeModalBtn-{{ block.id }}">&times;</span>
+                <div class="modal-product-image">
+                  <img id="modal-product-image-{{ block.id }}" src="" alt="Product Image">
+                </div>
+                {% if product.variants.size > 1 %}
+                  <div class="color-options">
+                    <label>Choose Color:</label>
+                    <div class="variant-boxes">
+                      {% for variant in product.variants %}
+                        {% if variant.available %}
+                          <div 
+                            class="color-box" 
+                            style="background-color: {{ variant.option1 | downcase }};" 
+                            data-variant-id="{{ variant.id }}" 
+                            data-block-id="{{ block.id }}" 
+                            data-image="{{ variant.image | img_url: '2048x2048' }}"
+                          ></div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+                <!-- Order Now Button -->
+                <form method="post" action="/cart/add" class="product-form-{{ block.id }}">
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="variant-id-{{ block.id }}">
+                  <button type="submit" class="order-now" onclick="addToCartAndCheckout(event, this)">
+                    {{ block.settings.button_text }}
+                  </button>
+                  <div class="loading-spinner" style="display: none;">Loading...</div>
+                </form>
+              </div>
+            </div>
+            <button class="btn" id="buyNowBtn-{{ block.id }}">Buy Now</button>
+          </div>
         </div>
       {% endif %}
     {% endfor %}
   </div>
-      </div>
+</div>
+
 
 
 
