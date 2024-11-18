@@ -224,10 +224,26 @@
             "product": "gg-watch-version-2",
             "button_text": "Buy 1"
           }
+        },
+        "product2_QJMPtc": {
+          "type": "product2",
+          "settings": {
+            "product": "gg-watch",
+            "button_text": "Buy 3"
+          }
+        },
+        "product3_YdgNpN": {
+          "type": "product3",
+          "settings": {
+            "product": "classic-fit-cotton-t-shirt",
+            "button_text": "Buy 5"
+          }
         }
       },
       "block_order": [
-        "product1_QHVB9N"
+        "product1_QHVB9N",
+        "product2_QJMPtc",
+        "product3_YdgNpN"
       ],
       "settings": {
         "padding_top": 20,
