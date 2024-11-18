@@ -126,7 +126,8 @@
 <div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
               <div class="modal-content" style="background-color: {{ settings.modal_background }}">
                     <span class="close" id="closeModalBtn">&times;</span>
-                
+
+                <img id="product-image-{{ block.id }}" src="{{ product.featured_image | img_url: '2048x2048' }}" alt="{{ product.title }}">
             <!-- Color Picker as Color Boxes for Variants -->
             {% if product.variants.size > 1 %}
               <div class="color-options">
