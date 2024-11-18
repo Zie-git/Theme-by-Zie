@@ -279,6 +279,30 @@
         loadingSpinner.style.display = 'none';
       });
   }
+
+
+
+  document.addEventListener("DOMContentLoaded", function() {
+  const modal = document.getElementById("productModal");
+  const openBtn = document.getElementById("buyNowBtn");
+  const closeBtn = document.getElementById("closeModalBtn");
+
+  if (modal && openBtn && closeBtn) {
+    openBtn.addEventListener("click", function() {
+      modal.classList.add("show");
+    });
+
+    closeBtn.addEventListener("click", function() {
+      modal.classList.remove("show");
+    });
+
+    window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.classList.remove("show");
+      }
+    });
+  }
+});
 </script>
 
 
@@ -422,31 +446,8 @@
     border: 2px solid #000;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   }
-</style>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Product Modal -->
-
-
-
-<style>
-/* Modal styling */
+  /* Modal styling */
 .modal {
   display: none; /* Hidden by default */
   position: fixed;
@@ -466,29 +467,4 @@
   visibility: visible;
 }
 </style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const modal = document.getElementById("productModal");
-  const openBtn = document.getElementById("buyNowBtn");
-  const closeBtn = document.getElementById("closeModalBtn");
-
-  if (modal && openBtn && closeBtn) {
-    openBtn.addEventListener("click", function() {
-      modal.classList.add("show");
-    });
-
-    closeBtn.addEventListener("click", function() {
-      modal.classList.remove("show");
-    });
-
-    window.addEventListener("click", function(event) {
-      if (event.target === modal) {
-        modal.classList.remove("show");
-      }
-    });
-  }
-});
-
-</script>
 
