@@ -123,12 +123,13 @@
             {% endif %}
 
             
-<div id="productModal-{{ block.id }}" class="modal" style="background-color: {{ settings.modal_overlay }}">
+<div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
   <div class="modal-content" style="background-color: {{ settings.modal_background }}">
-    <span class="close" id="closeModalBtn-{{ block.id }}">&times;</span>
-    
+    <span class="close" id="closeModalBtn">&times;</span>
+
+    <!-- Modal Product Image -->
     <div class="modal-product-image">
-      <img id="modal-product-image-{{ block.id }}" src="" alt="Product Image">
+      <img id="modal-product-image" src="" alt="Product Image">
     </div>
 
     <!-- Color Picker as Color Boxes for Variants -->
@@ -289,47 +290,32 @@
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Handle all "Buy Now" buttons
-  const buyNowButtons = document.querySelectorAll(".buyNowBtn");
+  document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById("productModal");
+    const openBtn = document.getElementById("buyNowBtn");
+    const closeBtn = document.getElementById("closeModalBtn");
+    const modalImage = document.getElementById("modal-product-image");
 
-  buyNowButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const modalId = this.getAttribute("data-modal");
-      const modal = document.getElementById(modalId);
-
-      if (modal) {
-        // Show the modal
-        modal.classList.add("show");
-
-        // Set the modal image to the selected variant image
-        const firstVariantImage = modal.querySelector(".color-box.selected")?.getAttribute("data-image");
-        const modalImage = modal.querySelector(`#modal-product-image-${modalId.split("-")[1]}`);
+    if (modal && openBtn && closeBtn) {
+      openBtn.addEventListener("click", function() {
+        const firstVariantImage = document.querySelector('.color-box.selected')?.getAttribute('data-image');
         if (firstVariantImage && modalImage) {
-          modalImage.src = firstVariantImage;
+          modalImage.src = firstVariantImage; // Set modal image to selected variant
         }
-      }
-    });
-  });
+        modal.classList.add("show");
+      });
 
-  // Handle all modal close buttons
-  document.querySelectorAll(".close").forEach((closeButton) => {
-    closeButton.addEventListener("click", function () {
-      const modal = this.closest(".modal");
-      if (modal) {
+      closeBtn.addEventListener("click", function() {
         modal.classList.remove("show");
-      }
-    });
-  });
+      });
 
-  // Close modal when clicking outside the modal content
-  window.addEventListener("click", function (event) {
-    if (event.target.classList.contains("modal")) {
-      event.target.classList.remove("show");
+      window.addEventListener("click", function(event) {
+        if (event.target === modal) {
+          modal.classList.remove("show");
+        }
+      });
     }
   });
-});
-
 </script>
 
 
