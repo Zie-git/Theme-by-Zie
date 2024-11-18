@@ -123,57 +123,38 @@
             {% endif %}
 
             
-<div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
-  <div class="modal-content" style="background-color: {{ settings.modal_background }}">
-    <span class="close" id="closeModalBtn">&times;</span>
-
-    <!-- Modal Product Image -->
+<div id="productModal-{{ block.id }}" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModalBtn-{{ block.id }}">&times;</span>
     <div class="modal-product-image">
-      <img id="modal-product-image" src="" alt="Product Image">
+      <img id="modal-product-image-{{ block.id }}" src="" alt="Product Image">
     </div>
-
-    <!-- Color Picker as Color Boxes for Variants -->
     {% if product.variants.size > 1 %}
       <div class="color-options">
         <label>Choose Color:</label>
         <div class="variant-boxes">
           {% for variant in product.variants %}
             {% if variant.available %}
-              <!-- Color box as clickable option -->
               <div 
                 class="color-box" 
                 style="background-color: {{ variant.option1 | downcase }};" 
                 data-variant-id="{{ variant.id }}" 
                 data-block-id="{{ block.id }}" 
                 data-image="{{ variant.image | img_url: '2048x2048' }}"
-              >
-                <input 
-                  type="radio" 
-                  name="variant-{{ block.id }}" 
-                  value="{{ variant.id }}" 
-                  {% if variant.id == product.selected_or_first_available_variant.id %}checked{% endif %}
-                  class="variant-option" 
-                  style="display:none;" 
-                />
-              </div>
+              ></div>
             {% endif %}
           {% endfor %}
         </div>
       </div>
     {% endif %}
-
-    <!-- Order Now Button -->
-    <form method="post" action="/cart/add" class="product-form-{{ block.id }}">
+    <form method="post" action="/cart/add">
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="variant-id-{{ block.id }}">
-      <button type="submit" class="order-now" onclick="addToCartAndCheckout(event, this)">
-        {{ block.settings.button_text }}
-      </button>
-      <div class="loading-spinner" style="display: none;">Loading...</div>
+      <button type="submit" class="order-now">{{ block.settings.button_text }}</button>
     </form>
   </div>
 </div>
 
-<button class="btn" id="buyNowBtn">Buy Now</button>
+<button class="btn" id="buyNowBtn-{{ block.id }}">Buy Now</button>
             
         </div>
       {% endif %}
@@ -316,6 +297,40 @@
       });
     }
   });
+
+  document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('.btn').forEach((button) => {
+    button.addEventListener("click", function() {
+      const blockId = this.id.split('-')[1]; // Extract block ID
+      const modal = document.getElementById(`productModal-${blockId}`);
+      const modalImage = document.getElementById(`modal-product-image-${blockId}`);
+      const firstVariantImage = document.querySelector(`.color-box[data-block-id="${blockId}"]`)?.getAttribute('data-image');
+      
+      if (modal && modalImage) {
+        if (firstVariantImage) {
+          modalImage.src = firstVariantImage;
+        }
+        modal.classList.add("show");
+      }
+    });
+  });
+
+  document.querySelectorAll('.close').forEach((closeBtn) => {
+    closeBtn.addEventListener("click", function() {
+      const blockId = this.id.split('-')[1];
+      const modal = document.getElementById(`productModal-${blockId}`);
+      if (modal) {
+        modal.classList.remove("show");
+      }
+    });
+  });
+
+  window.addEventListener("click", function(event) {
+    if (event.target.classList.contains('modal')) {
+      event.target.classList.remove("show");
+    }
+  });
+});
 </script>
 
 
