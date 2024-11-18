@@ -298,24 +298,43 @@
     }
   });
 
-  document.addEventListener("DOMContentLoaded", function() {
-  document.querySelectorAll('.btn').forEach((button) => {
+document.addEventListener("DOMContentLoaded", function() {
+  // Variant click handler to update images
+  document.querySelectorAll('.color-box').forEach(box => {
+    box.addEventListener('click', function() {
+      const blockId = this.getAttribute('data-block-id');
+      const newImageUrl = this.getAttribute('data-image');
+      const modalImage = document.getElementById(`modal-product-image-${blockId}`);
+
+      // Update selected state for variants
+      document.querySelectorAll(`.color-box[data-block-id="${blockId}"]`).forEach(box => {
+        box.classList.remove('selected');
+      });
+      this.classList.add('selected');
+
+      // Update modal image if applicable
+      if (modalImage && newImageUrl) {
+        modalImage.src = newImageUrl;
+      }
+    });
+  });
+
+  // Modal open/close logic
+  document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener("click", function() {
       const blockId = this.id.split('-')[1]; // Extract block ID
       const modal = document.getElementById(`productModal-${blockId}`);
       const modalImage = document.getElementById(`modal-product-image-${blockId}`);
-      const firstVariantImage = document.querySelector(`.color-box[data-block-id="${blockId}"]`)?.getAttribute('data-image');
-      
+      const firstVariantImage = document.querySelector(`.color-box[data-block-id="${blockId}"].selected`)?.getAttribute('data-image');
+
       if (modal && modalImage) {
-        if (firstVariantImage) {
-          modalImage.src = firstVariantImage;
-        }
+        modalImage.src = firstVariantImage || modalImage.src; // Fallback to existing src
         modal.classList.add("show");
       }
     });
   });
 
-  document.querySelectorAll('.close').forEach((closeBtn) => {
+  document.querySelectorAll('.close').forEach(closeBtn => {
     closeBtn.addEventListener("click", function() {
       const blockId = this.id.split('-')[1];
       const modal = document.getElementById(`productModal-${blockId}`);
