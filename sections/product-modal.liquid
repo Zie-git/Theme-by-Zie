@@ -147,10 +147,15 @@
         </div>
       </div>
     {% endif %}
-    <form method="post" action="/cart/add">
-      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="variant-id-{{ block.id }}">
-      <button type="submit" class="order-now">{{ block.settings.button_text }}</button>
-    </form>
+            <!-- Order Now Button -->
+            <form method="post" action="/cart/add" class="product-form-{{ block.id }}">
+              <!-- Initially set to the selected variant's ID -->
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="variant-id-{{ block.id }}">
+              <button type="submit" class="order-now" onclick="addToCartAndCheckout(event, this)">
+                {{ block.settings.button_text }}
+              </button>
+              <div class="loading-spinner" style="display: none;">Loading...</div>
+            </form>
   </div>
 </div>
 
