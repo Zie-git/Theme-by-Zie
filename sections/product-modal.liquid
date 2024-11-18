@@ -127,6 +127,16 @@
               <div class="modal-content" style="background-color: {{ settings.modal_background }}">
                     <span class="close" id="closeModalBtn">&times;</span>
 
+
+                          <div class="product-image">
+            {% if block.type == 'product2' %}
+              <div class="label most-popular">Most Popular</div>
+            {% elsif block.type == 'product3' %}
+              <div class="label best-deal">Best Deal</div>
+            {% endif %}
+            <!-- The featured image for the product -->
+            <img id="product-image-{{ block.id }}" src="{{ product.featured_image | img_url: '2048x2048' }}" alt="{{ product.title }}">
+          </div>
                 
             <!-- Color Picker as Color Boxes for Variants -->
             {% if product.variants.size > 1 %}
