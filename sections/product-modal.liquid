@@ -433,6 +433,33 @@
 <!-- Buy Now Button to Open Modal -->
 <button class="btn" id="buyNowBtn">Buy Now3</button>
 
+<!-- Product Modal -->
+
+<div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
+  <div class="modal-content" style="background-color: {{ settings.modal_background }}">
+    <span class="close" id="closeModalBtn">&times;</span>
+    <h2>{{ settings.modal_title }}</h2>
+
+    {% assign modal_product = all_products[settings.selected_product] %}
+    {% if modal_product %}
+      <!-- Product Image -->
+      <div class="modal-image">
+        <img src="{{ modal_product.featured_image | img_url: 'medium' }}" alt="{{ modal_product.title }}">
+      </div>
+      <!-- Product Details -->
+      <div class="modal-details">
+        <h3>{{ modal_product.title }}</h3>
+        <p>{{ modal_product.price | money }}</p>
+        <div>{{ modal_product.description | strip_html | truncatewords: 20 }}</div>
+        <button class="btn" onclick="addToCart('{{ modal_product.id }}')">Add to Cart</button>
+      </div>
+
+      <p>Product not found.</p>
+    {% endif %}
+  </div>
+</div>
+
+
 <style>
 /* Modal styling */
 .modal {
