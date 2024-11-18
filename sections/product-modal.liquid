@@ -28,24 +28,6 @@
       "max": 100,
       "step": 5,
       "default": 100
-    },
-    {
-      "type": "color",
-      "id": "modal_overlay",
-      "label": "Modal Overlay Color",
-      "default": "rgba(0, 0, 0, 0.5)"
-    },
-    {
-      "type": "color",
-      "id": "modal_background",
-      "label": "Modal Background Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "text",
-      "id": "modal_title",
-      "label": "Modal Title",
-      "default": "Select Product Options"
     }
   ],
   "blocks": [
@@ -62,7 +44,41 @@
           "type": "text",
           "id": "button_text",
           "label": "Button Text",
-          "default": "Buy Now"
+          "default": "Buy 1"
+        }
+      ]
+    },
+    {
+      "type": "product2",
+      "name": "Product 2",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product 2"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Buy 3"
+        }
+      ]
+    },
+    {
+      "type": "product3",
+      "name": "Product 3",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product 3"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Buy 5"
         }
       ]
     }
@@ -77,151 +93,417 @@
 {% endschema %}
 
 <div class="featured-products" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; width: {{ section.settings.width }}%;">
-  <h2>Choose Your Product</h2>
+  <h2>Choose Your Kelvin 36 Package</h2>
   <div class="products-grid">
     {% for block in section.blocks %}
       {% assign product = all_products[block.settings.product] %}
       {% if product %}
         <div class="product-card">
           <div class="product-image">
+            {% if block.type == 'product2' %}
+              <div class="label most-popular">Most Popular</div>
+            {% elsif block.type == 'product3' %}
+              <div class="label best-deal">Best Deal</div>
+            {% endif %}
+            <!-- The featured image for the product -->
             <img id="product-image-{{ block.id }}" src="{{ product.featured_image | img_url: '2048x2048' }}" alt="{{ product.title }}">
           </div>
           <div class="product-info">
-            <h3>{{ product.title }}</h3>
-            <p>{{ product.price | money }}</p>
-            <button class="btn" data-product-id="{{ block.id }}" data-product-handle="{{ product.handle }}">{{ block.settings.button_text }}</button>
+            <h3 class="product-title">{{ product.title }}</h3>
+            {% if product.compare_at_price > product.price %}
+              <div class="price">
+                <span class="selling-price">{{ product.price | money }}</span>
+                <span class="compared-price">{{ product.compare_at_price | money }}</span>
+              </div>
+              <div class="savings" id="savings-{{ block.id }}"></div>
+            {% else %}
+              <div class="price">
+                <span class="selling-price">{{ product.price | money }}</span>
+              </div>
+            {% endif %}
+
+            
+<div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
+              <div class="modal-content" style="background-color: {{ settings.modal_background }}">
+            <!-- Color Picker as Color Boxes for Variants -->
+            {% if product.variants.size > 1 %}
+              <div class="color-options">
+                <label>Choose Color:</label>
+                <div class="variant-boxes">
+                  {% for variant in product.variants %}
+                    {% if variant.available %}
+                      <!-- Color box as clickable option -->
+                      <div 
+                        class="color-box" 
+                        style="background-color: {{ variant.option1 | downcase }};" 
+                        data-variant-id="{{ variant.id }}" 
+                        data-block-id="{{ block.id }}" 
+                        data-image="{{ variant.image | img_url: '2048x2048' }}"
+                      >
+                        <input 
+                          type="radio" 
+                          name="variant-{{ block.id }}" 
+                          value="{{ variant.id }}" 
+                          {% if variant.id == product.selected_or_first_available_variant.id %}checked{% endif %}
+                          class="variant-option" 
+                          style="display:none;" 
+                        />
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+
+            <!-- Order Now Button -->
+            <form method="post" action="/cart/add" class="product-form-{{ block.id }}">
+              <!-- Initially set to the selected variant's ID -->
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="variant-id-{{ block.id }}">
+              <button type="submit" class="order-now" onclick="addToCartAndCheckout(event, this)">
+                {{ block.settings.button_text }}
+              </button>
+              <div class="loading-spinner" style="display: none;">Loading...</div>
+            </form>
           </div>
+             </div>
         </div>
       {% endif %}
     {% endfor %}
   </div>
+      </div>
 </div>
 
-<!-- Modal -->
-<div id="productModal" class="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModal">&times;</span>
+
+<script>
+  // Update hidden variant input based on selected color box
+  document.querySelectorAll('.color-box').forEach(box => {
+    box.addEventListener('click', function() {
+      const variantId = this.getAttribute('data-variant-id');
+      const blockId = this.getAttribute('data-block-id');
+      const hiddenInput = document.querySelector('.variant-id-' + blockId);
+      const newImageUrl = this.getAttribute('data-image');
+      const productImage = document.querySelector('#product-image-' + blockId);
+
+      // Update hidden variant input value
+      hiddenInput.value = variantId;
+      
+      // Change product image based on variant
+      if (productImage && newImageUrl) {
+        productImage.src = newImageUrl;
+      }
+
+      // Update selected color box style
+      document.querySelectorAll('.color-box').forEach(box => {
+        box.classList.remove('selected');  // Remove the selection class from all boxes
+      });
+      this.classList.add('selected');  // Add the selection class to the clicked box
+
+      // Simulate the radio button being checked
+      document.querySelectorAll('.variant-option').forEach(radio => {
+        radio.checked = false;
+      });
+      const selectedRadio = this.querySelector('.variant-option');
+      if (selectedRadio) {
+        selectedRadio.checked = true;
+      }
+    });
+  });
+
+  // Function to calculate savings percentage and display it
+  function calculateSavings() {
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach((card) => {
+      const comparedPriceElem = card.querySelector('.compared-price');
+      const sellingPriceElem = card.querySelector('.selling-price');
+      const savingsElem = card.querySelector('.savings');
+
+      if (comparedPriceElem && sellingPriceElem && savingsElem) {
+        const comparedPrice = parseFloat(comparedPriceElem.innerText.replace(/[$,]/g, ''));
+        const sellingPrice = parseFloat(sellingPriceElem.innerText.replace(/[$,]/g, ''));
+
+        if (comparedPrice > sellingPrice) {
+          const savingsPercentage = ((comparedPrice - sellingPrice) / comparedPrice) * 100;
+          savingsElem.innerText = `Save ${Math.round(savingsPercentage)}%`;
+        } else {
+          savingsElem.innerText = 'No savings';
+        }
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', calculateSavings);
+
+  // Function to clear the cart before adding the new product
+  function clearCart() {
+    return fetch('/cart/clear.js', {
+      method: 'POST'
+    }).then(response => response.json());
+  }
+
+  // Function to add product to cart and proceed to checkout
+  function addToCartAndCheckout(event, button) {
+    event.preventDefault();
+    var form = event.target.closest('form');
+    var loadingSpinner = form.querySelector('.loading-spinner');
+
+    button.disabled = true;
+    button.innerText = 'Processing...';
+    loadingSpinner.style.display = 'block';
+
+    // First, clear the cart
+    clearCart()
+      .then(() => {
+        // Add the product to the cart
+        return fetch('/cart/add.js', {
+          method: 'POST',
+          body: new FormData(form),
+        });
+      })
+      .then(response => response.json())
+      .then(data => {
+        window.location.href = '/checkout';  // Redirect to checkout
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error);
+        button.disabled = false;
+        button.innerText = 'Order Now';
+        loadingSpinner.style.display = 'none';
+      });
+  }
+</script>
+
+
+<style>
+  .color-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .variant-boxes {
+    display: flex;
+    gap: 5px;
+  }
+
+  .variant-option {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .variant-option:checked {
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .featured-products {
+    margin: auto;
+  }
+  .products-grid {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+  }
+  .product-card {
+    border: 1px solid #f57f29;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+  }
+  .product-image {
+    position: relative;
+  }
+  .label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 10;
+    width: 50%;
+  }
+  .most-popular {
+    background-color: #ff9800;
+  }
+  .best-deal {
+    background-color: #4caf50;
+  }
+  .product-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  .price {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+  }
+  .compared-price {
+    text-decoration: line-through;
+    margin-right: 10px;
+    color: red;
+    font-size: 15px;
+    padding-left: 10px;
+  }
+  .order-now {
+    background-color: #f57f29;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 5px;
+  }
+  .order-now:hover {
+    background-color: #f57f29;
+    box-shadow: 0 0 15px rgba(245, 127, 41, 0.7), 0 0 30px rgba(245, 127, 41, 0.5);
+  }
+  .loading-spinner {
+    margin-top: 10px;
+    color: #f57f29;
+    font-size: 14px;
+  }
+  @media (max-width: 1000px) {
+    .products-grid {
+      flex-direction: column;
+    }
+  }
+
+
+   .color-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .variant-boxes {
+    display: flex;
+    gap: 10px;
+  }
+
+  .color-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .color-box:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .color-box.selected {
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+
+  .variant-option:checked + .color-box {
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Buy Now Button to Open Modal -->
+<button class="btn" id="buyNowBtn">Buy Now3</button>
+
+<!-- Product Modal -->
+
+<div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
+  <div class="modal-content" style="background-color: {{ settings.modal_background }}">
+    <span class="close" id="closeModalBtn">&times;</span>
     <h2>{{ settings.modal_title }}</h2>
-    <div id="modalContent"></div>
-    <button id="checkoutButton" class="order-now">Checkout</button>
+
+    {% assign modal_product = all_products[settings.selected_product] %}
+    {% if modal_product %}
+      <!-- Product Image -->
+      <div class="modal-image">
+        <img src="{{ modal_product.featured_image | img_url: 'medium' }}" alt="{{ modal_product.title }}">
+      </div>
+      <!-- Product Details -->
+      <div class="modal-details">
+        <h3>{{ modal_product.title }}</h3>
+        <p>{{ modal_product.price | money }}</p>
+        <div>{{ modal_product.description | strip_html | truncatewords: 20 }}</div>
+        <button class="btn" onclick="addToCart('{{ modal_product.id }}')">Add to Cart</button>
+      </div>
+
+      <p>Product not found.</p>
+    {% endif %}
   </div>
 </div>
 
+
 <style>
-/* Add your styles here for modal and color picker */
+/* Modal styling */
 .modal {
-  display: none;
+  display: none; /* Hidden by default */
   position: fixed;
-  top: 0;
+  z-index: 1000; /* Ensure the modal is on top of other content */
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background-color: {{ settings.modal_overlay }};
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay color */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
 }
 
-.modal-content {
-  background-color: {{ settings.modal_background }};
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 90%;
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-}
-
-.color-options {
-  display: flex;
-  gap: 10px;
-}
-
-.color-box {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ddd;
-  cursor: pointer;
-  transition: border 0.3s ease;
-}
-
-.color-box.selected {
-  border: 2px solid #000;
+.modal.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function() {
   const modal = document.getElementById("productModal");
-  const closeModal = document.getElementById("closeModal");
-  const modalContent = document.getElementById("modalContent");
-  const checkoutButton = document.getElementById("checkoutButton");
+  const openBtn = document.getElementById("buyNowBtn");
+  const closeBtn = document.getElementById("closeModalBtn");
 
-  document.querySelectorAll(".btn").forEach(button => {
-    button.addEventListener("click", function () {
-      const productId = this.getAttribute("data-product-id");
-      const productHandle = this.getAttribute("data-product-handle");
-      
-      fetch(`/products/${productHandle}.json`)
-        .then(response => response.json())
-        .then(data => {
-          const product = data.product;
-          modalContent.innerHTML = `
-            <img src="${product.featured_image}" alt="${product.title}" style="width: 100%; height: auto;">
-            <h3>${product.title}</h3>
-            <p>${product.price}</p>
-            <div class="color-options">
-              ${product.variants.map(variant => `
-                <div 
-                  class="color-box" 
-                  data-variant-id="${variant.id}" 
-                  style="background-color: ${variant.option1.toLowerCase()};">
-                </div>`).join("")}
-            </div>
-          `;
-
-          document.querySelectorAll(".color-box").forEach(box => {
-            box.addEventListener("click", function () {
-              document.querySelectorAll(".color-box").forEach(box => box.classList.remove("selected"));
-              this.classList.add("selected");
-              checkoutButton.setAttribute("data-variant-id", this.getAttribute("data-variant-id"));
-            });
-          });
-
-          modal.style.display = "flex";
-        });
+  if (modal && openBtn && closeBtn) {
+    openBtn.addEventListener("click", function() {
+      modal.classList.add("show");
     });
-  });
 
-  closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
+    closeBtn.addEventListener("click", function() {
+      modal.classList.remove("show");
+    });
 
-  window.addEventListener("click", event => {
-    if (event.target === modal) modal.style.display = "none";
-  });
-
-  checkoutButton.addEventListener("click", function () {
-    const variantId = this.getAttribute("data-variant-id");
-    if (variantId) {
-      fetch("/cart/add.js", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ id: variantId })
-      }).then(() => {
-        window.location.href = "/checkout";
-      });
-    } else {
-      alert("Please select a variant first!");
-    }
-  });
+    window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.classList.remove("show");
+      }
+    });
+  }
 });
+
 </script>
+
