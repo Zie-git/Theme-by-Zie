@@ -289,32 +289,47 @@
 
 
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const modal = document.getElementById("productModal");
-    const openBtn = document.getElementById("buyNowBtn");
-    const closeBtn = document.getElementById("closeModalBtn");
-    const modalImage = document.getElementById("modal-product-image");
+document.addEventListener("DOMContentLoaded", function () {
+  // Handle all "Buy Now" buttons
+  const buyNowButtons = document.querySelectorAll(".buyNowBtn");
 
-    if (modal && openBtn && closeBtn) {
-      openBtn.addEventListener("click", function() {
-        const firstVariantImage = document.querySelector('.color-box.selected')?.getAttribute('data-image');
-        if (firstVariantImage && modalImage) {
-          modalImage.src = firstVariantImage; // Set modal image to selected variant
-        }
+  buyNowButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const modalId = this.getAttribute("data-modal");
+      const modal = document.getElementById(modalId);
+
+      if (modal) {
+        // Show the modal
         modal.classList.add("show");
-      });
 
-      closeBtn.addEventListener("click", function() {
-        modal.classList.remove("show");
-      });
-
-      window.addEventListener("click", function(event) {
-        if (event.target === modal) {
-          modal.classList.remove("show");
+        // Set the modal image to the selected variant image
+        const firstVariantImage = modal.querySelector(".color-box.selected")?.getAttribute("data-image");
+        const modalImage = modal.querySelector(`#modal-product-image-${modalId.split("-")[1]}`);
+        if (firstVariantImage && modalImage) {
+          modalImage.src = firstVariantImage;
         }
-      });
+      }
+    });
+  });
+
+  // Handle all modal close buttons
+  document.querySelectorAll(".close").forEach((closeButton) => {
+    closeButton.addEventListener("click", function () {
+      const modal = this.closest(".modal");
+      if (modal) {
+        modal.classList.remove("show");
+      }
+    });
+  });
+
+  // Close modal when clicking outside the modal content
+  window.addEventListener("click", function (event) {
+    if (event.target.classList.contains("modal")) {
+      event.target.classList.remove("show");
     }
   });
+});
+
 </script>
 
 
