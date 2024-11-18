@@ -123,54 +123,50 @@
             {% endif %}
 
             
-<div id="productModal" class="modal" style="background-color: {{ settings.modal_overlay }}">
-              <div class="modal-content" style="background-color: {{ settings.modal_background }}">
-                    <span class="close" id="closeModalBtn">&times;</span>
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModalBtn">&times;</span>
 
+    <!-- Modal Product Image -->
+    <div class="modal-product-image">
+      <img id="modal-product-image" src="" alt="Product Image" />
+    </div>
 
-                
-                
-            <!-- Color Picker as Color Boxes for Variants -->
-            {% if product.variants.size > 1 %}
-              <div class="color-options">
-                <label>Choose Color:</label>
-                <div class="variant-boxes">
-                  {% for variant in product.variants %}
-                    {% if variant.available %}
-                      <!-- Color box as clickable option -->
-                      <div 
-                        class="color-box" 
-                        style="background-color: {{ variant.option1 | downcase }};" 
-                        data-variant-id="{{ variant.id }}" 
-                        data-block-id="{{ block.id }}" 
-                        data-image="{{ variant.image | img_url: '2048x2048' }}"
-                      >
-                        <input 
-                          type="radio" 
-                          name="variant-{{ block.id }}" 
-                          value="{{ variant.id }}" 
-                          {% if variant.id == product.selected_or_first_available_variant.id %}checked{% endif %}
-                          class="variant-option" 
-                          style="display:none;" 
-                        />
-                      </div>
-                    {% endif %}
-                  {% endfor %}
-                </div>
+    <!-- Color Picker as Color Boxes for Variants -->
+    {% if product.variants.size > 1 %}
+      <div class="color-options">
+        <label>Choose Color:</label>
+        <div class="variant-boxes">
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              <div 
+                class="color-box" 
+                style="background-color: {{ variant.option1 | downcase }};" 
+                data-variant-id="{{ variant.id }}" 
+                data-image="{{ variant.image | img_url: '2048x2048' }}"
+              >
+                <input 
+                  type="radio" 
+                  name="variant-modal" 
+                  value="{{ variant.id }}" 
+                  {% if variant.id == product.selected_or_first_available_variant.id %}checked{% endif %}
+                  style="display: none;"
+                />
               </div>
             {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
 
-            <!-- Order Now Button -->
-            <form method="post" action="/cart/add" class="product-form-{{ block.id }}">
-              <!-- Initially set to the selected variant's ID -->
-              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="variant-id-{{ block.id }}">
-              <button type="submit" class="order-now" onclick="addToCartAndCheckout(event, this)">
-                {{ block.settings.button_text }}
-              </button>
-              <div class="loading-spinner" style="display: none;">Loading...</div>
-            </form>
-          </div>
-             </div>
+    <!-- Order Now Button -->
+    <form method="post" action="/cart/add">
+      <input type="hidden" name="id" id="modal-variant-id" value="{{ product.selected_or_first_available_variant.id }}" />
+      <button type="submit" class="order-now">Order Now</button>
+    </form>
+  </div>
+</div>
+
 
             <!-- Buy Now Button to Open Modal -->
 <button class="btn" id="buyNowBtn">Buy Now</button>
@@ -282,21 +278,48 @@
 
 
 
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("productModal");
+  const modalImage = document.getElementById("modal-product-image");
+  const modalVariantInput = document.getElementById("modal-variant-id");
+  const colorBoxes = document.querySelectorAll(".color-box");
+
+  colorBoxes.forEach((box) => {
+    box.addEventListener("click", function () {
+      const variantId = this.getAttribute("data-variant-id");
+      const newImageUrl = this.getAttribute("data-image");
+
+      // Update the hidden input inside the modal
+      modalVariantInput.value = variantId;
+
+      // Update the modal product image
+      if (modalImage && newImageUrl) {
+        modalImage.src = newImageUrl;
+      }
+
+      // Update selected color box style
+      document.querySelectorAll(".color-box").forEach((box) => {
+        box.classList.remove("selected");
+      });
+      this.classList.add("selected");
+    });
+  });
+
   const openBtn = document.getElementById("buyNowBtn");
   const closeBtn = document.getElementById("closeModalBtn");
 
   if (modal && openBtn && closeBtn) {
-    openBtn.addEventListener("click", function() {
+    openBtn.addEventListener("click", function () {
+      const initialImageUrl = document.querySelector(".color-box.selected").getAttribute("data-image");
+      modalImage.src = initialImageUrl; // Set initial modal image
       modal.classList.add("show");
     });
 
-    closeBtn.addEventListener("click", function() {
+    closeBtn.addEventListener("click", function () {
       modal.classList.remove("show");
     });
 
-    window.addEventListener("click", function(event) {
+    window.addEventListener("click", function (event) {
       if (event.target === modal) {
         modal.classList.remove("show");
       }
@@ -307,6 +330,7 @@
 
 
 <style>
+  
   .color-options {
     display: flex;
     flex-wrap: wrap;
@@ -460,7 +484,12 @@
   background-color: rgba(0, 0, 0, 0.5); /* Overlay color */
   transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
 }
-
+.modal-product-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: auto;
+}
 .modal.show {
   display: block;
   opacity: 1;
