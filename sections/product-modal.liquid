@@ -98,6 +98,10 @@
     {% for block in section.blocks %}
       {% assign product = all_products[block.settings.product] %}
       {% if product %}
+        {% for block in section.blocks %}
+  {% assign product = all_products[block.settings.product] %}
+  {% if product %}
+    
         <div class="product-card">
           <div class="product-image">
             {% if block.type == 'product2' %}
@@ -165,6 +169,8 @@
       {% endif %}
     {% endfor %}
   </div>
+          {% endif %}
+{% endfor %}
       </div>
 
 
