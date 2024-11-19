@@ -1,7 +1,7 @@
 <div class="scroll-zoom-section">
   <div 
     class="scroll-zoom-box" 
-    style="background-image: url({{ section.settings.background_image | asset_url }});">
+    style="background-image: url({{ section.settings.background_image | asset_url | default: 'templates/default-placeholder.png' }});">
     <div class="content">
       {{ section.settings.content }}
     </div>
@@ -74,27 +74,35 @@
 </style>
 
 <script>
-  document.addEventListener('scroll', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const zoomBox = document.querySelector('.scroll-zoom-box');
-    const rect = zoomBox.getBoundingClientRect();
-    const sectionHeight = window.innerHeight;
 
-    // Check if the box is in view
-    if (rect.top < sectionHeight && rect.bottom > 0) {
-      const scrollProgress = Math.max(0, Math.min(1, (sectionHeight - rect.top) / sectionHeight));
-      const zoomLevel = 1 + scrollProgress * 0.5; // Scale up to 1.5
-      const boxSize = 300 + scrollProgress * (sectionHeight - 300); // Increase box size
-
-      zoomBox.style.transform = `scale(${zoomLevel})`;
-      zoomBox.style.width = `${boxSize}px`;
-      zoomBox.style.height = `${boxSize}px`;
-
-      // Add zoomed class for content visibility
-      if (scrollProgress > 0.2) {
-        zoomBox.classList.add('zoomed');
-      } else {
-        zoomBox.classList.remove('zoomed');
-      }
+    if (!zoomBox) {
+      console.error('Zoom box element not found.');
+      return;
     }
+
+    document.addEventListener('scroll', () => {
+      const rect = zoomBox.getBoundingClientRect();
+      const sectionHeight = window.innerHeight;
+
+      // Check if the box is in view
+      if (rect.top < sectionHeight && rect.bottom > 0) {
+        const scrollProgress = Math.max(0, Math.min(1, (sectionHeight - rect.top) / sectionHeight));
+        const zoomLevel = 1 + scrollProgress * 0.5; // Scale up to 1.5
+        const boxSize = 300 + scrollProgress * (sectionHeight - 300); // Increase box size
+
+        zoomBox.style.transform = `scale(${zoomLevel})`;
+        zoomBox.style.width = `${boxSize}px`;
+        zoomBox.style.height = `${boxSize}px`;
+
+        // Add zoomed class for content visibility
+        if (scrollProgress > 0.2) {
+          zoomBox.classList.add('zoomed');
+        } else {
+          zoomBox.classList.remove('zoomed');
+        }
+      }
+    });
   });
 </script>
