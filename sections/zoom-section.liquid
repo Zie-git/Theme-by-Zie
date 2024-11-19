@@ -83,8 +83,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-    clip-path: inset(35%); /* Initial clip-path for the effect */
-    transition: clip-path 0.3s ease; /* Smooth transition for clip-path */
+    clip-path: inset(35%); /* Make the middle visible and reveal a box */
   }
 
   /* The overlay to dim the background */
@@ -129,18 +128,3 @@
     background-color: #0056b3;
   }
 </style>
-
-<script>
-  // JavaScript to control the clip-path based on the scroll position
-  window.addEventListener('scroll', function () {
-    const zoomEffect = document.querySelector('.zoom-effect');
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const maxScroll = 500;  // The maximum scroll before clip-path reaches 0%
-
-    // Calculate the inset value based on the scroll position
-    let clipValue = Math.max(0, Math.min(35, (scrollTop / maxScroll) * 35));
-
-    // Set the clip-path dynamically
-    zoomEffect.style.clipPath = `inset(${clipValue}% 0% 0% 0%)`;
-  });
-</script>
