@@ -259,7 +259,7 @@
     "zoom_section_LBdtNk": {
       "type": "zoom-section",
       "settings": {
-        "background_image": "shopify://shop_images/mens-suit-watch.jpg",
+        "background_image": "shopify://shop_images/classic-quartz-wrist-watch.jpg",
         "content": "This is the content that will appear as you scroll."
       }
     }
