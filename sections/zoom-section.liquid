@@ -45,8 +45,10 @@
   ]
 }
 {% endschema %}
- <div class="zoom-effect">
-<div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
+
+<div class="image-text-section">
+  <div class="zoom-effect">
+    <div class="image-text-section1" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
     <div class="overlay">
       <div class="content">
         <h2 class="main-text">{{ section.settings.main_text }}</h2>
@@ -55,6 +57,7 @@
       </div>
     </div>
   </div>
+    </div>
 </div>
 
 <style>
