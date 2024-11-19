@@ -1,7 +1,8 @@
 <div class="scroll-zoom-section">
   <div 
     class="scroll-zoom-box" 
-    style="background-image: url({{ section.settings.background_image | asset_url | default: 'templates/default-placeholder.png' }});">
+    style="background-image: url('{{ section.settings.background_image }}');"
+>
     <div class="content">
       {{ section.settings.content }}
     </div>
