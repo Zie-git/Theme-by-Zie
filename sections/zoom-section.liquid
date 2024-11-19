@@ -80,7 +80,6 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-    clip-path: inset(25%); /* Make the middle visible and reveal a box */
   }
 
   /* The overlay to dim the background */
@@ -90,16 +89,22 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5); /* Dim the background */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2; /* Keep overlay above the image */
+    z-index: 2;
   }
 
+  /* The content box that will show the background image through the center */
   .content {
     text-align: center;
     z-index: 3; /* Keep the content above the overlay */
+    position: relative;
+    width: 50%;
+    height: 50%;
+    background-color: transparent; /* Make sure content box is transparent */
+    clip-path: inset(35%); /* Creates the small box in the center with the image visible */
   }
 
   .main-text {
