@@ -175,6 +175,16 @@
         "text_font_size": "16px"
       }
     },
+    "zoom_section_yP4rgJ": {
+      "type": "zoom-section",
+      "settings": {
+        "background_image": "shopify://shop_images/classic-quartz-wrist-watch.jpg",
+        "main_text": "Your Main Text Here",
+        "subtitle": "Your Subtitle Here",
+        "button_url": "/",
+        "button_text": "Click Here"
+      }
+    },
     "reviews_Q43BQ3": {
       "type": "reviews",
       "custom_css": [
@@ -255,16 +265,6 @@
         "padding_bottom": 20,
         "width": 75
       }
-    },
-    "zoom_section_yP4rgJ": {
-      "type": "zoom-section",
-      "settings": {
-        "background_image": "shopify://shop_images/classic-quartz-wrist-watch.jpg",
-        "main_text": "Your Main Text Here",
-        "subtitle": "Your Subtitle Here",
-        "button_url": "/",
-        "button_text": "Click Here"
-      }
     }
   },
   "order": [
@@ -276,9 +276,9 @@
     "image_prmotion_kcwd9C",
     "image_with_text_DaXj6c",
     "rick_text_RdMNLU",
+    "zoom_section_yP4rgJ",
     "reviews_Q43BQ3",
     "image_gallery_qE4XBy",
-    "product_modal_RtDLDW",
-    "zoom_section_yP4rgJ"
+    "product_modal_RtDLDW"
   ]
 }
