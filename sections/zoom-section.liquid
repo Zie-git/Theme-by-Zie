@@ -119,6 +119,16 @@
 </style>
 
 <script>
+  // Disable scrolling function
+  function disableScrolling() {
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Enable scrolling function
+  function enableScrolling() {
+    document.body.style.overflow = '';
+  }
+
   // Function to check if the section is in view
   function isSectionInView(element) {
     const rect = element.getBoundingClientRect();
@@ -141,9 +151,18 @@
       // Calculate scroll ratio within the section
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
-      // Zoom the background image based on scroll position
-      const scale = 1 + scrollRatio * 2; // Scale from 1 to 3 as you scroll
+      // Zoom the background image based on scroll position, but limit zoom scale to 1.5 (100%)
+      const scale = Math.min(1 + scrollRatio * 2, 1.5); // Limit scale to 1.5 (stop zoom after this)
+
+      // Apply the zoom effect
       background.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+      // Disable scrolling while the image is zooming in
+      if (scale < 1.5) {
+        disableScrolling();
+      } else {
+        enableScrolling(); // Enable scrolling after zoom completes
+      }
 
       // Fade in content and overlay as user scrolls down
       if (scrollRatio > 0.2) {
@@ -158,9 +177,11 @@
       background.style.transform = 'translate(-50%, -50%) scale(1)';
       overlay.style.opacity = 0;
       content.style.display = 'none';
+      enableScrolling(); // Always allow scrolling if the section is out of view
     }
   });
 </script>
+
 
 
 
