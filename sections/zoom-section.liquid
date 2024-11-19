@@ -1,367 +1,100 @@
-<div class="image-with-text" id="zoomImageSection">
-    <div class="image-container">
-        <div class="img-overlay"></div>
-        <div class="text-overlay-container">
-            <div class="contwidh">
-                <div class="text-overlay">
-                    <h2>{{ section.settings.title | escape }}</h2>
-                    <p>{{ section.settings.description | escape }}</p>
-                    {% if section.settings.button_text and section.settings.button_link %}
-                        <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_text | escape }}</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" class="zoom-image">
+{% schema %}
+{
+  "name": "Zoom Image",
+  "settings": [
+    {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "background_image",
+      "info": "Select the background image for this section."
+    },
+    {
+      "type": "text",
+      "label": "Main Text",
+      "id": "main_text",
+      "default": "Your Main Text Here",
+      "info": "Enter the main text to display over the background."
+    },
+    {
+      "type": "text",
+      "label": "Subtitle",
+      "id": "subtitle",
+      "default": "Your Subtitle Here",
+      "info": "Enter the subtitle text."
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "button_url",
+      "default": "/",
+      "info": "Enter the URL for the button link."
+    },
+    {
+      "type": "text",
+      "label": "Button Text",
+      "id": "button_text",
+      "default": "Click Me",
+      "info": "Enter the text for the button."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Zoom Image",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
+  <div class="overlay">
+    <div class="content">
+      <h2 class="main-text">{{ section.settings.main_text }}</h2>
+      <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
+      <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
     </div>
+  </div>
 </div>
 
-{% stylesheet %}
-.image-container {
+<style>
+  .image-text-section {
     position: relative;
-    width: 100%;
-    height: 100vh; /* Full viewport height */
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.zoom-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.5); /* Start with a smaller size */
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    transition: transform 1.5s ease-out; /* Smooth zoom effect */
-}
-
-.img-overlay {
+    background-size: cover;
+    background-position: center;
+    padding: 50px 20px;
+    color: white;
+  }
+  .overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Adjust for overlay brightness */
-    z-index: 1;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 1s ease-in-out;
-}
-
-.text-overlay-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 1s ease-in-out;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .content {
     text-align: center;
-}
-
-.text-overlay h2 {
-    font-size: 24px;
-    color: #fff;
+  }
+  .main-text {
+    font-size: 2.5rem;
     margin-bottom: 10px;
-}
-
-.text-overlay p {
-    font-size: 16px;
-    color: #fff;
-}
-
-.button {
-    display: inline-block;
+  }
+  .subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .button {
     padding: 10px 20px;
-    margin-top: 10px;
     background-color: #007bff;
-    color: #fff;
+    color: white;
     text-decoration: none;
     border-radius: 5px;
-}
-
-.button:hover {
+    font-size: 1rem;
+  }
+  .button:hover {
     background-color: #0056b3;
-}
-
-/* Active state styles during scroll */
-.image-container.active .zoom-image {
-    transform: translate(-50%, -50%) scale(1); /* Fully zoomed in */
-}
-
-.image-container.active .img-overlay {
-    opacity: 1; /* Show overlay */
-}
-
-.image-container.active .text-overlay-container {
-    opacity: 1; /* Show text content */
-}
-{% endstylesheet %}
-
-<script>
-    // JavaScript to handle scroll effect
-    document.addEventListener('scroll', function () {
-        const section = document.getElementById('zoomImageSection');
-        const rect = section.getBoundingClientRect();
-
-        // Check if the section is in the viewport
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-            section.querySelector('.image-container').classList.add('active');
-        } else {
-            section.querySelector('.image-container').classList.remove('active');
-        }
-    });
-</script>
-
-
-{% schema %}
-{
-    "name": "Image",
-    "settings": [
-        {
-            "type": "text",
-            "id": "title",
-            "label": "Title",
-            "default": "Heading Text"
-        },
-        {
-            "type": "textarea",
-            "id": "description",
-            "label": "Description",
-            "default": "Description of the image and text"
-        },
-        {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image"
-        },
-        {
-            "type": "text",
-            "id": "image_alt",
-            "label": "Image Alt Text",
-            "default": "Default Alt Text"
-        },
-        {
-            "type": "select",
-            "id": "image_view",
-            "label": "Image View",
-            "options": [
-                {
-                    "value": "cover",
-                    "label": "Cover"
-                },
-                {
-                    "value": "contain",
-                    "label": "Contain"
-                },
-                {
-                    "value": "original",
-                    "label": "Original"
-                }
-            ],
-            "default": "cover"
-        },
-        {
-            "type": "select",
-            "id": "image_height",
-            "label": "Image Height on Large Screens",
-            "options": [
-                {
-                    "value": "extra-small",
-                    "label": "Extra Small"
-                },
-                {
-                    "value": "small",
-                    "label": "Small"
-                },
-                {
-                    "value": "medium",
-                    "label": "Medium"
-                },
-                {
-                    "value": "large",
-                    "label": "Large"
-                },
-                {
-                    "value": "extra-large",
-                    "label": "Extra Large"
-                },
-                {
-                    "value": "adaptive",
-                    "label": "Adaptive Image"
-                },
-                {
-                    "value": "full-screen",
-                    "label": "Full Screen"
-                }
-            ],
-            "default": "medium"
-        },
-        {
-            "type": "range",
-            "id": "padding_top",
-            "label": "Padding Top (px)",
-            "min": 0,
-            "max": 1000,
-            "step": 10,
-            "default": 20
-        },
-        {
-            "type": "range",
-            "id": "padding_bottom",
-            "label": "Padding Bottom (px)",
-            "min": 0,
-            "max": 1000,
-            "step": 10,
-            "default": 20
-        },
-        {
-            "type": "range",
-            "id": "margin_top",
-            "label": "Margin Top (px)",
-            "min": -500,
-            "max": 500,
-            "step": 10,
-            "default": 0
-        },
-        {
-            "type": "range",
-            "id": "margin_bottom",
-            "label": "Margin Bottom (px)",
-            "min": -500,
-            "max": 500,
-            "step": 10,
-            "default": 0
-        },
-        {
-            "type": "text",
-            "id": "button_text",
-            "label": "Button Text",
-            "default": "Click Here"
-        },
-        {
-            "type": "url",
-            "id": "button_link",
-            "label": "Button Link"
-        },
-        {
-            "type": "range",
-            "id": "heading_font_size",
-            "label": "Heading Font Size (px)",
-            "min": 10,
-            "max": 100,
-            "step": 1,
-            "default": 24
-        },
-        {
-            "type": "range",
-            "id": "text_font_size",
-            "label": "Text Font Size (px)",
-            "min": 10,
-            "max": 100,
-            "step": 1,
-            "default": 16
-        },
-        {
-            "type": "select",
-            "id": "heading_font_weight",
-            "label": "Heading Font Weight",
-            "options": [
-                {
-                    "value": "100",
-                    "label": "Thin"
-                },
-                {
-                    "value": "200",
-                    "label": "Extra Light"
-                },
-                {
-                    "value": "300",
-                    "label": "Light"
-                },
-                {
-                    "value": "400",
-                    "label": "Normal"
-                },
-                {
-                    "value": "500",
-                    "label": "Medium"
-                },
-                {
-                    "value": "600",
-                    "label": "Semi Bold"
-                },
-                {
-                    "value": "700",
-                    "label": "Bold"
-                },
-                {
-                    "value": "800",
-                    "label": "Extra Bold"
-                },
-                {
-                    "value": "900",
-                    "label": "Black"
-                }
-            ],
-            "default": "400"
-        },
-        {
-            "type": "range",
-            "id": "overlay_brightness",
-            "label": "Overlay Brightness (%)",
-            "min": 0,
-            "max": 100,
-            "step": 1,
-            "default": 50
-        },
-        {
-            "type": "select",
-            "id": "text_alignment",
-            "label": "Text Alignment",
-            "options": [
-                {
-                    "value": "top-left",
-                    "label": "Top Left"
-                },
-                {
-                    "value": "center-left",
-                    "label": "Center Left"
-                },
-                {
-                    "value": "center-center",
-                    "label": "Center Center"
-                },
-                {
-                    "value": "right-left",
-                    "label": "Right Left"
-                },
-                {
-                    "value": "top-center",
-                    "label": "Top Center"
-                },
-                {
-                    "value": "right-top",
-                    "label": "Right Top"
-                }
-            ],
-            "default": "center-center"
-        },
-        {
-            "type": "text",
-            "id": "text_container_width",
-            "label": "Text Container Width (px)",
-            "default": "1200"
-        }
-    ],
-    "presets": [
-        {
-            "name": "Zoom Section"
-        }
-    ]
-}
-
-
-{% endschema %}
+  }
+</style>
