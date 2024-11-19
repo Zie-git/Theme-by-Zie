@@ -136,7 +136,12 @@
     }
   }
 
-  window.addEventListener('scroll', function() {
+  // Prevent default scroll behavior when zooming
+  function preventScroll(event) {
+    event.preventDefault();  // Prevent scrolling while zooming
+  }
+
+  window.addEventListener('scroll', function(event) {
     const section = document.querySelector('#zoom-section'); // Get section by ID
     const background = document.querySelector('.background');
     const overlay = document.querySelector('.overlay');
@@ -171,6 +176,7 @@
         if (!isZooming) {
           isZooming = true;
           toggleScrollLock(true);  // Lock scroll during zoom effect
+          window.addEventListener('wheel', preventScroll, { passive: false });  // Lock scroll during zoom
         }
       }
     } else {
