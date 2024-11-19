@@ -118,6 +118,8 @@
 </style>
 
 <script>
+  let zoomScale = 1;  // Variable to store the current zoom scale
+  
   // Function to check if the section is in view
   function isSectionInView(element) {
     const rect = element.getBoundingClientRect();
@@ -140,16 +142,15 @@
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
       // Calculate the scale for zoom effect based on scroll direction
-      // Scale starts at 1 (small box), and zooms in (grows) as you scroll down
-      const scale = 1 + scrollRatio * 2; // Start from 1x zoom and zoom in as you scroll down
+      zoomScale = 1 + scrollRatio * 2; // Start from 1x zoom and zoom in as you scroll down
 
       // Limit the zoom to a maximum of 3x
-      if (scale <= 3) {
-        background.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      if (zoomScale <= 3) {
+        background.style.transform = `translate(-50%, -50%) scale(${zoomScale})`;
       }
 
       // Show overlay and content when the image is fully revealed (scale = 3)
-      if (scale >= 3) {
+      if (zoomScale >= 3) {
         overlay.style.opacity = 1; // Show overlay
         content.style.display = 'block'; // Show content
       } else {
@@ -157,10 +158,8 @@
         content.style.display = 'none'; // Hide content if not scrolled enough
       }
     } else {
-      // Reset if the section is out of view
-      background.style.transform = 'translate(-50%, -50%) scale(1)';
-      overlay.style.opacity = 0;
-      content.style.display = 'none';
+      // Keep the zoom scale when the section is out of view (don't reset it)
+      background.style.transform = `translate(-50%, -50%) scale(${zoomScale})`;
     }
   });
 </script>
