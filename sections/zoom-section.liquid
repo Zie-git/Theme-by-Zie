@@ -47,13 +47,11 @@
 {% endschema %}
 
 <div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
-  <div class="zoom-effect">
-    <div class="overlay">
-      <div class="content">
-        <h2 class="main-text">{{ section.settings.main_text }}</h2>
-        <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
-        <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
-      </div>
+  <div class="overlay">
+    <div class="content">
+      <h2 class="main-text">{{ section.settings.main_text }}</h2>
+      <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
+      <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
     </div>
   </div>
 </div>
@@ -68,20 +66,6 @@
     height: 800px;
   }
 
-  /* The overlay with white cover and zoom effect */
-  .zoom-effect {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: white; /* White background covering the image */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
-
   /* The overlay to dim the background */
   .overlay {
     position: absolute;
@@ -89,22 +73,20 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Dim the background */
+    background: rgba(255, 255, 255, 1); /* White overlay */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 1;
+    clip-path: inset(35%); /* Create a small box in the center where the image is visible */
   }
 
-  /* The content box that will show the background image through the center */
+  /* Content box in the center */
   .content {
     text-align: center;
-    z-index: 3; /* Keep the content above the overlay */
+    z-index: 2; /* Keep the content above the overlay */
     position: relative;
-    width: 50%;
-    height: 50%;
-    background-color: transparent; /* Make sure content box is transparent */
-    clip-path: inset(35%); /* Creates the small box in the center with the image visible */
+    background-color: transparent; /* No background, allow image to show */
   }
 
   .main-text {
