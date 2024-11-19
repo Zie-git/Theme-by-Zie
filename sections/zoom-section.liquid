@@ -83,7 +83,8 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-    clip-path: inset(35%); /* Initial clip-path value */
+    clip-path: inset(35%); /* Initially 35% */
+    transition: clip-path 0.2s ease-in-out; /* Smooth transition for clip-path */
   }
 
   /* The overlay to dim the background */
@@ -130,24 +131,22 @@
 </style>
 
 <script>
-  // Get the zoom effect element
-  const zoomEffect = document.querySelector('.zoom-effect');
+  let clipValue = 35; // Initial clip-path value
   
-  // Initial clip-path value
-  let clipValue = 35;
-
-  // Function to update the clip-path value based on scroll
-  function updateClipPath() {
+  // Function to handle scroll event and adjust clip-path
+  window.addEventListener('scroll', function() {
     // Get the scroll position
     let scrollPosition = window.scrollY;
-
-    // Calculate the clip-path value (0 to 35% based on scroll)
-    let newClipValue = Math.max(0, Math.min(35, 35 - (scrollPosition / 10)));
-
-    // Apply the new clip-path value
-    zoomEffect.style.clipPath = `inset(${newClipValue}%)`;
-  }
-
-  // Add event listener for scroll event
-  window.addEventListener('scroll', updateClipPath);
+    
+    // Calculate the new clip-path value based on the scroll position
+    let newClipValue = 35 - (scrollPosition / 10); // Adjust the denominator for the speed of change
+    if (newClipValue < 0) {
+      newClipValue = 0; // Ensure it doesn't go below 0%
+    } else if (newClipValue > 35) {
+      newClipValue = 35; // Ensure it doesn't go above 35%
+    }
+    
+    // Set the new clip-path value
+    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
+  });
 </script>
