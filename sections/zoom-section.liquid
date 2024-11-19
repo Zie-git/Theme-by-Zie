@@ -69,7 +69,7 @@
     height: 100%;
     background-size: cover;
     background-position: center;
-    transform: translate(-50%, -50%) scale(3); /* Initially zoomed in */
+    transform: translate(-50%, -50%) scale(1); /* Initially at scale 1 */
     transition: transform 0.1s ease-in-out;
   }
 
@@ -140,15 +140,16 @@
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
       // Calculate the scale for zoom effect based on scroll direction
-      const scale = 3 - scrollRatio * 2; // Start at 3x zoom and zoom out to 1x
+      // Scale starts at 1 (small box), and zooms in (grows) as you scroll down
+      const scale = 1 + scrollRatio * 2; // Start from 1x zoom and zoom in as you scroll down
 
-      // Limit the zoom to a minimum of 1x
-      if (scale >= 1) {
+      // Limit the zoom to a maximum of 3x
+      if (scale <= 3) {
         background.style.transform = `translate(-50%, -50%) scale(${scale})`;
       }
 
-      // Show overlay and content when the image is fully revealed (scale = 1)
-      if (scale <= 1) {
+      // Show overlay and content when the image is fully revealed (scale = 3)
+      if (scale >= 3) {
         overlay.style.opacity = 1; // Show overlay
         content.style.display = 'block'; // Show content
       } else {
@@ -157,7 +158,7 @@
       }
     } else {
       // Reset if the section is out of view
-      background.style.transform = 'translate(-50%, -50%) scale(3)';
+      background.style.transform = 'translate(-50%, -50%) scale(1)';
       overlay.style.opacity = 0;
       content.style.display = 'none';
     }
