@@ -148,7 +148,7 @@
     // Ensure that the value stays within the range of 0% to 35%
     newClipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, newClipValue));
 
-    // Apply the new clip-path value
-    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}% 0 0 0)`;
+    // Apply the new clip-path value to all sides (top, right, bottom, left)
+    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
   });
 </script>
