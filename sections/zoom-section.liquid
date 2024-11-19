@@ -131,22 +131,34 @@
 </style>
 
 <script>
+  // Initial clip-path value
+  let clipValue = 35;
+
+  // Function to handle scroll event and adjust clip-path
   window.addEventListener('scroll', function() {
+    // Get the scroll position
     let scrollPosition = window.scrollY;
-    console.log('Scroll Position:', scrollPosition);
 
-    // Calculate new clip-path value based on scroll position
-    let newClipValue = 35 - (scrollPosition / 10);
-    console.log('New Clip Value:', newClipValue); // Log new clip value for debugging
+    // Log scroll position to see if it's being calculated
+    console.log("Scroll Position:", scrollPosition);
 
-    // Limit the clip-path value between 0% and 35%
+    // Calculate new clip value based on scroll position
+    let newClipValue = 35 - (scrollPosition / 10); // You can adjust the denominator for speed
+
+    // Log the new clip value for debugging
+    console.log("New Clip Value:", newClipValue);
+
+    // Ensure the clip value stays within the bounds (0% to 35%)
     if (newClipValue < 0) {
       newClipValue = 0;
     } else if (newClipValue > 35) {
       newClipValue = 35;
     }
 
-    // Apply new clip-path value
-    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
+    // Apply the new clip-path value to the .zoom-effect element
+    let zoomEffect = document.querySelector('.zoom-effect');
+    if (zoomEffect) {
+      zoomEffect.style.clipPath = `inset(${newClipValue}%)`;
+    }
   });
 </script>
