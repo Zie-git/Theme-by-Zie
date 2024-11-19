@@ -1,41 +1,58 @@
-<div class="image-with-text" id="zoomImageSection">
-    <div class="image-container">
-        <div class="img-overlay"></div>
-        <div class="text-overlay-container">
-            <div class="contwidh">
-                <div class="text-overlay">
-                    <h2>{{ section.settings.title | escape }}</h2>
-                    <p>{{ section.settings.description | escape }}</p>
-                    {% if section.settings.button_text and section.settings.button_link %}
-                        <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_text | escape }}</a>
-                    {% endif %}
+<div class="image-with-text" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
+    {% if section.settings.image %}
+        <div class="image-container {% if section.settings.image_height == 'full-screen' %}full-screen{% elsif section.settings.image_height == 'adaptive' %}adaptive{% else %}height-{{ section.settings.image_height }}{% endif %}">
+            <div class="img-overlay" style="background: rgba(0, 0, 0, {{ section.settings.overlay_brightness }}%);"></div>
+            <div class="text-overlay-container">
+                <div class="contwidh" style="max-width: {{ section.settings.text_container_width }}px;">
+                    <div class="text-overlay {{ section.settings.text_alignment }}">
+                        <h2 style="font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }};">{{ section.settings.title | escape }}</h2>
+                        <p style="font-size: {{ section.settings.text_font_size }}px;">{{ section.settings.description | escape }}</p>
+                        {% if section.settings.button_text and section.settings.button_link %}
+                            <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_text | escape }}</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
+            <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" style="width: 100%; height: 100%; object-fit: {{ section.settings.image_view }};">
         </div>
-        <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | default: 'Image Alt Text' }}" class="zoom-image">
-    </div>
+    {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+    {% endif %}
 </div>
+
 
 {% stylesheet %}
 .image-container {
     position: relative;
     width: 100%;
-    height: 100vh; /* Full viewport height */
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.zoom-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.5); /* Start with a smaller size */
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    transition: transform 1.5s ease-out; /* Smooth zoom effect */
+.image-container.full-screen {
+    height: 100vh; /* Full screen height */
+}
+
+.image-container.adaptive {
+    height: auto; /* Adaptive image height */
+}
+
+.image-container.height-extra-small {
+    height: 200px;
+}
+
+.image-container.height-small {
+    height: 300px;
+}
+
+.image-container.height-medium {
+    height: 400px;
+}
+
+.image-container.height-large {
+    height: 500px;
+}
+
+.image-container.height-extra-large {
+    height: 600px;
 }
 
 .img-overlay {
@@ -44,76 +61,132 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Adjust for overlay brightness */
-    z-index: 1;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 1s ease-in-out;
+    background: rgba(0, 0, 0, 0); /* Initial background */
 }
 
-.text-overlay-container {
+.contwidh {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 1s ease-in-out;
-    text-align: center;
+    padding: 20px;
+    color: #fff; /* Adjust text color as needed */
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
 }
 
-.text-overlay h2 {
-    font-size: 24px;
-    color: #fff;
-    margin-bottom: 10px;
+.text-overlay {
+    position: absolute;
+    padding: 20px;
+    color: #fff; /* Adjust text color as needed */
+    box-sizing: border-box;
 }
 
-.text-overlay p {
-    font-size: 16px;
-    color: #fff;
+.text-overlay.top-left {
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
+}
+
+.text-overlay.center-left {
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+}
+
+.text-overlay.center-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-overlay.right-left {
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+}
+
+.text-overlay.top-center {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.text-overlay.right-top {
+    top: 0;
+    right: 0;
+    transform: translate(0, 0);
+}
+
+.text-container {
+    max-width: 100%; /* Ensure the text container does not exceed the overlay width */
+    text-align: left; /* Align text to the left */
 }
 
 .button {
     display: inline-block;
     padding: 10px 20px;
     margin-top: 10px;
-    background-color: #007bff;
+    background-color: #007bff; /* Button color */
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
 }
 
 .button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Button hover color */
 }
 
-/* Active state styles during scroll */
-.image-container.active .zoom-image {
-    transform: translate(-50%, -50%) scale(1); /* Fully zoomed in */
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .contwidh {
+        max-width: 1000px;
+    }
+    .text-overlay {
+        font-size: 90%;
+    }
 }
 
-.image-container.active .img-overlay {
-    opacity: 1; /* Show overlay */
+@media (max-width: 992px) {
+    .contwidh {
+        max-width: 800px;
+    }
+    .text-overlay {
+        font-size: 80%;
+    }
 }
 
-.image-container.active .text-overlay-container {
-    opacity: 1; /* Show text content */
+@media (max-width: 768px) {
+    .contwidh {
+        max-width: 600px;
+    }
+    .text-overlay {
+        font-size: 70%;
+    }
+    .text-overlay {
+        padding: 10px;
+    }
 }
+
+@media (max-width: 576px) {
+    .contwidh {
+        max-width: 100%;
+        padding: 10px;
+    }
+    .text-overlay {
+        font-size: 60%;
+    }
+    .text-overlay {
+        top: 0;
+        left: 0;
+        transform: none;
+        position: relative;
+        text-align: center;
+    }
+}
+
 {% endstylesheet %}
-
-<script>
-    // JavaScript to handle scroll effect
-    document.addEventListener('scroll', function () {
-        const section = document.getElementById('zoomImageSection');
-        const rect = section.getBoundingClientRect();
-
-        // Check if the section is in the viewport
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-            section.querySelector('.image-container').classList.add('active');
-        } else {
-            section.querySelector('.image-container').classList.remove('active');
-        }
-    });
-</script>
 
 
 {% schema %}
@@ -358,7 +431,7 @@
     ],
     "presets": [
         {
-            "name": "Zoom Section"
+            "name": "Image"
         }
     ]
 }
