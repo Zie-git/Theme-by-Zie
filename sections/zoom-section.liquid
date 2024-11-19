@@ -46,7 +46,7 @@
 }
 {% endschema %}
 
-<div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
+<div class="image-zoom-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
   <div class="overlay">
     <div class="content">
       <h2 class="main-text">{{ section.settings.main_text }}</h2>
@@ -57,14 +57,14 @@
 </div>
 
 <style>
-  .image-text-section {
+  .image-zoom-section {
     position: relative;
     background-size: cover;
     background-position: center;
-    padding: 50px 20px;
-    color: white;
-        height: 800px;
+    height: 800px;
+    transition: background-size 0.2s ease-in-out;
   }
+  
   .overlay {
     position: absolute;
     top: 0;
@@ -75,18 +75,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0; /* Initially hide content */
+    transition: opacity 0.5s ease;
   }
+
   .content {
     text-align: center;
+    color: white;
   }
+
   .main-text {
     font-size: 2.5rem;
     margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
   }
+
   .subtitle {
     font-size: 1.5rem;
     margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
   }
+
   .button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -94,8 +105,46 @@
     text-decoration: none;
     border-radius: 5px;
     font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
   }
+
   .button:hover {
     background-color: #0056b3;
   }
+
+  /* Zoom effect */
+  .zoomed {
+    background-size: 300%; /* Start small, scale up */
+  }
 </style>
+
+<script>
+  document.addEventListener('scroll', function() {
+    const section = document.querySelector('.image-zoom-section');
+    const overlay = document.querySelector('.overlay');
+    const mainText = document.querySelector('.main-text');
+    const subtitle = document.querySelector('.subtitle');
+    const button = document.querySelector('.button');
+
+    // Scroll position: control zoom effect and opacity transition
+    let scrollY = window.scrollY;
+    let zoomEffect = Math.min(200 + scrollY / 10, 300); // Limit zoom to 300%
+
+    section.style.backgroundSize = zoomEffect + "%"; // Apply zoom effect
+    section.classList.add('zoomed');
+
+    // Show content when scrolled past a certain point
+    if (scrollY > 150) {
+      overlay.style.opacity = 1;  // Fade in content
+      mainText.style.opacity = 1;
+      subtitle.style.opacity = 1;
+      button.style.opacity = 1;
+    } else {
+      overlay.style.opacity = 0;  // Keep content hidden at top
+      mainText.style.opacity = 0;
+      subtitle.style.opacity = 0;
+      button.style.opacity = 0;
+    }
+  });
+</script>
