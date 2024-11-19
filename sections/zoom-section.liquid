@@ -49,15 +49,15 @@
 <div class="image-text-section">
   <div class="zoom-effect">
     <div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
-      <div class="overlay">
-        <div class="content">
-          <h2 class="main-text">{{ section.settings.main_text }}</h2>
-          <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
-          <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
-        </div>
+    <div class="overlay">
+      <div class="content">
+        <h2 class="main-text">{{ section.settings.main_text }}</h2>
+        <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
+        <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
       </div>
     </div>
   </div>
+    </div>
 </div>
 
 <style>
@@ -83,8 +83,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-    clip-path: inset(35%); /* Initially 35% */
-    transition: clip-path 0.2s ease-in-out; /* Smooth transition for clip-path */
+    clip-path: inset(35%); /* Make the middle visible and reveal a box */
   }
 
   /* The overlay to dim the background */
@@ -129,21 +128,3 @@
     background-color: #0056b3;
   }
 </style>
-
-<script>
-window.addEventListener('scroll', function() {
-    let scrollPosition = window.scrollY;
-    console.log(scrollPosition); // Log scroll position to ensure the event works
-
-    let newClipValue = 35 - (scrollPosition / 10);
-    if (newClipValue < 0) {
-        newClipValue = 0;
-    } else if (newClipValue > 35) {
-        newClipValue = 35;
-    }
-
-    console.log(newClipValue); // Log the new clip value
-
-    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
-});
-</script>
