@@ -119,11 +119,21 @@
 
 <script>
   let zoomScale = 1;  // Variable to store the current zoom scale
+  let isZooming = false;  // Flag to indicate if the zooming process is happening
   
   // Function to check if the section is in view
   function isSectionInView(element) {
     const rect = element.getBoundingClientRect();
     return rect.top < window.innerHeight && rect.bottom >= 0; // Checks if section is within the viewport
+  }
+
+  // Lock/Unlock body scroll
+  function toggleScrollLock(isLocked) {
+    if (isLocked) {
+      document.body.style.overflow = 'hidden';  // Disable scrolling
+    } else {
+      document.body.style.overflow = '';  // Re-enable scrolling
+    }
   }
 
   window.addEventListener('scroll', function() {
@@ -153,9 +163,15 @@
       if (zoomScale >= 3) {
         overlay.style.opacity = 1; // Show overlay
         content.style.display = 'block'; // Show content
+        isZooming = false;
+        toggleScrollLock(false);  // Allow scrolling once zoom is complete
       } else {
         overlay.style.opacity = 0; // Hide overlay if not scrolled enough
         content.style.display = 'none'; // Hide content if not scrolled enough
+        if (!isZooming) {
+          isZooming = true;
+          toggleScrollLock(true);  // Lock scroll during zoom effect
+        }
       }
     } else {
       // Keep the zoom scale when the section is out of view (don't reset it)
