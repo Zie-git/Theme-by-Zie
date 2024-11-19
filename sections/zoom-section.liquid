@@ -66,13 +66,12 @@
   }
 
   .background {
-    width: 200px; /* Small starting size */
-    height: 200px; /* Small starting size */
+    width: 100%; /* Start with 100% width */
+    height: 100%; /* Full height of the section */
     background-size: cover;
     background-position: center;
     transform: translate(-50%, -50%);
-    transition: all 1s ease-in-out;
-    margin: 0 auto;
+    transition: transform 0.1s ease-in-out; /* Smooth transition */
   }
 
   .overlay {
@@ -123,7 +122,7 @@
   // Function to check if the section is in view
   function isSectionInView(element) {
     const rect = element.getBoundingClientRect();
-    return rect.top >= 0 && rect.bottom <= window.innerHeight;
+    return rect.top < window.innerHeight && rect.bottom >= 0;
   }
 
   // Triggered on scroll
@@ -132,22 +131,27 @@
     const background = document.querySelector('.background');
     const overlay = document.querySelector('.overlay');
     const content = document.querySelector('.content');
-    
+
     // Check if the section is in the viewport
     if (isSectionInView(section)) {
-      // Start zooming the background
       const scrollPosition = window.scrollY;
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
+      
+      // Calculate scroll ratio within the section
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
-      // Zoom the background image based on scroll position within the section
-      background.style.transform = `translate(-50%, -50%) scale(${1 + scrollRatio * 2})`; // scale from 1 to 3
-      
-      // Fade in content and background zoom
+      // Zoom the background image based on scroll position
+      const scale = 1 + scrollRatio * 2; // scale from 1 to 3 as you scroll
+      background.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+      // Fade in content and overlay as user scrolls down
       if (scrollRatio > 0.2) {
         overlay.style.opacity = 1; // Show overlay
         content.style.display = 'block'; // Show content
+      } else {
+        overlay.style.opacity = 0; // Hide overlay if not scrolled enough
+        content.style.display = 'none'; // Hide content if not scrolled enough
       }
     } else {
       // Reset if the section is out of view
@@ -157,5 +161,6 @@
     }
   });
 </script>
+
 
 
