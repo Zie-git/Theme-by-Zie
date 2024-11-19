@@ -49,15 +49,15 @@
 <div class="image-text-section">
   <div class="zoom-effect">
     <div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
-    <div class="overlay">
-      <div class="content">
-        <h2 class="main-text">{{ section.settings.main_text }}</h2>
-        <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
-        <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
+      <div class="overlay">
+        <div class="content">
+          <h2 class="main-text">{{ section.settings.main_text }}</h2>
+          <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
+          <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
+        </div>
       </div>
     </div>
   </div>
-    </div>
 </div>
 
 <style>
@@ -83,7 +83,8 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-    clip-path: inset(35%); /* Make the middle visible and reveal a box */
+    clip-path: inset(35%); /* Initial state */
+    transition: clip-path 0.3s ease; /* Smooth transition for clip-path */
   }
 
   /* The overlay to dim the background */
@@ -128,3 +129,19 @@
     background-color: #0056b3;
   }
 </style>
+
+<script>
+  window.addEventListener('scroll', function() {
+    var scrollPosition = window.scrollY;
+    var maxScroll = document.body.scrollHeight - window.innerHeight;
+    
+    // Calculate the percentage of scroll
+    var scrollPercent = (scrollPosition / maxScroll) * 100;
+
+    // Change the clip-path value based on the scroll percentage
+    var insetValue = 35 + (scrollPercent * 0.5);  // This controls how much the clip-path changes
+
+    // Apply the new clip-path value
+    document.querySelector('.zoom-effect').style.clipPath = `inset(${insetValue}% 0 0 0)`;
+  });
+</script>
