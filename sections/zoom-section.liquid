@@ -46,7 +46,8 @@
 }
 {% endschema %}
 
-<div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
+<div class="image-text-section">
+  <div class="background" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});"></div>
   <div class="overlay">
     <div class="content">
       <h2 class="main-text">{{ section.settings.main_text }}</h2>
@@ -59,12 +60,22 @@
 <style>
   .image-text-section {
     position: relative;
+    overflow: hidden;
+    height: 100vh; /* Full viewport height */
+  }
+
+  .background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200px; /* Small starting size */
+    height: 200px; /* Small starting size */
     background-size: cover;
     background-position: center;
-    padding: 50px 20px;
-    color: white;
-        height: 800px;
+    transform: translate(-50%, -50%);
+    transition: all 1s ease-in-out;
   }
+
   .overlay {
     position: absolute;
     top: 0;
@@ -75,18 +86,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: opacity 1s ease-out;
   }
+
   .content {
     text-align: center;
+    color: white;
+    display: none; /* Initially hidden */
   }
+
   .main-text {
     font-size: 2.5rem;
     margin-bottom: 10px;
   }
+
   .subtitle {
     font-size: 1.5rem;
     margin-bottom: 20px;
   }
+
   .button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -95,7 +114,29 @@
     border-radius: 5px;
     font-size: 1rem;
   }
+
   .button:hover {
     background-color: #0056b3;
   }
 </style>
+
+<script>
+  window.addEventListener('scroll', function() {
+    const scrollPosition = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollRatio = scrollPosition / maxScroll;
+
+    // Zoom the background image
+    const background = document.querySelector('.background');
+    background.style.transform = `translate(-50%, -50%) scale(${1 + scrollRatio * 2})`; // scale from 1 to 3
+
+    // Fade in content and background zoom
+    const overlay = document.querySelector('.overlay');
+    const content = document.querySelector('.content');
+    if (scrollRatio > 0.2) {
+      overlay.style.opacity = 1; // Show overlay
+      content.style.display = 'block'; // Show content
+    }
+  });
+</script>
+
