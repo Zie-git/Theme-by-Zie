@@ -69,8 +69,11 @@
     height: 100%; /* Full height of the section */
     background-size: cover;
     background-position: center;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease-in-out; /* Smooth transition */
+    position: absolute;
+    top: 50%; /* Initially centered */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the image */
+    transition: transform 0.1s ease-in-out;
   }
 
   .overlay {
@@ -136,13 +139,15 @@
       const scrollPosition = window.scrollY;
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
-      
-      // Calculate scroll ratio within the section
+
+      // Calculate the scroll ratio within the section
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
-      // Calculate the scale to zoom the background image (from 0.2 to 1)
-      const scale = 0.2 + (scrollRatio * 0.8); // Scale from 0.2 to 1 as you scroll
-      background.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      // Calculate the background position to reveal the image (from 0 to 1)
+      const offset = Math.min(scrollRatio * 100, 100); // The image moves as you scroll, but it will not go past 100%
+
+      // Set background position (revealing the image gradually as the user scrolls)
+      background.style.transform = `translate(-50%, -${offset}%)`;
 
       // Fade in content and overlay as user scrolls down
       if (scrollRatio > 0.2) {
@@ -154,7 +159,7 @@
       }
     } else {
       // Reset if the section is out of view
-      background.style.transform = 'translate(-50%, -50%) scale(0.2)';
+      background.style.transform = 'translate(-50%, -50%)';
       overlay.style.opacity = 0;
       content.style.display = 'none';
     }
