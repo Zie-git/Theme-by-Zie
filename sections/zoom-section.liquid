@@ -1,3 +1,51 @@
+{% schema %}
+{
+  "name": "Zoom Image",
+  "settings": [
+    {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "background_image",
+      "info": "Select the background image for this section."
+    },
+    {
+      "type": "text",
+      "label": "Main Text",
+      "id": "main_text",
+      "default": "Your Main Text Here",
+      "info": "Enter the main text to display over the background."
+    },
+    {
+      "type": "text",
+      "label": "Subtitle",
+      "id": "subtitle",
+      "default": "Your Subtitle Here",
+      "info": "Enter the subtitle text."
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "button_url",
+      "default": "/",
+      "info": "Enter the URL for the button link."
+    },
+    {
+      "type": "text",
+      "label": "Button Text",
+      "id": "button_text",
+      "default": "Click Me",
+      "info": "Enter the text for the button."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Zoom Image",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
 <div class="image-text-section" id="zoom-image-section">
   <div class="zoom-effect">
     <div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
@@ -21,10 +69,9 @@
     color: white;
     height: 800px;
     width: 100%;
-    overflow: hidden; /* Hide any overflow content */
   }
 
-  /* The zoom-effect with overflow enabled */
+  /* The overlay with white cover and zoom effect */
   .zoom-effect {
     position: absolute;
     top: 0;
@@ -38,7 +85,6 @@
     z-index: 1;
     clip-path: inset(35%); /* Initial state */
     transition: clip-path 0.3s ease; /* Smooth transition for clip-path */
-    overflow: visible; /* Allow overflow */
   }
 
   /* The overlay to dim the background */
@@ -85,6 +131,7 @@
 </style>
 
 <script>
+  // Set the maximum and minimum values for the clip-path
   const MAX_CLIP = 35;
   const MIN_CLIP = 0;
 
@@ -110,6 +157,7 @@
   observer.observe(zoomSection);
 
   window.addEventListener('scroll', function (event) {
+    // Only proceed with scroll effects if scrolling is allowed
     if (!isScrollingAllowed) return;
 
     var scrollPosition = window.scrollY;
