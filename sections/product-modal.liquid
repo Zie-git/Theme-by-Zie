@@ -3,6 +3,18 @@
   "name": "Featured Products",
   "settings": [
     {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Choose Your Kelvin 36 Package"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Explore our featured products and find the best deals"
+    },
+    {
       "type": "range",
       "id": "padding_top",
       "label": "Padding Top",
@@ -92,8 +104,10 @@
 }
 {% endschema %}
 
+
 <div class="featured-products" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; width: {{ section.settings.width }}%;">
-  <h2>Choose Your Kelvin 36 Package</h2>
+  <h2>{{ section.settings.section_title }}</h2>
+  <p>{{ section.settings.section_subtitle }}</p>
   <div class="products-grid">
     {% for block in section.blocks %}
       {% assign product = all_products[block.settings.product] %}
