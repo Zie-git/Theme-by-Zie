@@ -46,8 +46,7 @@
 }
 {% endschema %}
 
-<div id="zoom-section" class="image-text-section">
-  <div class="background" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});"></div>
+<div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
   <div class="overlay">
     <div class="content">
       <h2 class="main-text">{{ section.settings.main_text }}</h2>
@@ -60,19 +59,11 @@
 <style>
   .image-text-section {
     position: relative;
-    overflow: hidden;
-    height: 100vh; /* Full viewport height */
-  }
-
-  .background {
-    width: 100%;
-    height: 100%;
     background-size: cover;
     background-position: center;
-    transform: translate(-50%, -50%) scale(1); /* Initially at scale 1 */
-    transition: transform 0.1s ease-in-out;
+    padding: 50px 20px;
+    color: white;
   }
-
   .overlay {
     position: absolute;
     top: 0;
@@ -83,26 +74,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    transition: opacity 1s ease-out;
   }
-
   .content {
     text-align: center;
-    color: white;
-    display: none;
   }
-
   .main-text {
     font-size: 2.5rem;
     margin-bottom: 10px;
   }
-
   .subtitle {
     font-size: 1.5rem;
     margin-bottom: 20px;
   }
-
   .button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -111,84 +94,7 @@
     border-radius: 5px;
     font-size: 1rem;
   }
-
   .button:hover {
     background-color: #0056b3;
   }
 </style>
-
-<script>
-  let zoomScale = 1;  // Variable to store the current zoom scale
-  let isZooming = false;  // Flag to indicate if the zooming process is happening
-  
-  // Function to check if the section is in view
-  function isSectionInView(element) {
-    const rect = element.getBoundingClientRect();
-    return rect.top < window.innerHeight && rect.bottom >= 0; // Checks if section is within the viewport
-  }
-
-  // Lock/Unlock body scroll
-  function toggleScrollLock(isLocked) {
-    if (isLocked) {
-      document.body.style.overflow = 'hidden';  // Disable scrolling
-    } else {
-      document.body.style.overflow = '';  // Re-enable scrolling
-    }
-  }
-
-  // Prevent default scroll behavior when zooming
-  function preventScroll(event) {
-    event.preventDefault();  // Prevent scrolling while zooming
-  }
-
-  window.addEventListener('scroll', function(event) {
-    const section = document.querySelector('#zoom-section'); // Get section by ID
-    const background = document.querySelector('.background');
-    const overlay = document.querySelector('.overlay');
-    const content = document.querySelector('.content');
-    let scrollPosition = window.scrollY;
-
-    // Check if the section is in the viewport
-    if (isSectionInView(section)) {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-
-      // Calculate the scroll ratio within the section
-      const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
-
-      // Calculate the scale for zoom effect based on scroll direction
-      zoomScale = 1 + scrollRatio * 2; // Start from 1x zoom and zoom in as you scroll down
-
-      // Limit the zoom to a maximum of 3x
-      if (zoomScale <= 3) {
-        background.style.transform = `translate(-50%, -50%) scale(${zoomScale})`;
-      }
-
-      // Show overlay and content when the image is fully revealed (scale = 3)
-      if (zoomScale >= 3) {
-        overlay.style.opacity = 1; // Show overlay
-        content.style.display = 'block'; // Show content
-        isZooming = false;
-        toggleScrollLock(false);  // Allow scrolling once zoom is complete
-      } else {
-        overlay.style.opacity = 0; // Hide overlay if not scrolled enough
-        content.style.display = 'none'; // Hide content if not scrolled enough
-        if (!isZooming) {
-          isZooming = true;
-          toggleScrollLock(true);  // Lock scroll during zoom effect
-          window.addEventListener('wheel', preventScroll, { passive: false });  // Lock scroll during zoom
-        }
-      }
-    } else {
-      // Keep the zoom scale when the section is out of view (don't reset it)
-      background.style.transform = `translate(-50%, -50%) scale(${zoomScale})`;
-    }
-  });
-
-  // If zoom is finished, unlock scroll
-  window.addEventListener('wheel', function(event) {
-    if (zoomScale >= 3) {
-      toggleScrollLock(false);
-    }
-  });
-</script>
