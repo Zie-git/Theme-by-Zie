@@ -118,65 +118,49 @@
 </style>
 
 <script>
-  // Create an Intersection Observer to monitor the visibility of the section
-  const zoomSection = document.querySelector('#zoom-section');
+  // Function to check if the section is in view
+  function isSectionInView(element) {
+    const rect = element.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom >= 0; // Checks if section is within the viewport
+  }
 
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Section is in view
-        startZoomEffect();
-      } else {
-        // Section is out of view
-        resetZoomEffect();
-      }
-    });
-  }, {
-    threshold: 0.1 // Adjust the threshold as needed (0.1 means 10% of the section must be visible)
-  });
-
-  observer.observe(zoomSection);
-
-  function startZoomEffect() {
+  window.addEventListener('scroll', function() {
+    const section = document.querySelector('#zoom-section'); // Get section by ID
     const background = document.querySelector('.background');
-    let scale = 1;
-    
-    window.addEventListener('scroll', function onScroll() {
-      const scrollPosition = window.scrollY;
-      const sectionTop = zoomSection.offsetTop;
-      const sectionHeight = zoomSection.offsetHeight;
+    const overlay = document.querySelector('.overlay');
+    const content = document.querySelector('.content');
+    let scrollPosition = window.scrollY;
+
+    // Check if the section is in the viewport
+    if (isSectionInView(section)) {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
 
       // Calculate the scroll ratio within the section
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
       // Calculate the scale for zoom effect based on scroll direction
-      scale = 1 + scrollRatio * 2; // Start from 1x zoom and zoom in as you scroll down
+      // Scale starts at 1 (small box), and zooms in (grows) as you scroll down
+      const scale = 1 + scrollRatio * 2; // Start from 1x zoom and zoom in as you scroll down
 
       // Limit the zoom to a maximum of 3x
       if (scale <= 3) {
         background.style.transform = `translate(-50%, -50%) scale(${scale})`;
       }
 
+      // Show overlay and content when the image is fully revealed (scale = 3)
       if (scale >= 3) {
-        const overlay = document.querySelector('.overlay');
-        const content = document.querySelector('.content');
         overlay.style.opacity = 1; // Show overlay
         content.style.display = 'block'; // Show content
+      } else {
+        overlay.style.opacity = 0; // Hide overlay if not scrolled enough
+        content.style.display = 'none'; // Hide content if not scrolled enough
       }
-    });
-
-    // Reset the zoom effect when section goes out of view
-    zoomSection.addEventListener('mouseout', function() {
-      resetZoomEffect();
-    });
-  }
-
-  function resetZoomEffect() {
-    const background = document.querySelector('.background');
-    background.style.transform = 'translate(-50%, -50%) scale(1)';
-    const overlay = document.querySelector('.overlay');
-    overlay.style.opacity = 0;
-    const content = document.querySelector('.content');
-    content.style.display = 'none';
-  }
+    } else {
+      // Reset if the section is out of view
+      background.style.transform = 'translate(-50%, -50%) scale(1)';
+      overlay.style.opacity = 0;
+      content.style.display = 'none';
+    }
+  });
 </script>
