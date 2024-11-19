@@ -84,7 +84,6 @@
     align-items: center;
     z-index: 1;
     clip-path: inset(35%); /* Initially 35% */
-    transition: clip-path 0.2s ease-in-out; /* Smooth transition for clip-path */
   }
 
   /* The overlay to dim the background */
@@ -135,18 +134,12 @@
   let clipValue = 35;
 
   // Function to handle scroll event and adjust clip-path
-  window.addEventListener('scroll', function() {
-    // Get the scroll position
-    let scrollPosition = window.scrollY;
+  let lastKnownScrollPosition = 0;
+  let ticking = false;
 
-    // Log scroll position to see if it's being calculated
-    console.log("Scroll Position:", scrollPosition);
-
-    // Calculate new clip value based on scroll position
+  function updateClipPath(scrollPosition) {
+    // Calculate the new clip-path value based on scroll position
     let newClipValue = 35 - (scrollPosition / 10); // You can adjust the denominator for speed
-
-    // Log the new clip value for debugging
-    console.log("New Clip Value:", newClipValue);
 
     // Ensure the clip value stays within the bounds (0% to 35%)
     if (newClipValue < 0) {
@@ -159,6 +152,19 @@
     let zoomEffect = document.querySelector('.zoom-effect');
     if (zoomEffect) {
       zoomEffect.style.clipPath = `inset(${newClipValue}%)`;
+    }
+  }
+
+  window.addEventListener('scroll', function () {
+    lastKnownScrollPosition = window.scrollY;
+
+    // Only update clip-path when the scroll position changes
+    if (!ticking) {
+      window.requestAnimationFrame(function () {
+        updateClipPath(lastKnownScrollPosition);
+        ticking = false;
+      });
+      ticking = true;
     }
   });
 </script>
