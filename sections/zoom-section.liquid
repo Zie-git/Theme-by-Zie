@@ -46,7 +46,7 @@
 }
 {% endschema %}
 
-<div class="image-text-section">
+<div class="image-text-section" id="zoom-image-section">
   <div class="zoom-effect">
     <div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
       <div class="overlay">
@@ -135,7 +135,31 @@
   const MAX_CLIP = 35;
   const MIN_CLIP = 0;
 
-  window.addEventListener('scroll', function() {
+  let isScrollingAllowed = true; // Flag to prevent scroll
+
+  const zoomSection = document.getElementById('zoom-image-section');
+
+  // Set up the IntersectionObserver to track when the section is in view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // If the section is in view, allow scrolling
+        isScrollingAllowed = true;
+      } else {
+        // If the section is out of view, prevent scrolling
+        isScrollingAllowed = false;
+      }
+    });
+  }, {
+    threshold: 0.5 // Trigger when 50% of the section is in view
+  });
+
+  observer.observe(zoomSection);
+
+  window.addEventListener('scroll', function () {
+    // Only proceed with scroll effects if scrolling is allowed
+    if (!isScrollingAllowed) return;
+
     var scrollPosition = window.scrollY;
     var maxScroll = document.body.scrollHeight - window.innerHeight;
 
@@ -150,5 +174,10 @@
 
     // Apply the new clip-path value to all sides (top, right, bottom, left)
     document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
+
+    // Prevent scrolling past the section by controlling scroll behavior
+    if (scrollPercent < 1 && newClipValue !== MIN_CLIP) {
+      window.scrollTo(0, scrollPosition); // Stay at the same scroll position
+    }
   });
 </script>
