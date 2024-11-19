@@ -68,7 +68,7 @@
     height: 800px;
   }
 
-  /* The overlay with white cover and zoom effect */
+  /* The zoom effect with a white cover */
   .zoom-effect {
     position: absolute;
     top: 0;
@@ -80,7 +80,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-    clip-path: inset(25%); /* Make the middle visible and reveal a box */
+    clip-path: inset(30%); /* Inverse: reveal the middle area */
   }
 
   /* The overlay to dim the background */
@@ -90,16 +90,13 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: rgba(0, 0, 0, 0.5); /* Darken the entire area */
     z-index: 2; /* Keep overlay above the image */
   }
 
   .content {
     text-align: center;
-    z-index: 3; /* Keep the content above the overlay */
+    z-index: 3; /* Ensure content is above overlay */
   }
 
   .main-text {
