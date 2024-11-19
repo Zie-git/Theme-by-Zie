@@ -136,10 +136,8 @@
   const MIN_CLIP = 0;
 
   let isScrollingAllowed = true; // Flag to prevent scroll
-  let lastScrollPosition = 0; // Store the last scroll position
 
   const zoomSection = document.getElementById('zoom-image-section');
-  const zoomEffect = document.querySelector('.zoom-effect');
 
   // Set up the IntersectionObserver to track when the section is in view
   const observer = new IntersectionObserver((entries) => {
@@ -162,42 +160,31 @@
     // Only proceed with scroll effects if scrolling is allowed
     if (!isScrollingAllowed) return;
 
-    const scrollPosition = window.scrollY;
-
-    // Determine if scrolling is upwards or downwards
-    const isScrollingDown = scrollPosition > lastScrollPosition;
-    lastScrollPosition = scrollPosition;
+    var scrollPosition = window.scrollY;
+    var maxScroll = document.body.scrollHeight - window.innerHeight;
 
     // Calculate the scroll percentage
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollPosition / maxScroll);
+    var scrollPercent = (scrollPosition / maxScroll);
 
     // Calculate the new clip-path value based on the scroll position
-    let newClipValue = MAX_CLIP - (scrollPercent * (MAX_CLIP - MIN_CLIP));
+    var newClipValue = MAX_CLIP - (scrollPercent * (MAX_CLIP - MIN_CLIP));
 
-    // Adjust the clip-path value if scrolling up or down
-    if (isScrollingDown) {
-      // Scrolling down: We want to zoom out (increase clip-path)
-      newClipValue = Math.max(MIN_CLIP, newClipValue); // Ensure it doesn't go below 0%
-    } else {
-      // Scrolling up: We want to zoom in (decrease clip-path)
-      newClipValue = Math.min(MAX_CLIP, newClipValue); // Ensure it doesn't go above 35%
-    }
+    // Ensure that the value stays within the range of 0% to 35%
+    newClipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, newClipValue));
 
     // Apply the new clip-path value to all sides (top, right, bottom, left)
-    zoomEffect.style.clipPath = `inset(${newClipValue}%)`;
+    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
 
     // Prevent scrolling past the section by controlling scroll behavior
     if (newClipValue !== MIN_CLIP && newClipValue !== MAX_CLIP) {
       event.preventDefault(); // Prevent the scroll from moving past the section
     }
 
-    // Allow scrolling to the next section only when clip-path reaches max or min
+    // Allow scrolling to the next section if clip-path reaches its target
     if (newClipValue === MIN_CLIP || newClipValue === MAX_CLIP) {
-      isScrollingAllowed = true; // Allow scroll past when clip-path reaches the threshold
+      isScrollingAllowed = true;
     } else {
-      isScrollingAllowed = false; // Prevent scrolling when the effect is in progress
+      event.preventDefault(); // Stay within the zoom section until effect completes
     }
   });
 </script>
-
