@@ -49,15 +49,15 @@
 <div class="image-text-section">
   <div class="zoom-effect">
     <div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
-      <div class="overlay">
-        <div class="content">
-          <h2 class="main-text">{{ section.settings.main_text }}</h2>
-          <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
-          <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
-        </div>
+    <div class="overlay">
+      <div class="content">
+        <h2 class="main-text">{{ section.settings.main_text }}</h2>
+        <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
+        <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
       </div>
     </div>
   </div>
+    </div>
 </div>
 
 <style>
@@ -83,7 +83,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-    clip-path: inset(35% 0 0 0); /* Initially 35% from top */
+    clip-path: inset(35%); /* Make the middle visible and reveal a box */
   }
 
   /* The overlay to dim the background */
@@ -128,44 +128,3 @@
     background-color: #0056b3;
   }
 </style>
-
-<script>
-  // Initial clip-path value
-  let clipValue = 35;
-
-  // Function to handle scroll event and adjust clip-path
-  let lastKnownScrollPosition = 0;
-  let ticking = false;
-
-  function updateClipPath(scrollPosition) {
-    // Calculate the new clip-path value based on scroll position
-    let newClipValue = 35 - (scrollPosition / 10); // Adjust for scroll speed
-
-    // Ensure the clip value stays within the bounds (0% to 35%)
-    if (newClipValue < 0) {
-      newClipValue = 0;
-    } else if (newClipValue > 35) {
-      newClipValue = 35;
-    }
-
-    // Apply the new clip-path value to the .zoom-effect element
-    let zoomEffect = document.querySelector('.zoom-effect');
-    if (zoomEffect) {
-      // Update the inset value dynamically (top, right, bottom, left)
-      zoomEffect.style.clipPath = `inset(${newClipValue}% 0 0 0)`;  // Only adjusting top
-    }
-  }
-
-  window.addEventListener('scroll', function () {
-    lastKnownScrollPosition = window.scrollY;
-
-    // Only update clip-path when the scroll position changes
-    if (!ticking) {
-      window.requestAnimationFrame(function () {
-        updateClipPath(lastKnownScrollPosition);
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-</script>
