@@ -66,15 +66,13 @@
   }
 
   .background {
-    position: fixed;
-    top: 50%;
-    left: 50%;
     width: 200px; /* Small starting size */
     height: 200px; /* Small starting size */
     background-size: cover;
     background-position: center;
     transform: translate(-50%, -50%);
     transition: all 1s ease-in-out;
+    margin: 0 auto;
   }
 
   .overlay {
@@ -122,22 +120,42 @@
 </style>
 
 <script>
+  // Function to check if the section is in view
+  function isSectionInView(element) {
+    const rect = element.getBoundingClientRect();
+    return rect.top >= 0 && rect.bottom <= window.innerHeight;
+  }
+
+  // Triggered on scroll
   window.addEventListener('scroll', function() {
-    const scrollPosition = window.scrollY;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollRatio = scrollPosition / maxScroll;
-
-    // Zoom the background image
+    const section = document.querySelector('.image-text-section');
     const background = document.querySelector('.background');
-    background.style.transform = `translate(-50%, -50%) scale(${1 + scrollRatio * 2})`; // scale from 1 to 3
-
-    // Fade in content and background zoom
     const overlay = document.querySelector('.overlay');
     const content = document.querySelector('.content');
-    if (scrollRatio > 0.2) {
-      overlay.style.opacity = 1; // Show overlay
-      content.style.display = 'block'; // Show content
+    
+    // Check if the section is in the viewport
+    if (isSectionInView(section)) {
+      // Start zooming the background
+      const scrollPosition = window.scrollY;
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
+
+      // Zoom the background image based on scroll position within the section
+      background.style.transform = `translate(-50%, -50%) scale(${1 + scrollRatio * 2})`; // scale from 1 to 3
+      
+      // Fade in content and background zoom
+      if (scrollRatio > 0.2) {
+        overlay.style.opacity = 1; // Show overlay
+        content.style.display = 'block'; // Show content
+      }
+    } else {
+      // Reset if the section is out of view
+      background.style.transform = 'translate(-50%, -50%) scale(1)';
+      overlay.style.opacity = 0;
+      content.style.display = 'none';
     }
   });
 </script>
+
 
