@@ -156,7 +156,7 @@
 
   observer.observe(zoomSection);
 
-  window.addEventListener('scroll', function () {
+  window.addEventListener('scroll', function (event) {
     // Only proceed with scroll effects if scrolling is allowed
     if (!isScrollingAllowed) return;
 
@@ -176,8 +176,15 @@
     document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
 
     // Prevent scrolling past the section by controlling scroll behavior
-    if (scrollPercent < 1 && newClipValue !== MIN_CLIP) {
-      window.scrollTo(0, scrollPosition); // Stay at the same scroll position
+    if (newClipValue !== MIN_CLIP && newClipValue !== MAX_CLIP) {
+      event.preventDefault(); // Prevent the scroll from moving past the section
+    }
+
+    // Allow scrolling to the next section if clip-path reaches its target
+    if (newClipValue === MIN_CLIP || newClipValue === MAX_CLIP) {
+      isScrollingAllowed = true;
+    } else {
+      event.preventDefault(); // Stay within the zoom section until effect completes
     }
   });
 </script>
