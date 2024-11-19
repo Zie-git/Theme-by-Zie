@@ -184,4 +184,11 @@
       background.style.transform = `translate(-50%, -50%) scale(${zoomScale})`;
     }
   });
+
+  // If zoom is finished, unlock scroll
+  window.addEventListener('wheel', function(event) {
+    if (zoomScale >= 3) {
+      toggleScrollLock(false);
+    }
+  });
 </script>
