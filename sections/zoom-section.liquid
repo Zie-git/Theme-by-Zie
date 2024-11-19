@@ -138,6 +138,7 @@
   let isScrollingAllowed = true; // Flag to prevent scroll
 
   const zoomSection = document.getElementById('zoom-image-section');
+  const zoomEffect = document.querySelector('.zoom-effect');
 
   // Set up the IntersectionObserver to track when the section is in view
   const observer = new IntersectionObserver((entries) => {
@@ -173,18 +174,15 @@
     newClipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, newClipValue));
 
     // Apply the new clip-path value to all sides (top, right, bottom, left)
-    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
+    zoomEffect.style.clipPath = `inset(${newClipValue}%)`;
 
-    // Prevent scrolling past the section by controlling scroll behavior
-    if (newClipValue !== MIN_CLIP && newClipValue !== MAX_CLIP) {
-      event.preventDefault(); // Prevent the scroll from moving past the section
-    }
-
-    // Allow scrolling to the next section if clip-path reaches its target
+    // If the clip-path has reached its minimum value, allow normal scrolling
     if (newClipValue === MIN_CLIP || newClipValue === MAX_CLIP) {
       isScrollingAllowed = true;
+      // Let the browser handle scrolling to the next section naturally
     } else {
-      event.preventDefault(); // Stay within the zoom section until effect completes
+      event.preventDefault(); // Prevent the scroll from moving past the section
     }
   });
 </script>
+
