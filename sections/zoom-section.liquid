@@ -46,7 +46,6 @@
 }
 {% endschema %}
 
-
 <div id="zoom-section" class="image-text-section">
   <div class="background" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});"></div>
   <div class="overlay">
@@ -66,12 +65,12 @@
   }
 
   .background {
-    width: 100%; /* Full width */
-    height: 100%; /* Full height of the section */
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s ease-in-out; /* Smooth transition */
+    transition: transform 0.1s ease-in-out;
   }
 
   .overlay {
@@ -91,7 +90,7 @@
   .content {
     text-align: center;
     color: white;
-    display: none; /* Initially hidden */
+    display: none;
   }
 
   .main-text {
@@ -125,7 +124,6 @@
     return rect.top < window.innerHeight && rect.bottom >= 0; // Checks if section is within the viewport
   }
 
-  // Triggered on scroll
   window.addEventListener('scroll', function() {
     const section = document.querySelector('#zoom-section'); // Get section by ID
     const background = document.querySelector('.background');
@@ -137,16 +135,20 @@
       const scrollPosition = window.scrollY;
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
-      
+
       // Calculate scroll ratio within the section
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
-      // Zoom the background image based on scroll position
-      const scale = 1 + scrollRatio * 2; // Scale from 1 to 3 as you scroll
-      background.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      // Calculate the scale for zoom effect
+      const scale = 1 + scrollRatio * 2; // Scale from 1 to 3
 
-      // Fade in content and overlay as user scrolls down
-      if (scrollRatio > 0.2) {
+      // Limit the zoom to a maximum of 3x
+      if (scale <= 3) {
+        background.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      }
+
+      // Restrict scrolling until the image is fully zoomed (scale 3)
+      if (scale >= 3) {
         overlay.style.opacity = 1; // Show overlay
         content.style.display = 'block'; // Show content
       } else {
@@ -161,7 +163,3 @@
     }
   });
 </script>
-
-
-
-
