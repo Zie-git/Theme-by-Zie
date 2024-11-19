@@ -255,13 +255,6 @@
         "padding_bottom": 20,
         "width": 75
       }
-    },
-    "zoom_section_LBdtNk": {
-      "type": "zoom-section",
-      "settings": {
-        "background_image": "shopify://shop_images/classic-quartz-wrist-watch.jpg",
-        "content": "This is the content that will appear as you scroll."
-      }
     }
   },
   "order": [
@@ -275,7 +268,6 @@
     "rick_text_RdMNLU",
     "reviews_Q43BQ3",
     "image_gallery_qE4XBy",
-    "product_modal_RtDLDW",
-    "zoom_section_LBdtNk"
+    "product_modal_RtDLDW"
   ]
 }
