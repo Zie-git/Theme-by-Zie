@@ -46,7 +46,6 @@
 }
 {% endschema %}
 
-
 <div id="zoom-section" class="image-text-section">
   <div class="background" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});"></div>
   <div class="overlay">
@@ -141,8 +140,8 @@
       // Calculate scroll ratio within the section
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
-      // Zoom the background image based on scroll position
-      const scale = 1 + scrollRatio * 2; // Scale from 1 to 3 as you scroll
+      // Calculate the scale to zoom the background image (from 0.2 to 1)
+      const scale = 0.2 + (scrollRatio * 0.8); // Scale from 0.2 to 1 as you scroll
       background.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
       // Fade in content and overlay as user scrolls down
@@ -155,13 +154,9 @@
       }
     } else {
       // Reset if the section is out of view
-      background.style.transform = 'translate(-50%, -50%) scale(1)';
+      background.style.transform = 'translate(-50%, -50%) scale(0.2)';
       overlay.style.opacity = 0;
       content.style.display = 'none';
     }
   });
 </script>
-
-
-
-
