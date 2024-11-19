@@ -135,6 +135,7 @@
 
   const zoomSection = document.getElementById('zoom-image-section');
 
+  // Intersection Observer to track visibility of section
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -149,23 +150,28 @@
 
   observer.observe(zoomSection);
 
-  window.addEventListener('scroll', function () {
+  window.addEventListener('scroll', function (event) {
     if (!isScrollingAllowed) return;
 
     var scrollPosition = window.scrollY;
     var maxScroll = document.body.scrollHeight - window.innerHeight;
     var scrollPercent = (scrollPosition / maxScroll);
-    var newClipValue = MAX_CLIP - (scrollPercent * (MAX_CLIP - MIN_CLIP));
 
+    // Calculate new clip-path value based on scroll position
+    var newClipValue = MAX_CLIP - (scrollPercent * (MAX_CLIP - MIN_CLIP));
     newClipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, newClipValue));
 
     document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
 
-    // Stop scrolling until the max clip-path value is reached
+    // Prevent scrolling until max clip-path value is reached
     if (newClipValue < MAX_CLIP) {
-      window.scrollTo(0, scrollPosition);
-    } else {
-      isScrollingAllowed = true; // Allow scrolling when max value is reached
+      event.preventDefault();  // Prevent scrolling
+      window.scrollTo(0, scrollPosition);  // Keep scroll position unchanged
+    }
+
+    // Allow scrolling when max clip-path value is reached
+    if (newClipValue === MAX_CLIP) {
+      isScrollingAllowed = true;  // Unlock scrolling when the zoom effect is complete
     }
   });
 </script>
