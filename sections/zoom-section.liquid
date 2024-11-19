@@ -129,17 +129,17 @@
     const background = document.querySelector('.background');
     const overlay = document.querySelector('.overlay');
     const content = document.querySelector('.content');
+    let scrollPosition = window.scrollY;
 
     // Check if the section is in the viewport
     if (isSectionInView(section)) {
-      const scrollPosition = window.scrollY;
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
 
-      // Calculate scroll ratio within the section
+      // Calculate the scroll ratio within the section
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
-      // Calculate the scale for zoom effect
+      // Calculate the scale for zoom effect based on scroll direction
       const scale = 3 - scrollRatio * 2; // Start at 3x zoom and zoom out to 1x
 
       // Limit the zoom to a minimum of 1x
