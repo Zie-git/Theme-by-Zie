@@ -45,13 +45,14 @@
   ]
 }
 {% endschema %}
-
+ <div class="zoom-effect">
 <div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
-  <div class="overlay">
-    <div class="content">
-      <h2 class="main-text">{{ section.settings.main_text }}</h2>
-      <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
-      <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
+    <div class="overlay">
+      <div class="content">
+        <h2 class="main-text">{{ section.settings.main_text }}</h2>
+        <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
+        <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
+      </div>
     </div>
   </div>
 </div>
@@ -66,6 +67,21 @@
     height: 800px;
   }
 
+  /* The overlay with white cover and zoom effect */
+  .zoom-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white; /* White background covering the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    clip-path: inset(35%); /* Make the middle visible and reveal a box */
+  }
+
   /* The overlay to dim the background */
   .overlay {
     position: absolute;
@@ -73,20 +89,16 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 1); /* White overlay */
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
-    clip-path: inset(35%); /* Create a small box in the center where the image is visible */
+    z-index: 2; /* Keep overlay above the image */
   }
 
-  /* Content box in the center */
   .content {
     text-align: center;
-    z-index: 2; /* Keep the content above the overlay */
-    position: relative;
-    background-color: transparent; /* No background, allow image to show */
+    z-index: 3; /* Keep the content above the overlay */
   }
 
   .main-text {
