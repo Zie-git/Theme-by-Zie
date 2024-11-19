@@ -47,7 +47,7 @@
 {% endschema %}
 
 
-<div class="image-text-section">
+<div id="zoom-section" class="image-text-section">
   <div class="background" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});"></div>
   <div class="overlay">
     <div class="content">
@@ -66,7 +66,7 @@
   }
 
   .background {
-    width: 100%; /* Start with 100% width */
+    width: 100%; /* Full width */
     height: 100%; /* Full height of the section */
     background-size: cover;
     background-position: center;
@@ -122,12 +122,12 @@
   // Function to check if the section is in view
   function isSectionInView(element) {
     const rect = element.getBoundingClientRect();
-    return rect.top < window.innerHeight && rect.bottom >= 0;
+    return rect.top < window.innerHeight && rect.bottom >= 0; // Checks if section is within the viewport
   }
 
   // Triggered on scroll
   window.addEventListener('scroll', function() {
-    const section = document.querySelector('.image-text-section');
+    const section = document.querySelector('#zoom-section'); // Get section by ID
     const background = document.querySelector('.background');
     const overlay = document.querySelector('.overlay');
     const content = document.querySelector('.content');
@@ -142,7 +142,7 @@
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
       // Zoom the background image based on scroll position
-      const scale = 1 + scrollRatio * 2; // scale from 1 to 3 as you scroll
+      const scale = 1 + scrollRatio * 2; // Scale from 1 to 3 as you scroll
       background.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
       // Fade in content and overlay as user scrolls down
@@ -161,6 +161,7 @@
     }
   });
 </script>
+
 
 
 
