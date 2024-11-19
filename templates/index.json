@@ -249,6 +249,8 @@
         "button {display: block; width: 100%; background-color: #f57f29; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease;}"
       ],
       "settings": {
+        "section_title": "Choose Your Product",
+        "section_subtitle": "Explore our featured products and find the best deals",
         "padding_top": 20,
         "padding_bottom": 20,
         "width": 75
