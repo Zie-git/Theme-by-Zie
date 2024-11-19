@@ -47,17 +47,17 @@
 {% endschema %}
 
 <div class="image-text-section">
-  <div class="zoom-effect" id="zoom-effect">
+  <div class="zoom-effect">
     <div class="image-text-section" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});">
-      <div class="overlay">
-        <div class="content">
-          <h2 class="main-text">{{ section.settings.main_text }}</h2>
-          <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
-          <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
-        </div>
+    <div class="overlay">
+      <div class="content">
+        <h2 class="main-text">{{ section.settings.main_text }}</h2>
+        <h3 class="subtitle">{{ section.settings.subtitle }}</h3>
+        <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
       </div>
     </div>
   </div>
+    </div>
 </div>
 
 <style>
@@ -84,7 +84,6 @@
     align-items: center;
     z-index: 1;
     clip-path: inset(35%); /* Make the middle visible and reveal a box */
-    transition: clip-path 0.1s ease-out; /* Smooth transition */
   }
 
   /* The overlay to dim the background */
@@ -129,33 +128,3 @@
     background-color: #0056b3;
   }
 </style>
-
-
-<script>
-  // Initialize variables for the scroll interaction
-let zoomEffect = document.getElementById('zoom-effect');
-let zoomEffectInitialClip = 35; // Initial clip value in percentage
-let zoomEffectFinalClip = 0; // Final clip value in percentage
-
-// Function to handle scroll event
-function handleScroll() {
-  // Get the scroll position relative to the viewport
-  let scrollPosition = window.scrollY;
-
-  // Get the section's position on the page
-  let sectionPosition = zoomEffect.getBoundingClientRect().top;
-  
-  // The scroll percentage
-  let scrollPercentage = Math.min(Math.max(scrollPosition / window.innerHeight, 0), 1);
-  
-  // Calculate the clip-path value based on scroll position
-  let clipValue = zoomEffectInitialClip - (scrollPercentage * (zoomEffectInitialClip - zoomEffectFinalClip));
-
-  // Apply the calculated clip-path value
-  zoomEffect.style.clipPath = `inset(${clipValue}%)`;
-}
-
-// Add scroll event listener
-window.addEventListener('scroll', handleScroll);
-
-  </script>
