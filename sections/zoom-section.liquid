@@ -1,6 +1,77 @@
+<div class="scroll-zoom-section">
+  <div class="scroll-zoom-box" style="background-image: url('{{ section.settings.background_image | asset_url }}');">
+    <div class="content">
+      {{ section.settings.content }}
+    </div>
+  </div>
+</div>
+
 {% schema %}
-  {
-    "name": "Section name",
-    "settings": []
-  }
+{
+  "name": "Scrolling Zoom Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Content",
+      "default": "This is the content that will appear as you scroll."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling Zoom Section",
+      "category": "Image",
+    }
+  ]
+}
 {% endschema %}
+
+<style>
+  .scroll-zoom-section {
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+  }
+
+  .scroll-zoom-box {
+    position: relative;
+    height: 100%; 
+    background-size: cover;
+    background-position: center;
+    transform: scale(1); /* Initial zoom level */
+    transition: transform 0.5s ease; /* Smooth transition */
+  }
+
+  .scroll-zoom-box .content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .scroll-zoom-box.scrolled {
+    transform: scale(1.2); /* Zoomed level */
+  }
+</style>
+
+<script>
+  document.addEventListener('scroll', () => {
+    const zoomBox = document.querySelector('.scroll-zoom-box');
+    const rect = zoomBox.getBoundingClientRect();
+
+    // Check if the box is in view
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
+      const zoomLevel = 1 + scrollProgress * 0.2; // Scale up to 1.2
+      zoomBox.style.transform = `scale(${zoomLevel})`;
+    }
+  });
+</script>
