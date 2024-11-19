@@ -46,6 +46,7 @@
 }
 {% endschema %}
 
+
 <div id="zoom-section" class="image-text-section">
   <div class="background" style="background-image: url({{ section.settings.background_image | img_url: 'original' }});"></div>
   <div class="overlay">
@@ -69,11 +70,8 @@
     height: 100%; /* Full height of the section */
     background-size: cover;
     background-position: center;
-    position: absolute;
-    top: 50%; /* Initially centered */
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the image */
-    transition: transform 0.1s ease-in-out;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-in-out; /* Smooth transition */
   }
 
   .overlay {
@@ -139,15 +137,13 @@
       const scrollPosition = window.scrollY;
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
-
-      // Calculate the scroll ratio within the section
+      
+      // Calculate scroll ratio within the section
       const scrollRatio = (scrollPosition + window.innerHeight - sectionTop) / sectionHeight;
 
-      // Calculate the background position to reveal the image (from 0 to 1)
-      const offset = Math.min(scrollRatio * 100, 100); // The image moves as you scroll, but it will not go past 100%
-
-      // Set background position (revealing the image gradually as the user scrolls)
-      background.style.transform = `translate(-50%, -${offset}%)`;
+      // Zoom the background image based on scroll position
+      const scale = 1 + scrollRatio * 2; // Scale from 1 to 3 as you scroll
+      background.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
       // Fade in content and overlay as user scrolls down
       if (scrollRatio > 0.2) {
@@ -159,9 +155,13 @@
       }
     } else {
       // Reset if the section is out of view
-      background.style.transform = 'translate(-50%, -50%)';
+      background.style.transform = 'translate(-50%, -50%) scale(1)';
       overlay.style.opacity = 0;
       content.style.display = 'none';
     }
   });
 </script>
+
+
+
+
