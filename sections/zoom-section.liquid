@@ -182,30 +182,30 @@ window.addEventListener('wheel', function (e) {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Select all sections
-  const sections = document.querySelectorAll('.shopify-section');
+  // Select the elements
+  const reviewsSection = document.querySelector('#shopify-section-template--16037962121306__reviews_Q43BQ3');
   const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
 
-  if (stickySection) {
+  if (reviewsSection && stickySection) {
     function checkOverlap() {
-      // Loop through all sections and check for overlap with the sticky section
-      sections.forEach((section) => {
-        const sectionRect = section.getBoundingClientRect();
-        const stickyRect = stickySection.getBoundingClientRect();
+      // Get bounding rectangles
+      const reviewsRect = reviewsSection.getBoundingClientRect();
+      const stickyRect = stickySection.getBoundingClientRect();
 
-        // Check if there is any overlap
-        const isOverlapping = !(
-          sectionRect.right <= stickyRect.left ||
-          sectionRect.left >= stickyRect.right ||
-          sectionRect.bottom <= stickyRect.top ||
-          sectionRect.top >= stickyRect.bottom
-        );
+      // Check if there is any overlap
+      isOverlapping = !(
+        reviewsRect.right <= stickyRect.left ||
+        reviewsRect.left >= stickyRect.right ||
+        reviewsRect.bottom <= stickyRect.top ||
+        reviewsRect.top >= stickyRect.bottom
+      );
 
-        // Log the result
-        if (isOverlapping) {
-          console.log(`Section with ID ${section.id || 'no ID'} is overlapping the sticky section.`);
-        }
-      });
+      // Log the result
+      if (isOverlapping) {
+        console.log('The reviews section is overlapping the sticky section.');
+      } else {
+        console.log('The reviews section is NOT overlapping the sticky section.');
+      }
     }
 
     // Debounce to avoid firing too frequently on scroll/resize
@@ -222,9 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial check
     checkOverlap();
   } else {
-    console.error('Sticky section is missing from the DOM.');
+    console.error('One or both sections are missing from the DOM.');
   }
 });
-
 </script>
 
