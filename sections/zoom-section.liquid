@@ -131,7 +131,7 @@
 </style>
 
 <script>
-// Set initial clip-path value
+// Set the initial clip-path value
 let clipValue = 35; // Starting at 35% as per your example
 const CLIP_INCREMENT = 10; // The amount to add/remove per scroll
 
@@ -139,56 +139,45 @@ const CLIP_INCREMENT = 10; // The amount to add/remove per scroll
 const MAX_CLIP = 35;
 const MIN_CLIP = 0;
 
-let isScrollingAllowed = true; // Flag to allow scroll behavior
-let isSticky = false; // Flag to detect if the section is sticky
+let isScrollingAllowed = true; // Flag to prevent scroll
 
 const zoomSection = document.getElementById('zoom-image-section');
 
-// IntersectionObserver to track if the section is in view
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // If the section is in view, allow scrolling and mark as sticky
-        isScrollingAllowed = true;
-        isSticky = true;
-      } else {
-        // If the section is out of view, prevent scrolling
-        isScrollingAllowed = false;
-        isSticky = false;
-      }
-    });
-  },
-  {
-    threshold: 0.5, // Trigger when 50% of the section is in view
-  }
-);
+// Set up the IntersectionObserver to track when the section is in view
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // If the section is in view, allow scrolling
+      isScrollingAllowed = true;
+    } else {
+      // If the section is out of view, prevent scrolling
+      isScrollingAllowed = false;
+    }
+  });
+}, {
+  threshold: 0.5 // Trigger when 50% of the section is in view
+});
 
 observer.observe(zoomSection);
 
-// Debounce to control scroll event firing
-let scrollTimeout;
-
 window.addEventListener('wheel', function (e) {
-  if (!isScrollingAllowed || !isSticky) return; // Allow only if sticky
+  // Only proceed with scroll effects if scrolling is allowed
+  if (!isScrollingAllowed) return;
 
-  // Debounce scroll handling
-  if (scrollTimeout) clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    if (e.deltaY > 0) {
-      // Scroll down - decrease clip value (zoom out)
-      clipValue -= CLIP_INCREMENT;
-    } else {
-      // Scroll up - increase clip value (zoom in)
-      clipValue += CLIP_INCREMENT;
-    }
+  // Determine scroll direction and adjust clip-value
+  if (e.deltaY > 0) {
+    // Scroll down - decrease clip value (zoom out)
+    clipValue -= CLIP_INCREMENT;
+  } else {
+    // Scroll up - increase clip value (zoom in)
+    clipValue += CLIP_INCREMENT;
+  }
 
-    // Ensure the clip value stays within the range of 0% to 35%
-    clipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, clipValue));
+  // Ensure the clip value stays within the range of 0% to 35%
+  clipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, clipValue));
 
-    // Apply updated clip-path value to `.zoom-effect`
-    document.querySelector('.zoom-effect').style.clipPath = `inset(${clipValue}%)`;
-  }, 50); // Debounce delay (ms)
+  // Apply the updated clip-path value to all sides (top, right, bottom, left)
+  document.querySelector('.zoom-effect').style.clipPath = `inset(${clipValue}%)`;
 });
 
 </script>
