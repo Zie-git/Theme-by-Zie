@@ -131,23 +131,26 @@
 </style>
 
 <script>
-  // Set the maximum and minimum values for the clip-path
-  const MAX_CLIP = 35;
-  const MIN_CLIP = 0;
+  const MAX_CLIP = 35; // Maximum clip-path value
+  const MIN_CLIP = 0;  // Minimum clip-path value
 
-  let isScrollingAllowed = true; // Flag to prevent scroll
-
+  let isScrollingAllowed = true; // Flag to allow or prevent scrolling
+  let currentClipValue = MAX_CLIP; // Initial clip-path value
+  const zoomEffect = document.querySelector('.zoom-effect');
   const zoomSection = document.getElementById('zoom-image-section');
 
-  // Set up the IntersectionObserver to track when the section is in view
+  // Update the clip-path value
+  const updateClipPath = (value) => {
+    zoomEffect.style.clipPath = `inset(${value}%)`;
+  };
+
+  // Set up the IntersectionObserver to ensure section is in view
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // If the section is in view, allow scrolling
-        isScrollingAllowed = true;
+        isScrollingAllowed = true; // Allow scrolling when section is visible
       } else {
-        // If the section is out of view, prevent scrolling
-        isScrollingAllowed = false;
+        isScrollingAllowed = false; // Prevent scrolling when section is not visible
       }
     });
   }, {
@@ -156,28 +159,51 @@
 
   observer.observe(zoomSection);
 
-  window.addEventListener('scroll', function () {
-    // Only proceed with scroll effects if scrolling is allowed
+  window.addEventListener('scroll', function (event) {
+    // Only proceed if scrolling is allowed
     if (!isScrollingAllowed) return;
 
-    var scrollPosition = window.scrollY;
-    var maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollPosition = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
 
     // Calculate the scroll percentage
-    var scrollPercent = (scrollPosition / maxScroll);
+    const scrollPercent = scrollPosition / maxScroll;
 
-    // Calculate the new clip-path value based on the scroll position
-    var newClipValue = MAX_CLIP - (scrollPercent * (MAX_CLIP - MIN_CLIP));
+    // Calculate the new clip-path value
+    const targetClipValue = MAX_CLIP - (scrollPercent * (MAX_CLIP - MIN_CLIP));
 
-    // Ensure that the value stays within the range of 0% to 35%
-    newClipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, newClipValue));
+    // Check if we need to lock scrolling
+    if (targetClipValue <= MIN_CLIP || targetClipValue >= MAX_CLIP) {
+      isScrollingAllowed = false; // Lock scrolling
+      currentClipValue = targetClipValue <= MIN_CLIP ? MIN_CLIP : MAX_CLIP; // Clamp value
+    } else {
+      currentClipValue = targetClipValue; // Update the clip-path value
+    }
 
-    // Apply the new clip-path value to all sides (top, right, bottom, left)
-    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
+    // Apply the new clip-path value
+    updateClipPath(currentClipValue);
 
-    // Prevent scrolling past the section by controlling scroll behavior
-    if (scrollPercent < 1 && newClipValue !== MIN_CLIP) {
-      window.scrollTo(0, scrollPosition); // Stay at the same scroll position
+    // Prevent scrolling past the section
+    if (!isScrollingAllowed) {
+      event.preventDefault(); // Stop the default scroll behavior
+      window.scrollTo(0, scrollPosition); // Maintain the current scroll position
+    } else {
+      updateClipPath(currentClipValue);
+    }
+  });
+
+  // Re-enable scrolling when reaching bounds
+  window.addEventListener('wheel', (event) => {
+    if (!isScrollingAllowed) {
+      const delta = event.deltaY;
+
+      if (
+        (delta > 0 && currentClipValue === MAX_CLIP) || // Down scroll at max clip
+        (delta < 0 && currentClipValue === MIN_CLIP)   // Up scroll at min clip
+      ) {
+        isScrollingAllowed = true; // Allow scrolling again
+      }
     }
   });
 </script>
+
