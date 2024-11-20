@@ -37,7 +37,12 @@
   z-index: 10; /* Ensure it appears above other elements */
   background-color: white; /* Optional: Set a background color to avoid transparency issues */
 }
-
+#shopify-section-template--16037962121306__reviews_Q43BQ3,
+#shopify-section-template--16037962121306__image_gallery_qE4XBy,
+#shopify-section-template--16037962121306__product_modal_RtDLDW{
+  z-index: 11;
+    position: relative;
+}
 
 
 
