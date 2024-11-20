@@ -131,43 +131,53 @@
 </style>
 
 <script>
+  // Set the maximum and minimum values for the clip-path
   const MAX_CLIP = 35;
   const MIN_CLIP = 0;
 
-  let sectionInView = false; // Flag to track if the section is visible
-  let clipPathValue = MAX_CLIP; // Initialize clip-path value
+  let isScrollingAllowed = true; // Flag to prevent scroll
 
-  const zoomEffect = document.querySelector('.zoom-effect');
   const zoomSection = document.getElementById('zoom-image-section');
 
-  // Function to calculate and update clip-path
-  function updateClipPath(scrollDelta) {
-    clipPathValue -= scrollDelta * 0.1; // Adjust sensitivity as needed
-    clipPathValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, clipPathValue)); // Clamp value
-    zoomEffect.style.clipPath = `inset(${clipPathValue}%)`;
-  }
-
-  // Prevent page scroll but allow clip-path to update
-  function handleScroll(event) {
-    if (sectionInView && clipPathValue > MIN_CLIP && clipPathValue < MAX_CLIP) {
-      event.preventDefault(); // Prevent page scroll
-      const scrollDelta = event.deltaY > 0 ? 1 : -1; // Determine scroll direction
-      updateClipPath(scrollDelta); // Update clip-path
-    }
-  }
-
-  // Set up IntersectionObserver to track when the section is in view
+  // Set up the IntersectionObserver to track when the section is in view
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      sectionInView = entry.isIntersecting; // Update visibility flag
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // If the section is in view, allow scrolling
+        isScrollingAllowed = true;
+      } else {
+        // If the section is out of view, prevent scrolling
+        isScrollingAllowed = false;
+      }
     });
   }, {
-    threshold: 0.5, // Trigger when 50% of the section is in view
+    threshold: 0.5 // Trigger when 50% of the section is in view
   });
 
   observer.observe(zoomSection);
 
-  // Add scroll listener to handle the custom behavior
-  window.addEventListener('wheel', handleScroll, { passive: false });
-</script>
+  window.addEventListener('scroll', function () {
+    // Only proceed with scroll effects if scrolling is allowed
+    if (!isScrollingAllowed) return;
 
+    var scrollPosition = window.scrollY;
+    var maxScroll = document.body.scrollHeight - window.innerHeight;
+
+    // Calculate the scroll percentage
+    var scrollPercent = (scrollPosition / maxScroll);
+
+    // Calculate the new clip-path value based on the scroll position
+    var newClipValue = MAX_CLIP - (scrollPercent * (MAX_CLIP - MIN_CLIP));
+
+    // Ensure that the value stays within the range of 0% to 35%
+    newClipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, newClipValue));
+
+    // Apply the new clip-path value to all sides (top, right, bottom, left)
+    document.querySelector('.zoom-effect').style.clipPath = `inset(${newClipValue}%)`;
+
+    // Prevent scrolling past the section by controlling scroll behavior
+    if (scrollPercent < 1 && newClipValue !== MIN_CLIP) {
+      window.scrollTo(0, scrollPosition); // Stay at the same scroll position
+    }
+  });
+</script>
