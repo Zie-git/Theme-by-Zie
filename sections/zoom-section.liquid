@@ -161,49 +161,34 @@ const observer = new IntersectionObserver((entries) => {
 
 observer.observe(zoomSection);
 
-window.addEventListener('wheel', function (e) {
-  // Only proceed with scroll effects if scrolling is allowed and no overlap
-  if (!isScrollingAllowed || isOverlapping) return;
-
-  // Determine scroll direction and adjust clip-value
-  if (e.deltaY > 0) {
-    // Scroll down - decrease clip value (zoom out)
-    clipValue -= CLIP_INCREMENT;
-  } else {
-    // Scroll up - increase clip value (zoom in)
-    clipValue += CLIP_INCREMENT;
-  }
-
-  // Ensure the clip value stays within the range of 0% to 35%
-  clipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, clipValue));
-
-  // Apply the updated clip-path value to all sides (top, right, bottom, left)
-  document.querySelector('.zoom-effect').style.clipPath = `inset(${clipValue}%)`;
-});
-
 document.addEventListener('DOMContentLoaded', () => {
   // Select the elements
-  const reviewsSection = document.querySelector('#shopify-section-template--16037962121306__reviews_Q43BQ3');
+  const reviewsSections = document.querySelectorAll('.shopify-section');
   const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
 
-  if (reviewsSection && stickySection) {
+  if (reviewsSections.length > 0 && stickySection) {
     function checkOverlap() {
-      // Get bounding rectangles
-      const reviewsRect = reviewsSection.getBoundingClientRect();
-      const stickyRect = stickySection.getBoundingClientRect();
+      // Assume no overlap at the start
+      isOverlapping = false;
+      
+      // Get bounding rectangles for each reviews section
+      reviewsSections.forEach(reviewsSection => {
+        const reviewsRect = reviewsSection.getBoundingClientRect();
+        const stickyRect = stickySection.getBoundingClientRect();
 
-      // Check if there is any overlap
-      isOverlapping = !(
-        reviewsRect.right <= stickyRect.left ||
-        reviewsRect.left >= stickyRect.right ||
-        reviewsRect.bottom <= stickyRect.top ||
-        reviewsRect.top >= stickyRect.bottom
-      );
+        // Check if there is any overlap
+        if (
+          !(reviewsRect.right <= stickyRect.left ||
+            reviewsRect.left >= stickyRect.right ||
+            reviewsRect.bottom <= stickyRect.top ||
+            reviewsRect.top >= stickyRect.bottom)
+        ) {
+          isOverlapping = true;
+          console.log('The reviews section is overlapping the sticky section.');
+        }
+      });
 
-      // Log the result
-      if (isOverlapping) {
-        console.log('The reviews section is overlapping the sticky section.');
-      } else {
+      if (!isOverlapping) {
         console.log('The reviews section is NOT overlapping the sticky section.');
       }
     }
@@ -225,5 +210,27 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('One or both sections are missing from the DOM.');
   }
 });
+
+// Handle scroll events
+window.addEventListener('wheel', function (e) {
+  // Only proceed with scroll effects if scrolling is allowed and no overlap
+  if (!isScrollingAllowed || isOverlapping) return;
+
+  // Determine scroll direction and adjust clip-value
+  if (e.deltaY > 0) {
+    // Scroll down - decrease clip value (zoom out)
+    clipValue -= CLIP_INCREMENT;
+  } else {
+    // Scroll up - increase clip value (zoom in)
+    clipValue += CLIP_INCREMENT;
+  }
+
+  // Ensure the clip value stays within the range of 0% to 35%
+  clipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, clipValue));
+
+  // Apply the updated clip-path value to all sides (top, right, bottom, left)
+  document.querySelector('.zoom-effect').style.clipPath = `inset(${clipValue}%)`;
+});
 </script>
+
 
