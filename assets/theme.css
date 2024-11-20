@@ -30,3 +30,10 @@
     --tw-text-opacity: 1;
     color: rgb(55 65 81 / var(--tw-text-opacity));
   }
+
+#shopify-section-template--16037962121306__zoom_section_yP4rgJ {
+  position: sticky;
+  top: 0; /* Adjust as needed (e.g., `top: 50px`) to set the offset from the top */
+  z-index: 10; /* Ensure it appears above other elements */
+  background-color: white; /* Optional: Set a background color to avoid transparency issues */
+}
