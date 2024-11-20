@@ -198,10 +198,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check if there is any overlap between the section and the sticky section
         if (
-          !(sectionRect.right <= stickyRect.left ||
-            sectionRect.left >= stickyRect.right ||
-            sectionRect.bottom <= stickyRect.top ||
-            sectionRect.top >= stickyRect.bottom)
+          sectionRect.right > stickyRect.left &&
+          sectionRect.left < stickyRect.right &&
+          sectionRect.bottom > stickyRect.top &&
+          sectionRect.top < stickyRect.bottom
         ) {
           isOverlapping = true; // If any section overlaps, set the flag
         }
@@ -233,5 +233,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
-
 
