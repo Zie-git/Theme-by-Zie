@@ -183,34 +183,27 @@ window.addEventListener('wheel', function (e) {
 
 document.addEventListener('DOMContentLoaded', () => {
   // Select the elements
-  const reviewsSections = document.querySelectorAll('.shopify-section');
+  const reviewsSection = document.querySelector('#shopify-section-template--16037962121306__reviews_Q43BQ3');
   const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
 
-  if (reviewsSections.length > 0 && stickySection) {
+  if (reviewsSection && stickySection) {
     function checkOverlap() {
-      isOverlapping = false; // Reset overlap state before checking
+      // Get bounding rectangles
+      const reviewsRect = reviewsSection.getBoundingClientRect();
+      const stickyRect = stickySection.getBoundingClientRect();
 
-      // Get bounding rectangles for each reviews section
-      reviewsSections.forEach(reviewsSection => {
-        const reviewsRect = reviewsSection.getBoundingClientRect();
-        const stickyRect = stickySection.getBoundingClientRect();
+      // Check if there is any overlap
+      isOverlapping = !(
+        reviewsRect.right <= stickyRect.left ||
+        reviewsRect.left >= stickyRect.right ||
+        reviewsRect.bottom <= stickyRect.top ||
+        reviewsRect.top >= stickyRect.bottom
+      );
 
-        // Check if there is any overlap
-        const overlapDetected = !(
-          reviewsRect.right <= stickyRect.left ||
-          reviewsRect.left >= stickyRect.right ||
-          reviewsRect.bottom <= stickyRect.top ||
-          reviewsRect.top >= stickyRect.bottom
-        );
-
-        // If overlap is detected, set the flag to true
-        if (overlapDetected) {
-          isOverlapping = true;
-          console.log('The reviews section is overlapping the sticky section.');
-        }
-      });
-
-      if (!isOverlapping) {
+      // Log the result
+      if (isOverlapping) {
+        console.log('The reviews section is overlapping the sticky section.');
+      } else {
         console.log('The reviews section is NOT overlapping the sticky section.');
       }
     }
@@ -232,6 +225,5 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('One or both sections are missing from the DOM.');
   }
 });
-
 </script>
 
