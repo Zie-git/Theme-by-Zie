@@ -186,9 +186,9 @@ window.addEventListener('wheel', function (e) {
   document.querySelector('.zoom-effect').style.clipPath = `inset(${clipValue}%)`;
 
     // Check the clip value to show/hide the content
-  if (clipValue >= 30) {
+  if (clipValue >= 25) {
     document.querySelector('.content').style.display = 'none';
-  } else if (clipValue <= 29) {
+  } else if (clipValue <= 24) {
     document.querySelector('.content').style.display = 'block';
   }
   
