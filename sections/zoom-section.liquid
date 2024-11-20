@@ -184,6 +184,14 @@ window.addEventListener('wheel', function (e) {
 
   // Apply the updated clip-path value to all sides (top, right, bottom, left)
   document.querySelector('.zoom-effect').style.clipPath = `inset(${clipValue}%)`;
+
+    // Check the clip value to show/hide the content
+  if (clipValue >= 30) {
+    document.querySelector('.content').style.display = 'none';
+  } else if (clipValue <= 29) {
+    document.querySelector('.content').style.display = 'block';
+  }
+  
 });
 
 document.addEventListener('DOMContentLoaded', () => {
