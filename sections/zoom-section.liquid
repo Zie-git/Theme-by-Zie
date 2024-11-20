@@ -192,14 +192,14 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if (stickySection) {
     // Select all the other sections to check for overlap
-    const otherSections = document.querySelectorAll('.overlap-section'); // Assuming sections have this class
+    const otherSections = document.querySelectorAll('.shopify-section'); // Assuming sections have this class
     
     // Debounce to avoid firing too frequently on scroll/resize
     let timeout;
     function debounceCheck() {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        checkOverlap(otherSections);
+        checkOverlap(stickySection, otherSections);
       }, 100);
     }
 
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', debounceCheck);
 
     // Initial check
-    checkOverlap(otherSections);
+    checkOverlap(stickySection, otherSections);
   } else {
     console.error('Sticky section is missing from the DOM.');
   }
@@ -224,8 +224,11 @@ function isOverlapping() {
     // Select all other sections
     const otherSections = document.querySelectorAll('.shopify-section'); // Use the class for the other sections
     
-    // Loop through each section and check for overlap
+    // Loop through each section and check for overlap, excluding the sticky section
     for (let section of otherSections) {
+      // Skip the sticky section itself
+      if (section === stickySection) continue;
+      
       const sectionRect = section.getBoundingClientRect();
       
       // Check for overlap
