@@ -161,57 +161,6 @@ const observer = new IntersectionObserver((entries) => {
 
 observer.observe(zoomSection);
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Select the elements
-  const reviewsSections = document.querySelectorAll('.shopify-section');
-  const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
-
-  if (reviewsSections.length > 0 && stickySection) {
-    function checkOverlap() {
-      // Assume no overlap at the start
-      isOverlapping = false;
-      
-      // Get bounding rectangles for each reviews section
-      reviewsSections.forEach(reviewsSection => {
-        const reviewsRect = reviewsSection.getBoundingClientRect();
-        const stickyRect = stickySection.getBoundingClientRect();
-
-        // Check if there is any overlap
-        if (
-          !(reviewsRect.right <= stickyRect.left ||
-            reviewsRect.left >= stickyRect.right ||
-            reviewsRect.bottom <= stickyRect.top ||
-            reviewsRect.top >= stickyRect.bottom)
-        ) {
-          isOverlapping = true;
-          console.log('The reviews section is overlapping the sticky section.');
-        }
-      });
-
-      if (!isOverlapping) {
-        console.log('The reviews section is NOT overlapping the sticky section.');
-      }
-    }
-
-    // Debounce to avoid firing too frequently on scroll/resize
-    let timeout;
-    function debounceCheck() {
-      clearTimeout(timeout);
-      timeout = setTimeout(checkOverlap, 100);
-    }
-
-    // Run the check on scroll and resize
-    window.addEventListener('scroll', debounceCheck);
-    window.addEventListener('resize', debounceCheck);
-
-    // Initial check
-    checkOverlap();
-  } else {
-    console.error('One or both sections are missing from the DOM.');
-  }
-});
-
-// Handle scroll events
 window.addEventListener('wheel', function (e) {
   // Only proceed with scroll effects if scrolling is allowed and no overlap
   if (!isScrollingAllowed || isOverlapping) return;
@@ -230,6 +179,58 @@ window.addEventListener('wheel', function (e) {
 
   // Apply the updated clip-path value to all sides (top, right, bottom, left)
   document.querySelector('.zoom-effect').style.clipPath = `inset(${clipValue}%)`;
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Select the sticky section and all shopify sections
+  const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
+  const shopifySections = document.querySelectorAll('.shopify-section');
+
+  if (stickySection && shopifySections.length > 0) {
+    function checkOverlap() {
+      // Get the bounding rectangle of the sticky section
+      const stickyRect = stickySection.getBoundingClientRect();
+      isOverlapping = false; // Reset the overlap state
+
+      // Loop through all the shopify sections to check for overlap
+      shopifySections.forEach(section => {
+        const sectionRect = section.getBoundingClientRect();
+
+        // Check if there is any overlap between the section and the sticky section
+        if (
+          !(sectionRect.right <= stickyRect.left ||
+            sectionRect.left >= stickyRect.right ||
+            sectionRect.bottom <= stickyRect.top ||
+            sectionRect.top >= stickyRect.bottom)
+        ) {
+          isOverlapping = true; // If any section overlaps, set the flag
+        }
+      });
+
+      // Log the result
+      if (isOverlapping) {
+        console.log('One of the sections is overlapping the sticky section.');
+      } else {
+        console.log('No sections are overlapping the sticky section.');
+      }
+    }
+
+    // Debounce to avoid firing too frequently on scroll/resize
+    let timeout;
+    function debounceCheck() {
+      clearTimeout(timeout);
+      timeout = setTimeout(checkOverlap, 100);
+    }
+
+    // Run the check on scroll and resize
+    window.addEventListener('scroll', debounceCheck);
+    window.addEventListener('resize', debounceCheck);
+
+    // Initial check
+    checkOverlap();
+  } else {
+    console.error('Sticky section or shopify sections are missing from the DOM.');
+  }
 });
 </script>
 
