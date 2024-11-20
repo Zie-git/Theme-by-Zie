@@ -142,9 +142,10 @@ const MIN_CLIP = 0;
 let isScrollingAllowed = true; // Flag to prevent scroll
 let isOverlapping = false; // Flag for overlap state
 
-const zoomSection = document.getElementById('zoom-image-section');
+// Select all shopify-section elements
+const shopifySections = document.querySelectorAll('.shopify-section');
 
-// Set up the IntersectionObserver to track when the section is in view
+// Set up the IntersectionObserver to track visibility of each section
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -159,8 +160,12 @@ const observer = new IntersectionObserver((entries) => {
   threshold: 0.5 // Trigger when 50% of the section is in view
 });
 
-observer.observe(zoomSection);
+// Observe each shopify-section
+shopifySections.forEach(section => {
+  observer.observe(section);
+});
 
+// Function to handle scroll events
 window.addEventListener('wheel', function (e) {
   // Only proceed with scroll effects if scrolling is allowed and no overlap
   if (!isScrollingAllowed || isOverlapping) return;
@@ -177,35 +182,41 @@ window.addEventListener('wheel', function (e) {
   // Ensure the clip value stays within the range of 0% to 35%
   clipValue = Math.max(MIN_CLIP, Math.min(MAX_CLIP, clipValue));
 
-  // Apply the updated clip-path value to all sides (top, right, bottom, left)
-  document.querySelector('.zoom-effect').style.clipPath = `inset(${clipValue}%)`;
+  // Apply the updated clip-path value to all .shopify-section elements
+  shopifySections.forEach(section => {
+    const zoomEffectElement = section.querySelector('.zoom-effect');
+    if (zoomEffectElement) {
+      zoomEffectElement.style.clipPath = `inset(${clipValue}%)`;
+    }
+  });
 });
 
+// Handle the overlap detection between shopify sections
 document.addEventListener('DOMContentLoaded', () => {
-  // Select the elements
-  const reviewsSection = document.querySelector('#shopify-section-template--16037962121306__reviews_Q43BQ3');
+  // Select the sticky section and any other relevant sections
   const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
 
-  if (reviewsSection && stickySection) {
+  if (stickySection) {
     function checkOverlap() {
-      // Get bounding rectangles
-      const reviewsRect = reviewsSection.getBoundingClientRect();
-      const stickyRect = stickySection.getBoundingClientRect();
+      shopifySections.forEach(reviewsSection => {
+        const reviewsRect = reviewsSection.getBoundingClientRect();
+        const stickyRect = stickySection.getBoundingClientRect();
 
-      // Check if there is any overlap
-      isOverlapping = !(
-        reviewsRect.right <= stickyRect.left ||
-        reviewsRect.left >= stickyRect.right ||
-        reviewsRect.bottom <= stickyRect.top ||
-        reviewsRect.top >= stickyRect.bottom
-      );
+        // Check if there is any overlap
+        isOverlapping = !(
+          reviewsRect.right <= stickyRect.left ||
+          reviewsRect.left >= stickyRect.right ||
+          reviewsRect.bottom <= stickyRect.top ||
+          reviewsRect.top >= stickyRect.bottom
+        );
 
-      // Log the result
-      if (isOverlapping) {
-        console.log('The reviews section is overlapping the sticky section.');
-      } else {
-        console.log('The reviews section is NOT overlapping the sticky section.');
-      }
+        // Log the result for each section
+        if (isOverlapping) {
+          console.log('A section is overlapping the sticky section.');
+        } else {
+          console.log('No overlap with the sticky section.');
+        }
+      });
     }
 
     // Debounce to avoid firing too frequently on scroll/resize
@@ -222,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial check
     checkOverlap();
   } else {
-    console.error('One or both sections are missing from the DOM.');
+    console.error('Sticky section is missing from the DOM.');
   }
 });
 </script>
