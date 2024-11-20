@@ -133,38 +133,24 @@
 <script>
 // Set the initial clip-path value
 let clipValue = 35; // Starting at 35% as per your example
-const CLIP_INCREMENT = 5; // The amount to add/remove per scroll
+const CLIP_INCREMENT = 10; // The amount to add/remove per scroll
 
 // Set the maximum and minimum clip-path values
 const MAX_CLIP = 35;
 const MIN_CLIP = 0;
 
-let isScrollingAllowed = false; // Initially set to false, only enable on visibility
+let isScrollingAllowed = true; // Flag to prevent scroll
 
 const zoomSection = document.getElementById('zoom-image-section');
-
-// Check if the zoom section is overlapping with any other element based on z-index
-function isOverlapping() {
-  const zoomEffect = document.querySelector('.zoom-effect');
-  const zoomEffectRect = zoomEffect.getBoundingClientRect();
-  const allElements = document.elementsFromPoint(zoomEffectRect.left + zoomEffectRect.width / 2, zoomEffectRect.top + zoomEffectRect.height / 2);
-
-  for (let el of allElements) {
-    if (el !== zoomEffect && window.getComputedStyle(el).zIndex > 1) {
-      return true; // There's an overlapping element with higher z-index
-    }
-  }
-  return false; // No overlapping element
-}
 
 // Set up the IntersectionObserver to track when the section is in view
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting && !isOverlapping()) {
-      // If the section is in view and no overlapping element is detected, allow scrolling
+    if (entry.isIntersecting) {
+      // If the section is in view, allow scrolling
       isScrollingAllowed = true;
     } else {
-      // If the section is out of view or an overlapping element is present, prevent scrolling
+      // If the section is out of view, prevent scrolling
       isScrollingAllowed = false;
     }
   });
@@ -175,7 +161,7 @@ const observer = new IntersectionObserver((entries) => {
 observer.observe(zoomSection);
 
 window.addEventListener('wheel', function (e) {
-  // Only proceed with scroll effects if scrolling is allowed and no z-index overlap
+  // Only proceed with scroll effects if scrolling is allowed
   if (!isScrollingAllowed) return;
 
   // Determine scroll direction and adjust clip-value
