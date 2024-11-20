@@ -164,6 +164,12 @@ window.addEventListener('wheel', function (e) {
   // Only proceed with scroll effects if scrolling is allowed
   if (!isScrollingAllowed) return;
 
+  // Check if the sections are overlapping
+  if (isOverlapping()) {
+    // If overlapping, don't proceed with the scroll effect
+    return;
+  }
+
   // Determine scroll direction and adjust clip-value
   if (e.deltaY > 0) {
     // Scroll down - decrease clip value (zoom out)
@@ -205,6 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         console.log('The reviews section is NOT overlapping the sticky section.');
       }
+
+      return isOverlapping;
     }
 
     // Debounce to avoid firing too frequently on scroll/resize
@@ -225,4 +233,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Helper function to check overlap
+function isOverlapping() {
+  const reviewsSection = document.querySelector('#shopify-section-template--16037962121306__reviews_Q43BQ3');
+  const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
+  
+  if (reviewsSection && stickySection) {
+    const reviewsRect = reviewsSection.getBoundingClientRect();
+    const stickyRect = stickySection.getBoundingClientRect();
+
+    // Check for overlap
+    return !(
+      reviewsRect.right <= stickyRect.left ||
+      reviewsRect.left >= stickyRect.right ||
+      reviewsRect.bottom <= stickyRect.top ||
+      reviewsRect.top >= stickyRect.bottom
+    );
+  }
+  return false;
+}
 </script>
+
