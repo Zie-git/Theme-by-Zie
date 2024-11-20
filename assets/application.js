@@ -2,9 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Select the elements
   const reviewsSection = document.querySelector('#shopify-section-template--16037962121306__reviews_Q43BQ3');
   const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
-  const zoomEffect = document.querySelector('.zoom-effect');
 
-  if (reviewsSection && stickySection && zoomEffect) {
+  if (reviewsSection && stickySection) {
     function checkOverlap() {
       // Get bounding rectangles
       const reviewsRect = reviewsSection.getBoundingClientRect();
@@ -18,13 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
         reviewsRect.top >= stickyRect.bottom
       );
 
-      // Update the clip-path style based on overlap
+      // Log the result
       if (isOverlapping) {
         console.log('The reviews section is overlapping the sticky section.');
-        zoomEffect.style.clipPath = 'inset(10%)'; // Prevent changes
       } else {
         console.log('The reviews section is NOT overlapping the sticky section.');
-        zoomEffect.style.clipPath = 'inset(0%)'; // Adjust to desired value
       }
     }
 
@@ -42,6 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial check
     checkOverlap();
   } else {
-    console.error('One or more required sections are missing from the DOM.');
+    console.error('One or both sections are missing from the DOM.');
   }
 });
