@@ -1,7 +1,7 @@
 // Put your application javascript here
 
 
-  // Select the elements
+// Select the elements
 const reviewsSection = document.querySelector('#shopify-section-template--16037962121306__reviews_Q43BQ3');
 const stickySection = document.querySelector('#shopify-section-template--16037962121306__zoom_section_yP4rgJ');
 
@@ -16,11 +16,11 @@ function checkOverlap() {
                           reviewsRect.bottom < stickyRect.top ||
                           reviewsRect.top > stickyRect.bottom);
 
-  // Log the result or take action
+  // Alert the result
   if (isOverlapping) {
-    console.log('The reviews section is overlapping the sticky section.');
+    alert('The reviews section is overlapping the sticky section.');
   } else {
-    console.log('The reviews section is NOT overlapping the sticky section.');
+    alert('The reviews section is NOT overlapping the sticky section.');
   }
 }
 
