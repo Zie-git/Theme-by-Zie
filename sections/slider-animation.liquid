@@ -1,6 +1,141 @@
 {% schema %}
-  {
-    "name": "Section name",
-    "settings": []
-  }
+{
+  "name": "Animated Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "slider_title",
+      "label": "Slider Title",
+      "default": "My Animated Slider"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "slide_content",
+          "label": "Slide Content",
+          "default": "This is a slide."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Animated Slider",
+      "category": "Sliders",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "slide_content": "Slide 1 Content"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "slide_content": "Slide 2 Content"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "slide_content": "Slide 3 Content"
+          }
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}
+
+<div class="animated-slider">
+  <h2>{{ section.settings.slider_title }}</h2>
+  <div class="slider-container">
+    <div class="slides">
+      {% for block in section.blocks %}
+        <div class="slide">{{ block.settings.slide_content }}</div>
+      {% endfor %}
+    </div>
+    <button class="slider-button prev">Prev</button>
+    <button class="slider-button next">Next</button>
+  </div>
+</div>
+
+<style>
+  .animated-slider {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
+  position: relative;
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  margin: 0 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.slider-button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.slider-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+  </style>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const slides = document.querySelector('.slides');
+  const prevButton = document.querySelector('.slider-button.prev');
+  const nextButton = document.querySelector('.slider-button.next');
+
+  let currentSlide = 0;
+  const slideCount = slides.children.length;
+
+  function updateSlider(direction) {
+    if (direction === 'next') {
+      const firstSlide = slides.children[0];
+      slides.appendChild(firstSlide);
+    } else if (direction === 'prev') {
+      const lastSlide = slides.children[slideCount - 1];
+      slides.prepend(lastSlide);
+    }
+    // Add animation class to see the process
+    slides.style.transition = 'transform 0.5s';
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  nextButton.addEventListener('click', () => updateSlider('next'));
+  prevButton.addEventListener('click', () => updateSlider('prev'));
+});
+
+</script>
