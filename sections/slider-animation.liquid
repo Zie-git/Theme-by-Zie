@@ -115,53 +115,62 @@
   }
 
   .slider-container {
+    overflow: hidden;
     position: relative;
     width: 100%;
-    height: 400px; /* Adjust as needed */
-    perspective: 1000px; /* For 3D effect */
   }
 
   .slides {
-    position: relative;
-    width: 100%;
-    height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    transition: transform 0.5s ease-in-out;
   }
 
   .slide {
-    position: absolute;
-    width: 90%;
-    height: 80%;
-    background: #fff;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    transition: transform 0.6s ease, box-shadow 0.6s ease;
-    will-change: transform;
+    display: flex;
+    flex: 0 0 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
   }
 
-  .slide:nth-child(1) {
-    z-index: 3;
-    transform: translateZ(30px) scale(1);
-  }
-
-  .slide:nth-child(2) {
-    z-index: 2;
-    transform: translateZ(15px) scale(0.9);
-  }
-
-  .slide:nth-child(3) {
-    z-index: 1;
-    transform: translateZ(0) scale(0.8);
-  }
-
-  .slide img {
+  .slide-content {
+    display: flex;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
+    gap: 20px;
+  }
+
+  .slide-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .slide-text {
+    text-align: left;
+    flex: 1;
+  }
+
+  .slide-text h3 {
+    font-size: 1.5em;
+    margin: 0;
+  }
+
+  .slide-text p {
+    font-size: 1em;
+    color: #666;
+    margin: 10px 0;
+  }
+
+  .slide-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
   }
 
   .slider-button {
@@ -183,50 +192,26 @@
   .slider-button.next {
     right: 10px;
   }
-
-  .slide.lift {
-    transform: translateY(-20px) rotateX(-10deg);
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
-  }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const slides = document.querySelectorAll('.slide');
+    const slides = document.querySelector('.slides');
     const prevButton = document.querySelector('.slider-button.prev');
     const nextButton = document.querySelector('.slider-button.next');
 
-    function updateSlides(direction) {
+    function moveSlide(direction) {
       if (direction === 'next') {
-        const firstSlide = slides[0];
-        firstSlide.classList.add('lift');
-        setTimeout(() => {
-          firstSlide.classList.remove('lift');
-          firstSlide.parentNode.appendChild(firstSlide);
-          updateZIndex();
-        }, 600); // Matches the transition time
+        const firstSlide = slides.children[0];
+        slides.appendChild(firstSlide);
       } else if (direction === 'prev') {
-        const lastSlide = slides[slides.length - 1];
-        lastSlide.classList.add('lift');
-        setTimeout(() => {
-          lastSlide.classList.remove('lift');
-          lastSlide.parentNode.prepend(lastSlide);
-          updateZIndex();
-        }, 600);
+        const lastSlide = slides.children[slides.children.length - 1];
+        slides.prepend(lastSlide);
       }
+      slides.style.transition = 'transform 0.5s ease-in-out';
     }
 
-    function updateZIndex() {
-      slides.forEach((slide, index) => {
-        slide.style.zIndex = slides.length - index;
-        slide.style.transform = `translateZ(${index * 15}px) scale(${1 - index * 0.1})`;
-      });
-    }
-
-    nextButton.addEventListener('click', () => updateSlides('next'));
-    prevButton.addEventListener('click', () => updateSlides('prev'));
-
-    updateZIndex(); // Initialize stacking
+    nextButton.addEventListener('click', () => moveSlide('next'));
+    prevButton.addEventListener('click', () => moveSlide('prev'));
   });
 </script>
-
