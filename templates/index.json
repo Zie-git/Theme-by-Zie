@@ -272,25 +272,41 @@
         "slide_B4bJfa": {
           "type": "slide",
           "settings": {
-            "slide_content": "Slide 1 Content"
+            "slide_image": "shopify://shop_images/mens-suit-watch.jpg",
+            "slide_title": "Default Slide Title",
+            "slide_subtitle": "Default Slide Subtitle",
+            "slide_button_link": "",
+            "slide_button_text": "Learn More"
           }
         },
         "slide_jC7L9V": {
           "type": "slide",
           "settings": {
-            "slide_content": "Slide 2 Content"
+            "slide_image": "shopify://shop_images/classic-quartz-wrist-watch.jpg",
+            "slide_title": "Default Slide Title",
+            "slide_subtitle": "Default Slide Subtitle",
+            "slide_button_link": "",
+            "slide_button_text": "Learn More"
           }
         },
         "slide_cWnVD3": {
           "type": "slide",
           "settings": {
-            "slide_content": "Slide 3 Content"
+            "slide_image": "shopify://shop_images/gold-pocket-watch-on-a-black-notebook.jpg",
+            "slide_title": "Default Slide Title",
+            "slide_subtitle": "Default Slide Subtitle",
+            "slide_button_link": "",
+            "slide_button_text": "Learn More"
           }
         },
         "slide_deYTzm": {
           "type": "slide",
           "settings": {
-            "slide_content": "This is a slide."
+            "slide_image": "shopify://shop_images/model-with-leather-jacket-over-shoulders.jpg",
+            "slide_title": "Default Slide Title",
+            "slide_subtitle": "Default Slide Subtitle",
+            "slide_button_link": "",
+            "slide_button_text": "Learn More"
           }
         }
       },
