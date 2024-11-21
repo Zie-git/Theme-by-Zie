@@ -15,10 +15,32 @@
       "name": "Slide",
       "settings": [
         {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide Image"
+        },
+        {
           "type": "text",
-          "id": "slide_content",
-          "label": "Slide Content",
-          "default": "This is a slide."
+          "id": "slide_title",
+          "label": "Slide Title",
+          "default": "Default Slide Title"
+        },
+        {
+          "type": "text",
+          "id": "slide_subtitle",
+          "label": "Slide Subtitle",
+          "default": "Default Slide Subtitle"
+        },
+        {
+          "type": "url",
+          "id": "slide_button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "slide_button_text",
+          "label": "Button Text",
+          "default": "Learn More"
         }
       ]
     }
@@ -31,19 +53,21 @@
         {
           "type": "slide",
           "settings": {
-            "slide_content": "Slide 1 Content"
+            "slide_title": "First Slide",
+            "slide_subtitle": "Subtitle for the first slide",
+            "slide_button_text": "Discover",
+            "slide_button_link": "#",
+            "slide_image": "shopify://shop_images/example_image1.jpg"
           }
         },
         {
           "type": "slide",
           "settings": {
-            "slide_content": "Slide 2 Content"
-          }
-        },
-        {
-          "type": "slide",
-          "settings": {
-            "slide_content": "Slide 3 Content"
+            "slide_title": "Second Slide",
+            "slide_subtitle": "Subtitle for the second slide",
+            "slide_button_text": "Learn More",
+            "slide_button_link": "#",
+            "slide_image": "shopify://shop_images/example_image2.jpg"
           }
         }
       ]
@@ -57,7 +81,24 @@
   <div class="slider-container">
     <div class="slides">
       {% for block in section.blocks %}
-        <div class="slide">{{ block.settings.slide_content }}</div>
+        <div class="slide">
+          <div class="slide-content">
+            <div class="slide-image">
+              {% if block.settings.slide_image %}
+                <img src="{{ block.settings.slide_image | image_url }}" alt="Slide Image">
+              {% endif %}
+            </div>
+            <div class="slide-text">
+              <h3>{{ block.settings.slide_title }}</h3>
+              <p>{{ block.settings.slide_subtitle }}</p>
+              {% if block.settings.slide_button_link %}
+                <a href="{{ block.settings.slide_button_link }}" class="slide-button">
+                  {{ block.settings.slide_button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
       {% endfor %}
     </div>
     <button class="slider-button prev">Prev</button>
@@ -67,75 +108,110 @@
 
 <style>
   .animated-slider {
-  text-align: center;
-  margin: 20px auto;
-  max-width: 600px;
-  position: relative;
-}
+    text-align: center;
+    margin: 20px auto;
+    max-width: 800px;
+    position: relative;
+  }
 
-.slider-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
+  .slider-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
 
-.slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
 
-.slide {
-  min-width: 100%;
-  margin: 0 5px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+  .slide {
+    display: flex;
+    flex: 0 0 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+  }
 
-.slider-button {
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
+  .slide-content {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+  }
 
-.slider-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
+  .slide-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
 
-  </style>
+  .slide-text {
+    text-align: left;
+    flex: 1;
+  }
 
+  .slide-text h3 {
+    font-size: 1.5em;
+    margin: 0;
+  }
+
+  .slide-text p {
+    font-size: 1em;
+    color: #666;
+    margin: 10px 0;
+  }
+
+  .slide-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+
+  .slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .slider-button.prev {
+    left: 10px;
+  }
+
+  .slider-button.next {
+    right: 10px;
+  }
+</style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-  const slides = document.querySelector('.slides');
-  const prevButton = document.querySelector('.slider-button.prev');
-  const nextButton = document.querySelector('.slider-button.next');
+    const slides = document.querySelector('.slides');
+    const prevButton = document.querySelector('.slider-button.prev');
+    const nextButton = document.querySelector('.slider-button.next');
 
-  let currentSlide = 0;
-  const slideCount = slides.children.length;
-
-  function updateSlider(direction) {
-    if (direction === 'next') {
-      const firstSlide = slides.children[0];
-      slides.appendChild(firstSlide);
-    } else if (direction === 'prev') {
-      const lastSlide = slides.children[slideCount - 1];
-      slides.prepend(lastSlide);
+    function moveSlide(direction) {
+      if (direction === 'next') {
+        const firstSlide = slides.children[0];
+        slides.appendChild(firstSlide);
+      } else if (direction === 'prev') {
+        const lastSlide = slides.children[slides.children.length - 1];
+        slides.prepend(lastSlide);
+      }
+      slides.style.transition = 'transform 0.5s ease-in-out';
     }
-    // Add animation class to see the process
-    slides.style.transition = 'transform 0.5s';
-    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
 
-  nextButton.addEventListener('click', () => updateSlider('next'));
-  prevButton.addEventListener('click', () => updateSlider('prev'));
-});
-
+    nextButton.addEventListener('click', () => moveSlide('next'));
+    prevButton.addEventListener('click', () => moveSlide('prev'));
+  });
 </script>
