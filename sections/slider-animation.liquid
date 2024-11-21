@@ -82,21 +82,19 @@
     <div class="slides">
       {% for block in section.blocks %}
         <div class="slide">
-          <div class="slide-content">
-            <div class="slide-image">
-              {% if block.settings.slide_image %}
-                <img src="{{ block.settings.slide_image | image_url }}" alt="Slide Image">
-              {% endif %}
-            </div>
-            <div class="slide-text">
-              <h3>{{ block.settings.slide_title }}</h3>
-              <p>{{ block.settings.slide_subtitle }}</p>
-              {% if block.settings.slide_button_link %}
-                <a href="{{ block.settings.slide_button_link }}" class="slide-button">
-                  {{ block.settings.slide_button_text }}
-                </a>
-              {% endif %}
-            </div>
+          <div class="slide-image">
+            {% if block.settings.slide_image %}
+              <img src="{{ block.settings.slide_image | image_url }}" alt="Slide Image">
+            {% endif %}
+          </div>
+          <div class="slide-text">
+            <h3>{{ block.settings.slide_title }}</h3>
+            <p>{{ block.settings.slide_subtitle }}</p>
+            {% if block.settings.slide_button_link %}
+              <a href="{{ block.settings.slide_button_link }}" class="slide-button">
+                {{ block.settings.slide_button_text }}
+              </a>
+            {% endif %}
           </div>
         </div>
       {% endfor %}
@@ -118,59 +116,45 @@
     overflow: hidden;
     position: relative;
     width: 100%;
+    height: 300px;
   }
 
   .slides {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    flex-wrap: nowrap;
+    position: relative;
+    height: 100%;
+    transform-style: preserve-3d;
   }
 
   .slide {
-    display: flex;
-    flex: 0 0 100%;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #f9f9f9;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.5s ease-in-out;
+    pointer-events: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   }
 
-  .slide-content {
-    display: flex;
-    width: 100%;
-    gap: 20px;
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    z-index: 2;
+  }
+
+  .slide.glow {
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.5);
   }
 
   .slide-image img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-  }
-
-  .slide-text {
-    text-align: left;
-    flex: 1;
-  }
-
-  .slide-text h3 {
-    font-size: 1.5em;
-    margin: 0;
-  }
-
-  .slide-text p {
-    font-size: 1em;
-    color: #666;
-    margin: 10px 0;
-  }
-
-  .slide-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    margin-top: 10px;
   }
 
   .slider-button {
@@ -196,22 +180,37 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const slides = document.querySelector('.slides');
+    const slides = document.querySelectorAll('.slide');
     const prevButton = document.querySelector('.slider-button.prev');
     const nextButton = document.querySelector('.slider-button.next');
+    let currentSlideIndex = 0;
 
-    function moveSlide(direction) {
-      if (direction === 'next') {
-        const firstSlide = slides.children[0];
-        slides.appendChild(firstSlide);
-      } else if (direction === 'prev') {
-        const lastSlide = slides.children[slides.children.length - 1];
-        slides.prepend(lastSlide);
-      }
-      slides.style.transition = 'transform 0.5s ease-in-out';
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active', 'glow');
+        if (index === currentSlideIndex) {
+          slide.classList.add('active', 'glow');
+          setTimeout(() => slide.classList.remove('glow'), 500); // Remove glow after animation
+        }
+      });
     }
 
-    nextButton.addEventListener('click', () => moveSlide('next'));
-    prevButton.addEventListener('click', () => moveSlide('prev'));
+    function nextSlide() {
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+      slides[currentSlideIndex].style.zIndex = 1;
+      updateSlides();
+    }
+
+    function prevSlide() {
+      currentSlideIndex =
+        (currentSlideIndex - 1 + slides.length) % slides.length;
+      updateSlides();
+    }
+
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
+
+    updateSlides(); // Initialize the first slide
   });
 </script>
+
