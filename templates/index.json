@@ -265,6 +265,44 @@
         "padding_bottom": 20,
         "width": 75
       }
+    },
+    "slider_animation_t4qBJc": {
+      "type": "slider-animation",
+      "blocks": {
+        "slide_B4bJfa": {
+          "type": "slide",
+          "settings": {
+            "slide_content": "Slide 1 Content"
+          }
+        },
+        "slide_jC7L9V": {
+          "type": "slide",
+          "settings": {
+            "slide_content": "Slide 2 Content"
+          }
+        },
+        "slide_cWnVD3": {
+          "type": "slide",
+          "settings": {
+            "slide_content": "Slide 3 Content"
+          }
+        },
+        "slide_deYTzm": {
+          "type": "slide",
+          "settings": {
+            "slide_content": "This is a slide."
+          }
+        }
+      },
+      "block_order": [
+        "slide_B4bJfa",
+        "slide_jC7L9V",
+        "slide_cWnVD3",
+        "slide_deYTzm"
+      ],
+      "settings": {
+        "slider_title": "My Animated Slider"
+      }
     }
   },
   "order": [
@@ -279,6 +317,7 @@
     "zoom_section_yP4rgJ",
     "reviews_Q43BQ3",
     "image_gallery_qE4XBy",
-    "product_modal_RtDLDW"
+    "product_modal_RtDLDW",
+    "slider_animation_t4qBJc"
   ]
 }
