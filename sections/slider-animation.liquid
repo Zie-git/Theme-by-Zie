@@ -148,10 +148,13 @@
     display: none;
     justify-content: space-between;
     align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Fade transition for the entire slide */
   }
 
   .slide.active {
     display: flex;
+    opacity: 1;
   }
 
   .slide-content {
@@ -177,6 +180,24 @@
     flex: 1;
     text-align: left;
     padding-left: 20px;
+    opacity: 0;
+    animation: fade-in-text 0.5s ease-in-out forwards; /* Animation for text */
+  }
+
+  .slide.active .slide-text {
+    opacity: 1; /* Ensure text becomes fully visible when slide is active */
+    animation: fade-in-text 0.5s ease-in-out forwards;
+  }
+
+  @keyframes fade-in-text {
+    0% {
+      opacity: 0;
+      transform: translateY(10px); /* Optional slight movement for added effect */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .slide-text h3 {
@@ -258,6 +279,7 @@
     }
   }
 </style>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
