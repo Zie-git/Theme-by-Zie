@@ -1,3 +1,93 @@
+{% schema %}
+{
+  "name": "Enhanced Animated Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "slider_title",
+      "label": "Slider Title",
+      "default": "Enhanced Animated Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_play",
+      "label": "Enable Auto-Play",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "auto_play_interval",
+      "label": "Auto-Play Interval (ms)",
+      "default": 5000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "text",
+          "id": "slide_title",
+          "label": "Slide Title",
+          "default": "Default Slide Title"
+        },
+        {
+          "type": "text",
+          "id": "slide_subtitle",
+          "label": "Slide Subtitle",
+          "default": "Default Slide Subtitle"
+        },
+        {
+          "type": "url",
+          "id": "slide_button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "slide_button_text",
+          "label": "Button Text",
+          "default": "Learn More"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Enhanced Slider",
+      "category": "Sliders",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "slide_title": "First Slide",
+            "slide_subtitle": "Subtitle for the first slide",
+            "slide_button_text": "Discover",
+            "slide_button_link": "#",
+            "slide_image": "shopify://shop_images/example_image1.jpg"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "slide_title": "Second Slide",
+            "slide_subtitle": "Subtitle for the second slide",
+            "slide_button_text": "Learn More",
+            "slide_button_link": "#",
+            "slide_image": "shopify://shop_images/example_image2.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
 <div class="animated-slider">
   <h2>{{ section.settings.slider_title }}</h2>
   <div class="slider-container">
