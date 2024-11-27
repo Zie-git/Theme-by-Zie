@@ -135,14 +135,12 @@
     overflow: hidden;
     position: relative;
     width: 100%;
-    perspective: 1500px; /* Add perspective for 3D effect */
   }
 
   .slides {
     display: flex;
     flex-direction: column;
-    transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
-    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
   }
 
   .slide {
@@ -151,14 +149,12 @@
     justify-content: space-between;
     align-items: center;
     opacity: 0;
-    transform: rotateY(90deg); /* Initially set the slide off-screen */
-    transition: transform 1s, opacity 1s; /* Page curl effect on rotation */
+    transition: opacity 0.5s ease-in-out; /* Fade transition for the entire slide */
   }
 
   .slide.active {
     display: flex;
     opacity: 1;
-    transform: rotateY(0deg); /* When active, the slide curls back to its normal position */
   }
 
   .slide-content {
@@ -167,20 +163,17 @@
     align-items: center;
     width: 100%;
     padding: 20px;
-    transform: translateZ(50px); /* Ensuring content stays above the "page" */
   }
 
   .slide-image {
     flex: 1;
     text-align: left;
-    transform: rotateY(-5deg); /* Adding slight rotation for added realism */
   }
 
   .slide-image img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
   }
 
   .slide-text {
@@ -188,18 +181,18 @@
     text-align: left;
     padding-left: 20px;
     opacity: 0;
-    animation: fade-in-text 1s ease-in-out forwards;
+    animation: fade-in-text 0.5s ease-in-out forwards; /* Animation for text */
   }
 
   .slide.active .slide-text {
-    opacity: 1;
-    animation: fade-in-text 1s ease-in-out forwards;
+    opacity: 1; /* Ensure text becomes fully visible when slide is active */
+    animation: fade-in-text 0.5s ease-in-out forwards;
   }
 
   @keyframes fade-in-text {
     0% {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(10px); /* Optional slight movement for added effect */
     }
     100% {
       opacity: 1;
@@ -286,6 +279,7 @@
     }
   }
 </style>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
