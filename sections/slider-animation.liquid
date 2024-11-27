@@ -148,11 +148,13 @@
     display: none;
     justify-content: space-between;
     align-items: center;
-    perspective: 1000px; /* Enable 3D effect for child elements */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Fade transition for the entire slide */
   }
 
   .slide.active {
     display: flex;
+    opacity: 1;
   }
 
   .slide-content {
@@ -166,23 +168,12 @@
   .slide-image {
     flex: 1;
     text-align: left;
-    position: relative;
-    transform-origin: left center; /* Anchor for the "lifting" effect */
-    transform: rotateY(90deg); /* Start with the image flipped */
-    opacity: 0;
-    transition: transform 0.6s ease, opacity 0.6s ease; /* Smooth transition for flip */
-  }
-
-  .slide.active .slide-image {
-    transform: rotateY(0); /* Bring the image into view */
-    opacity: 1;
   }
 
   .slide-image img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    backface-visibility: hidden; /* Ensure the back of the image is not visible */
   }
 
   .slide-text {
@@ -190,18 +181,18 @@
     text-align: left;
     padding-left: 20px;
     opacity: 0;
-    animation: fade-in-text 0.5s ease-in-out forwards;
+    animation: fade-in-text 0.5s ease-in-out forwards; /* Animation for text */
   }
 
   .slide.active .slide-text {
-    opacity: 1;
+    opacity: 1; /* Ensure text becomes fully visible when slide is active */
     animation: fade-in-text 0.5s ease-in-out forwards;
   }
 
   @keyframes fade-in-text {
     0% {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(10px); /* Optional slight movement for added effect */
     }
     100% {
       opacity: 1;
@@ -275,7 +266,7 @@
 
   @media (max-width: 768px) {
     .slide-content {
-      flex-direction: column; 
+      flex-direction: column;
     }
 
     .slide-text {
@@ -288,7 +279,6 @@
     }
   }
 </style>
-
 
 
 <script>
