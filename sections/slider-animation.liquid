@@ -143,19 +143,32 @@
     transition: transform 0.5s ease-in-out;
   }
 
-  .slide {
-    flex: 0 0 100%;
-    display: none;
-    justify-content: space-between;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out; /* Fade transition for the entire slide */
-  }
+/* Add to your existing styles */
+.slide {
+  flex: 0 0 100%;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 1s ease-in-out; /* Add transform for the curl */
+  transform-origin: right center; /* Origin of the curl animation */
+}
 
-  .slide.active {
-    display: flex;
-    opacity: 1;
-  }
+.slide.active {
+  display: flex;
+  opacity: 1;
+  transform: perspective(1200px) rotateY(0deg); /* No rotation for the active slide */
+}
+
+.slide.incoming {
+  opacity: 1;
+  transform: perspective(1200px) rotateY(-180deg); /* Curl effect for incoming slide */
+}
+
+.slide.leaving {
+  opacity: 0;
+  transform: perspective(1200px) rotateY(180deg); /* Curl effect for outgoing slide */
+}
 
   .slide-content {
     display: flex;
@@ -282,62 +295,70 @@
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const slides = document.querySelectorAll('.slide');
-    const indicators = document.querySelectorAll('.indicator');
-    const prevButton = document.querySelector('.slider-button.prev');
-    const nextButton = document.querySelector('.slider-button.next');
-    const autoPlay = {{ section.settings.auto_play }};
-    const autoPlayInterval = {{ section.settings.auto_play_interval }};
-    let currentSlideIndex = 0;
-    let autoPlayTimer;
+ document.addEventListener('DOMContentLoaded', function () {
+  const slides = document.querySelectorAll('.slide');
+  const indicators = document.querySelectorAll('.indicator');
+  const prevButton = document.querySelector('.slider-button.prev');
+  const nextButton = document.querySelector('.slider-button.next');
+  const autoPlay = {{ section.settings.auto_play }};
+  const autoPlayInterval = {{ section.settings.auto_play_interval }};
+  let currentSlideIndex = 0;
+  let autoPlayTimer;
 
-    function updateSlides() {
-      slides.forEach((slide, index) => {
-        slide.classList.toggle('active', index === currentSlideIndex);
-      });
-
-      indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentSlideIndex);
-      });
-    }
-
-    function nextSlide() {
-      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-      updateSlides();
-    }
-
-    function prevSlide() {
-      currentSlideIndex =
-        (currentSlideIndex - 1 + slides.length) % slides.length;
-      updateSlides();
-    }
-
-    function startAutoPlay() {
-      if (autoPlay) {
-        autoPlayTimer = setInterval(nextSlide, autoPlayInterval);
+  function updateSlides() {
+    slides.forEach((slide, index) => {
+      slide.classList.remove('active', 'incoming', 'leaving'); // Reset classes
+      if (index === currentSlideIndex) {
+        slide.classList.add('active'); // Make the current slide active
+      } else if (index === (currentSlideIndex + 1) % slides.length) {
+        slide.classList.add('incoming'); // The slide coming in
+      } else if (index === (currentSlideIndex - 1 + slides.length) % slides.length) {
+        slide.classList.add('leaving'); // The slide leaving
       }
-    }
-
-    function stopAutoPlay() {
-      clearInterval(autoPlayTimer);
-    }
-
-    indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => {
-        currentSlideIndex = index;
-        updateSlides();
-      });
     });
 
-    nextButton.addEventListener('click', nextSlide);
-    prevButton.addEventListener('click', prevSlide);
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlideIndex);
+    });
+  }
 
-    const sliderContainer = document.querySelector('.slider-container');
-    sliderContainer.addEventListener('mouseover', stopAutoPlay);
-    sliderContainer.addEventListener('mouseout', startAutoPlay);
-
+  function nextSlide() {
+    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
     updateSlides();
-    startAutoPlay();
+  }
+
+  function prevSlide() {
+    currentSlideIndex =
+      (currentSlideIndex - 1 + slides.length) % slides.length;
+    updateSlides();
+  }
+
+  function startAutoPlay() {
+    if (autoPlay) {
+      autoPlayTimer = setInterval(nextSlide, autoPlayInterval);
+    }
+  }
+
+  function stopAutoPlay() {
+    clearInterval(autoPlayTimer);
+  }
+
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      currentSlideIndex = index;
+      updateSlides();
+    });
   });
+
+  nextButton.addEventListener('click', nextSlide);
+  prevButton.addEventListener('click', prevSlide);
+
+  const sliderContainer = document.querySelector('.slider-container');
+  sliderContainer.addEventListener('mouseover', stopAutoPlay);
+  sliderContainer.addEventListener('mouseout', startAutoPlay);
+
+  updateSlides();
+  startAutoPlay();
+});
+
 </script>
