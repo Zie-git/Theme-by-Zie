@@ -124,220 +124,218 @@
 </div>
 
 <style>
-  .animated-slider {
-    text-align: center;
-    margin: auto;
-    max-width: 1200px;
-    position: relative;
-  }
+.animated-slider {
+  text-align: center;
+  margin: auto;
+  max-width: 1200px;
+  position: relative;
+}
 
-  .slider-container {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-  }
+.slider-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  perspective: 1000px; /* Added perspective for the 3D effect */
+}
 
-  .slides {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.5s ease-in-out;
-  }
+.slides {
+  display: flex;
+  flex-direction: row;
+  transition: transform 0.8s ease-in-out;
+}
 
-  .slide {
-    flex: 0 0 100%;
-    display: none;
-    justify-content: space-between;
-    align-items: center;
+.slide {
+  flex: 0 0 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  opacity: 0;
+  transform-origin: top left;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.slide.active {
+  display: flex;
+  opacity: 1;
+  transform: rotateY(0deg); /* Reset transformation when active */
+}
+
+.slide-curl {
+  transform: rotateY(90deg); /* Apply curl effect */
+}
+
+.slide-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.slide-image {
+  flex: 1;
+  text-align: left;
+  transform-style: preserve-3d; /* Preserve 3D for page curl effect */
+  transition: transform 0.8s ease-in-out; /* Transition for page curl */
+}
+
+.slide-text {
+  flex: 1;
+  text-align: left;
+  padding-left: 20px;
+  opacity: 0;
+  animation: fade-in-text 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in-text {
+  0% {
     opacity: 0;
-    transition: opacity 0.5s ease-in-out; /* Fade transition for the entire slide */
+    transform: translateY(10px);
   }
-
-  .slide.active {
-    display: flex;
+  100% {
     opacity: 1;
+    transform: translateY(0);
   }
+}
 
+.slide-button {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.slide-button:hover {
+  background-color: #0056b3;
+}
+
+.slider-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.indicator.active {
+  background: #007bff;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.slider-button.prev {
+  left: 10px;
+}
+
+.slider-button.next {
+  right: 10px;
+}
+
+@media (max-width: 768px) {
   .slide-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-  }
-
-  .slide-image {
-    flex: 1;
-    text-align: left;
-  }
-
-  .slide-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+    flex-direction: column;
   }
 
   .slide-text {
-    flex: 1;
-    text-align: left;
-    padding-left: 20px;
-    opacity: 0;
-    animation: fade-in-text 0.5s ease-in-out forwards; /* Animation for text */
+    text-align: center;
+    padding-left: 0;
   }
 
-  .slide.active .slide-text {
-    opacity: 1; /* Ensure text becomes fully visible when slide is active */
-    animation: fade-in-text 0.5s ease-in-out forwards;
+  .slide-image {
+    text-align: center;
   }
+}
 
-  @keyframes fade-in-text {
-    0% {
-      opacity: 0;
-      transform: translateY(10px); /* Optional slight movement for added effect */
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .slide-text h3 {
-    margin: 0 0 10px;
-    font-size: 1.8rem;
-  }
-
-  .slide-text p {
-    margin: 0 0 15px;
-    color: #666;
-  }
-
-  .slide-button {
-    display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-
-  .slide-button:hover {
-    background-color: #0056b3;
-  }
-
-  .slider-indicators {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-  }
-
-  .indicator {
-    width: 10px;
-    height: 10px;
-    margin: 0 5px;
-    background: #ccc;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  .indicator.active {
-    background: #007bff;
-  }
-
-  .slider-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .slider-button.prev {
-    left: 10px;
-  }
-
-  .slider-button.next {
-    right: 10px;
-  }
-
-  @media (max-width: 768px) {
-    .slide-content {
-      flex-direction: column;
-    }
-
-    .slide-text {
-      text-align: center;
-      padding-left: 0;
-    }
-
-    .slide-image {
-      text-align: center;
-    }
-  }
 </style>
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const slides = document.querySelectorAll('.slide');
-    const indicators = document.querySelectorAll('.indicator');
-    const prevButton = document.querySelector('.slider-button.prev');
-    const nextButton = document.querySelector('.slider-button.next');
-    const autoPlay = {{ section.settings.auto_play }};
-    const autoPlayInterval = {{ section.settings.auto_play_interval }};
-    let currentSlideIndex = 0;
-    let autoPlayTimer;
+ document.addEventListener('DOMContentLoaded', function () {
+  const slides = document.querySelectorAll('.slide');
+  const indicators = document.querySelectorAll('.indicator');
+  const prevButton = document.querySelector('.slider-button.prev');
+  const nextButton = document.querySelector('.slider-button.next');
+  const autoPlay = {{ section.settings.auto_play }};
+  const autoPlayInterval = {{ section.settings.auto_play_interval }};
+  let currentSlideIndex = 0;
+  let autoPlayTimer;
 
-    function updateSlides() {
-      slides.forEach((slide, index) => {
-        slide.classList.toggle('active', index === currentSlideIndex);
-      });
-
-      indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentSlideIndex);
-      });
-    }
-
-    function nextSlide() {
-      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-      updateSlides();
-    }
-
-    function prevSlide() {
-      currentSlideIndex =
-        (currentSlideIndex - 1 + slides.length) % slides.length;
-      updateSlides();
-    }
-
-    function startAutoPlay() {
-      if (autoPlay) {
-        autoPlayTimer = setInterval(nextSlide, autoPlayInterval);
+  function updateSlides() {
+    slides.forEach((slide, index) => {
+      // Add curl effect when changing slides
+      if (index === currentSlideIndex) {
+        slide.classList.add('active');
+        slide.classList.remove('slide-curl');  // Remove curl on the active slide
+      } else {
+        slide.classList.remove('active');
+        slide.classList.add('slide-curl');  // Apply curl on inactive slides
       }
-    }
-
-    function stopAutoPlay() {
-      clearInterval(autoPlayTimer);
-    }
-
-    indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => {
-        currentSlideIndex = index;
-        updateSlides();
-      });
     });
 
-    nextButton.addEventListener('click', nextSlide);
-    prevButton.addEventListener('click', prevSlide);
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlideIndex);
+    });
+  }
 
-    const sliderContainer = document.querySelector('.slider-container');
-    sliderContainer.addEventListener('mouseover', stopAutoPlay);
-    sliderContainer.addEventListener('mouseout', startAutoPlay);
-
+  function nextSlide() {
+    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
     updateSlides();
-    startAutoPlay();
+  }
+
+  function prevSlide() {
+    currentSlideIndex =
+      (currentSlideIndex - 1 + slides.length) % slides.length;
+    updateSlides();
+  }
+
+  function startAutoPlay() {
+    if (autoPlay) {
+      autoPlayTimer = setInterval(nextSlide, autoPlayInterval);
+    }
+  }
+
+  function stopAutoPlay() {
+    clearInterval(autoPlayTimer);
+  }
+
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      currentSlideIndex = index;
+      updateSlides();
+    });
   });
+
+  nextButton.addEventListener('click', nextSlide);
+  prevButton.addEventListener('click', prevSlide);
+
+  const sliderContainer = document.querySelector('.slider-container');
+  sliderContainer.addEventListener('mouseover', stopAutoPlay);
+  sliderContainer.addEventListener('mouseout', startAutoPlay);
+
+  updateSlides();
+  startAutoPlay();
+});
+
 </script>
