@@ -123,8 +123,169 @@
   </div>
 </div>
 
+<style>
+  .animated-slider {
+    text-align: center;
+    margin: auto;
+    max-width: 1200px;
+    position: relative;
+  }
 
+  .slider-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    perspective: 1500px; /* Add perspective for 3D effect */
+  }
 
+  .slides {
+    display: flex;
+    flex-direction: column;
+    transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    transform: rotateY(90deg); /* Initially set the slide off-screen */
+    transition: transform 1s, opacity 1s; /* Page curl effect on rotation */
+  }
+
+  .slide.active {
+    display: flex;
+    opacity: 1;
+    transform: rotateY(0deg); /* When active, the slide curls back to its normal position */
+  }
+
+  .slide-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    transform: translateZ(50px); /* Ensuring content stays above the "page" */
+  }
+
+  .slide-image {
+    flex: 1;
+    text-align: left;
+    transform: rotateY(-5deg); /* Adding slight rotation for added realism */
+  }
+
+  .slide-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  }
+
+  .slide-text {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+    opacity: 0;
+    animation: fade-in-text 1s ease-in-out forwards;
+  }
+
+  .slide.active .slide-text {
+    opacity: 1;
+    animation: fade-in-text 1s ease-in-out forwards;
+  }
+
+  @keyframes fade-in-text {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-text h3 {
+    margin: 0 0 10px;
+    font-size: 1.8rem;
+  }
+
+  .slide-text p {
+    margin: 0 0 15px;
+    color: #666;
+  }
+
+  .slide-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  .slide-button:hover {
+    background-color: #0056b3;
+  }
+
+  .slider-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .indicator {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .indicator.active {
+    background: #007bff;
+  }
+
+  .slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .slider-button.prev {
+    left: 10px;
+  }
+
+  .slider-button.next {
+    right: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .slide-content {
+      flex-direction: column;
+    }
+
+    .slide-text {
+      text-align: center;
+      padding-left: 0;
+    }
+
+    .slide-image {
+      text-align: center;
+    }
+  }
+</style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
