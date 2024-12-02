@@ -2,6 +2,10 @@
   <h2 class="product-title">{{ section.settings.product_title }}</h2>
   <p class="deal-label">{{ section.settings.deal_label }}</p>
   
+  <div class="product-image">
+    <img src="{{ section.settings.product_image }}" alt="{{ section.settings.product_name }}">
+  </div>
+  
   <div class="countdown">
     <p>Hurry! Ends in</p>
     <div class="timer">
@@ -42,6 +46,12 @@
     margin: auto;
     z-index: 13;
   }
+  .product-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
   .countdown .timer span {
     font-weight: bold;
     margin: 0 5px;
@@ -62,6 +72,7 @@
   }
 </style>
 
+
 {% schema %}
 {
   "name": "Product Deal",
@@ -77,6 +88,11 @@
       "id": "deal_label",
       "label": "Deal Label",
       "default": "Deal of the day"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image",
     },
     {
       "type": "number",
@@ -129,8 +145,7 @@
     {
       "type": "url",
       "id": "product_link",
-      "label": "Product Link",
-
+      "label": "Product Link"
     },
     {
       "type": "text",
@@ -141,8 +156,7 @@
     {
       "type": "url",
       "id": "deals_link",
-      "label": "Deals Link",
-
+      "label": "Deals Link"
     },
     {
       "type": "text",
@@ -153,7 +167,7 @@
     {
       "type": "url",
       "id": "gear_link",
-      "label": "Gear Link",
+      "label": "Gear Link"
     },
     {
       "type": "text",
@@ -169,5 +183,6 @@
     }
   ]
 }
+
 {% endschema %}
 
