@@ -5,24 +5,89 @@
 
 <div class="featured-product">
   {% if product %}
-    <h2>{{ product.title }}</h2>
-    <div class="product-image">
-      <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+    <div class="featured-product-container">
+      <!-- Left Column: Product Image -->
+      <div class="product-image-column">
+        <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+      </div>
+      
+      <!-- Right Column: Product Information -->
+      <div class="product-info-column">
+        <h2>{{ product.title }}</h2>
+        <p class="product-price">
+          {% if product.compare_at_price > product.price %}
+            <span class="old-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+          <span class="current-price">{{ product.price | money }}</span>
+        </p>
+        <div class="product-description">
+          {{ product.description | strip_html | truncate: 150 }}
+        </div>
+        <a href="{{ product.url }}" class="btn btn-primary">View Product</a>
+      </div>
     </div>
-    <p class="product-price">
-      {% if product.compare_at_price > product.price %}
-        <span class="old-price">{{ product.compare_at_price | money }}</span>
-      {% endif %}
-      <span class="current-price">{{ product.price | money }}</span>
-    </p>
-    <div class="product-description">
-      {{ product.description | strip_html | truncate: 150 }}
-    </div>
-    <a href="{{ product.url }}" class="btn btn-primary">View Product</a>
   {% else %}
     <p>No product selected or product not found. Please choose a product in the theme editor.</p>
   {% endif %}
 </div>
+
+<style>
+  .featured-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  .featured-product-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+  }
+  .product-image-column {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .product-image-column img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .product-info-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .product-price {
+    margin: 10px 0;
+  }
+  .old-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 10px;
+  }
+  .current-price {
+    font-weight: bold;
+    color: #333;
+  }
+  .btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007aff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .btn:hover {
+    background-color: #005bb5;
+  }
+</style>
 
 {% schema %}
 {
@@ -31,7 +96,7 @@
     {
       "type": "product",
       "id": "product_handle",
-      "label": "Select Product",
+      "label": "Select Product"
     }
   ],
   "presets": [
