@@ -1,28 +1,39 @@
 <div class="product-deal-section">
-  <select id="product-selector" class="product-selector" onchange="updateProductDetails()">
-    <option value="1" data-title="Mystic FOREMAN 4X4" data-description="The Mystic FOREMAN 4X4 is the perfect ATV bike for those seeking unbeatable 4-wheel drive performance." data-price="12,599.00" data-image="path/to/image1.jpg">
-      Mystic FOREMAN 4X4
-    </option>
-    <option value="2" data-title="Eco Rover X5" data-description="Eco Rover X5 is an all-terrain bike with unmatched durability and eco-friendly features." data-price="8,999.00" data-image="path/to/image2.jpg">
-      Eco Rover X5
-    </option>
-    <option value="3" data-title="Speedster 5000" data-description="Built for speed, the Speedster 5000 is perfect for thrill-seekers." data-price="15,299.00" data-image="path/to/image3.jpg">
-      Speedster 5000
-    </option>
-  </select>
-
-  <h2 class="product-title" id="product-title">Mystic FOREMAN 4X4</h2>
-  <p class="product-description" id="product-description">The Mystic FOREMAN 4X4 is the perfect ATV bike for those seeking unbeatable 4-wheel drive performance.</p>
+  <h2 class="product-title">{{ section.settings.product_title }}</h2>
+  <p class="deal-label">{{ section.settings.deal_label }}</p>
   
   <div class="product-image">
-    <img id="product-image" src="path/to/image1.jpg" alt="Mystic FOREMAN 4X4">
+    <img src="{{ section.settings.product_image }}" alt="{{ section.settings.product_name }}">
   </div>
   
-  <div class="price">
-    <p id="product-price">$12,599.00</p>
+  <div class="countdown">
+    <p>Hurry! Ends in</p>
+    <div class="timer">
+      <span class="days">{{ section.settings.countdown_days }}</span> <span>Days</span>
+      <span class="hours">{{ section.settings.countdown_hours }}</span> <span>Hrs</span>
+      <span class="minutes">{{ section.settings.countdown_minutes }}</span> <span>Mins</span>
+      <span class="seconds">{{ section.settings.countdown_seconds }}</span> <span>Secs</span>
+    </div>
   </div>
 
-  <a href="#" class="view-product" id="product-link">View Product</a>
+  <div class="sale-info">
+    <span class="sale-badge">Sale</span>
+    <p class="discount">{{ section.settings.discount_percentage }}% off</p>
+  </div>
+
+  <h3 class="product-name">{{ section.settings.product_name }}</h3>
+  <p class="product-description">{{ section.settings.product_description }}</p>
+  
+  <div class="price">
+    <p>${{ section.settings.product_price }}</p>
+  </div>
+
+  <a href="{{ section.settings.product_link }}" class="view-product">{{ section.settings.cta_text }}</a>
+
+  <div class="additional-links">
+    <a href="{{ section.settings.deals_link }}" class="limited-deals">{{ section.settings.deals_text }}</a>
+    <a href="{{ section.settings.gear_link }}" class="find-gear">{{ section.settings.gear_text }}</a>
+  </div>
 </div>
 
 <style>
@@ -33,11 +44,7 @@
     border-radius: 5px;
     max-width: 400px;
     margin: auto;
-  }
-  .product-selector {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
+    z-index: 13;
   }
   .product-image img {
     max-width: 100%;
@@ -45,7 +52,15 @@
     border-radius: 5px;
     margin-bottom: 15px;
   }
-  .view-product {
+  .countdown .timer span {
+    font-weight: bold;
+    margin: 0 5px;
+  }
+  .sale-info {
+    color: red;
+    font-weight: bold;
+  }
+  .view-product, .additional-links a {
     display: block;
     margin-top: 10px;
     color: white;
@@ -56,25 +71,6 @@
     border-radius: 5px;
   }
 </style>
-
-<script>
-  function updateProductDetails() {
-    const selector = document.getElementById('product-selector');
-    const selectedOption = selector.options[selector.selectedIndex];
-
-    const title = selectedOption.getAttribute('data-title');
-    const description = selectedOption.getAttribute('data-description');
-    const price = selectedOption.getAttribute('data-price');
-    const image = selectedOption.getAttribute('data-image');
-
-    document.getElementById('product-title').textContent = title;
-    document.getElementById('product-description').textContent = description;
-    document.getElementById('product-price').textContent = `$${price}`;
-    document.getElementById('product-image').src = image;
-    document.getElementById('product-image').alt = title;
-  }
-</script>
-
 
 
 {% schema %}
