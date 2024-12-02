@@ -122,29 +122,31 @@
 </style>
 
 <script>
-  // Set the sale end date (modify this date as needed)
-  var saleEndDate = new Date("2024-12-31T23:59:59").getTime();
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the sale end date from the schema settings
+    var saleEndDate = new Date("{{ section.settings.sale_end_time }}").getTime();
 
-  function updateCountdown() {
-    var now = new Date().getTime();
-    var timeRemaining = saleEndDate - now;
+    function updateCountdown() {
+      var now = new Date().getTime();
+      var timeRemaining = saleEndDate - now;
 
-    if (timeRemaining >= 0) {
-      var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+      if (timeRemaining >= 0) {
+        var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("seconds").textContent = seconds;
-    } else {
-      document.getElementById("countdown").innerHTML = "<p>Sale has ended!</p>";
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+        document.getElementById("seconds").textContent = seconds;
+      } else {
+        document.getElementById("countdown").innerHTML = "<p>Sale has ended!</p>";
+      }
     }
-  }
 
-  setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown, 1000);
+  });
 </script>
 
 {% schema %}
@@ -155,6 +157,12 @@
       "type": "product",
       "id": "product_handle",
       "label": "Select Product"
+    },
+    {
+      "type": "text",
+      "id": "sale_end_time",
+      "label": "Sale End Time (YYYY-MM-DDTHH:MM:SS)",
+      "default": "2024-12-31T23:59:59"
     }
   ],
   "presets": [
