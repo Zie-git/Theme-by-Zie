@@ -1,188 +1,44 @@
-<div class="product-deal-section">
-  <h2 class="product-title">{{ section.settings.product_title }}</h2>
-  <p class="deal-label">{{ section.settings.deal_label }}</p>
-  
-  <div class="product-image">
-    <img src="{{ section.settings.product_image }}" alt="{{ section.settings.product_name }}">
-  </div>
-  
-  <div class="countdown">
-    <p>Hurry! Ends in</p>
-    <div class="timer">
-      <span class="days">{{ section.settings.countdown_days }}</span> <span>Days</span>
-      <span class="hours">{{ section.settings.countdown_hours }}</span> <span>Hrs</span>
-      <span class="minutes">{{ section.settings.countdown_minutes }}</span> <span>Mins</span>
-      <span class="seconds">{{ section.settings.countdown_seconds }}</span> <span>Secs</span>
+{% comment %}
+  This section allows you to display a featured product and select it via the theme customizer.
+{% endcomment %}
+{% assign product = all_products[section.settings.product_handle] %}
+
+<div class="featured-product">
+  {% if product %}
+    <h2>{{ product.title }}</h2>
+    <div class="product-image">
+      <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
     </div>
-  </div>
-
-  <div class="sale-info">
-    <span class="sale-badge">Sale</span>
-    <p class="discount">{{ section.settings.discount_percentage }}% off</p>
-  </div>
-
-  <h3 class="product-name">{{ section.settings.product_name }}</h3>
-  <p class="product-description">{{ section.settings.product_description }}</p>
-  
-  <div class="price">
-    <p>${{ section.settings.product_price }}</p>
-  </div>
-
-  <a href="{{ section.settings.product_link }}" class="view-product">{{ section.settings.cta_text }}</a>
-
-  <div class="additional-links">
-    <a href="{{ section.settings.deals_link }}" class="limited-deals">{{ section.settings.deals_text }}</a>
-    <a href="{{ section.settings.gear_link }}" class="find-gear">{{ section.settings.gear_text }}</a>
-  </div>
+    <p class="product-price">
+      {% if product.compare_at_price > product.price %}
+        <span class="old-price">{{ product.compare_at_price | money }}</span>
+      {% endif %}
+      <span class="current-price">{{ product.price | money }}</span>
+    </p>
+    <div class="product-description">
+      {{ product.description | strip_html | truncate: 150 }}
+    </div>
+    <a href="{{ product.url }}" class="btn btn-primary">View Product</a>
+  {% else %}
+    <p>No product selected or product not found. Please choose a product in the theme editor.</p>
+  {% endif %}
 </div>
-
-<style>
-  .product-deal-section {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    max-width: 400px;
-    margin: auto;
-    z-index: 13;
-  }
-  .product-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
-  .countdown .timer span {
-    font-weight: bold;
-    margin: 0 5px;
-  }
-  .sale-info {
-    color: red;
-    font-weight: bold;
-  }
-  .view-product, .additional-links a {
-    display: block;
-    margin-top: 10px;
-    color: white;
-    background-color: blue;
-    text-align: center;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 5px;
-  }
-</style>
-
 
 {% schema %}
 {
-  "name": "Product Deal",
+  "name": "Featured Product",
   "settings": [
     {
-      "type": "text",
-      "id": "product_title",
-      "label": "Product Title",
-      "default": "Mystic FOREMAN 4X4"
-    },
-    {
-      "type": "text",
-      "id": "deal_label",
-      "label": "Deal Label",
-      "default": "Deal of the day"
-    },
-    {
-      "type": "image_picker",
-      "id": "product_image",
-      "label": "Product Image",
-    },
-    {
-      "type": "number",
-      "id": "countdown_days",
-      "label": "Days",
-      "default": 17
-    },
-    {
-      "type": "number",
-      "id": "countdown_hours",
-      "label": "Hours",
-      "default": 20
-    },
-    {
-      "type": "number",
-      "id": "countdown_minutes",
-      "label": "Minutes",
-      "default": 50
-    },
-    {
-      "type": "number",
-      "id": "countdown_seconds",
-      "label": "Seconds",
-      "default": 18
-    },
-    {
-      "type": "text",
-      "id": "discount_percentage",
-      "label": "Discount Percentage",
-      "default": "60"
-    },
-    {
-      "type": "text",
-      "id": "product_name",
-      "label": "Product Name",
-      "default": "Mystic FOREMAN 4X4"
-    },
-    {
-      "type": "textarea",
-      "id": "product_description",
-      "label": "Product Description",
-      "default": "The Mystic FOREMAN 4X4 is the perfect ATV bike for those seeking unbeatable 4 wheel drive performance. Its bold look is matched by its exceptional level of comfort, making it the ideal choice for any adventure."
-    },
-    {
-      "type": "text",
-      "id": "product_price",
-      "label": "Product Price",
-      "default": "12,599.00"
-    },
-    {
-      "type": "url",
-      "id": "product_link",
-      "label": "Product Link"
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "CTA Text",
-      "default": "View product"
-    },
-    {
-      "type": "url",
-      "id": "deals_link",
-      "label": "Deals Link"
-    },
-    {
-      "type": "text",
-      "id": "deals_text",
-      "label": "Deals Text",
-      "default": "Limited time deals"
-    },
-    {
-      "type": "url",
-      "id": "gear_link",
-      "label": "Gear Link"
-    },
-    {
-      "type": "text",
-      "id": "gear_text",
-      "label": "Gear Text",
-      "default": "Find your gear"
+      "type": "product",
+      "id": "product_handle",
+      "label": "Select Product",
     }
   ],
   "presets": [
     {
-      "name": "Sale Product",
+      "name": "Sales Product",
       "category": "Custom"
     }
   ]
 }
-
 {% endschema %}
-
