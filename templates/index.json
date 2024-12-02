@@ -325,23 +325,7 @@
     "sale_product_section_eacxjf": {
       "type": "sale-product-section",
       "settings": {
-        "product_title": "Mystic FOREMAN 4X4",
-        "deal_label": "Deal of the day",
-        "product_image": "shopify://shop_images/variety-of-watches-lined-up-in-rows.jpg",
-        "countdown_days": 17,
-        "countdown_hours": 20,
-        "countdown_minutes": 50,
-        "countdown_seconds": 18,
-        "discount_percentage": "60",
-        "product_name": "Mystic FOREMAN 4X4",
-        "product_description": "The Mystic FOREMAN 4X4 is the perfect ATV bike for those seeking unbeatable 4 wheel drive performance. Its bold look is matched by its exceptional level of comfort, making it the ideal choice for any adventure.",
-        "product_price": "12,599.00",
-        "product_link": "",
-        "cta_text": "View product",
-        "deals_link": "",
-        "deals_text": "Limited time deals",
-        "gear_link": "",
-        "gear_text": "Find your gear"
+        "product_handle": "gg-watch"
       }
     }
   },
