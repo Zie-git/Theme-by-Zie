@@ -123,6 +123,36 @@
 </style>
 
 <script>
+
+// Function to calculate savings percentage and display it
+function calculateSavings() {
+  // Loop through all product cards
+  const productCards = document.querySelectorAll('.product-card');
+  productCards.forEach((card) => {
+    const comparedPriceElem = card.querySelector('.compared-price');
+    const sellingPriceElem = card.querySelector('.selling-price');
+    const savingsElem = card.querySelector('.savings');
+
+    if (comparedPriceElem && sellingPriceElem && savingsElem) {
+      // Parse the prices
+      const comparedPrice = parseFloat(comparedPriceElem.innerText.replace(/[$,]/g, ''));
+      const sellingPrice = parseFloat(sellingPriceElem.innerText.replace(/[$,]/g, ''));
+
+      // Calculate savings percentage
+      if (comparedPrice > sellingPrice) {
+        const savingsPercentage = ((comparedPrice - sellingPrice) / comparedPrice) * 100;
+        savingsElem.innerText = `Save ${Math.round(savingsPercentage)}%`;
+      } else {
+        savingsElem.innerText = 'No savings';
+      }
+    }
+  });
+}
+
+// Call the function to calculate savings when the page loads
+document.addEventListener('DOMContentLoaded', calculateSavings);
+
+  
   document.addEventListener("DOMContentLoaded", function() {
     // Get the sale end date from the schema settings
     var saleEndDate = new Date("{{ section.settings.sale_end_time }}").getTime();
