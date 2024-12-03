@@ -120,41 +120,37 @@
   .btn:hover {
     background-color: #005bb5;
   }
+    .savings-percentage {
+    color: #ff0000;
+    font-weight: bold;
+    margin-top: 5px;
+  }
 </style>
 
 <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Calculate Savings Percentage
+    var compareAtPriceElement = document.querySelector(".old-price");
+    var currentPriceElement = document.querySelector(".current-price");
 
-// Function to calculate savings percentage and display it
-function calculateSavings() {
-  // Loop through all product cards
-  const productCards = document.querySelectorAll('.product-card');
-  productCards.forEach((card) => {
-    const comparedPriceElem = card.querySelector('.compared-price');
-    const sellingPriceElem = card.querySelector('.selling-price');
-    const savingsElem = card.querySelector('.savings');
+    if (compareAtPriceElement && currentPriceElement) {
+      var compareAtPrice = parseFloat(compareAtPriceElement.textContent.replace(/[^0-9.-]+/g, ""));
+      var currentPrice = parseFloat(currentPriceElement.textContent.replace(/[^0-9.-]+/g, ""));
+      
+      if (compareAtPrice > currentPrice) {
+        var savingsPercentage = ((compareAtPrice - currentPrice) / compareAtPrice * 100).toFixed(2);
 
-    if (comparedPriceElem && sellingPriceElem && savingsElem) {
-      // Parse the prices
-      const comparedPrice = parseFloat(comparedPriceElem.innerText.replace(/[$,]/g, ''));
-      const sellingPrice = parseFloat(sellingPriceElem.innerText.replace(/[$,]/g, ''));
+        // Create and insert the savings percentage element
+        var savingsElement = document.createElement("p");
+        savingsElement.classList.add("savings-percentage");
+        savingsElement.textContent = `Save ${savingsPercentage}%!`;
 
-      // Calculate savings percentage
-      if (comparedPrice > sellingPrice) {
-        const savingsPercentage = ((comparedPrice - sellingPrice) / comparedPrice) * 100;
-        savingsElem.innerText = `Save ${Math.round(savingsPercentage)}%`;
-      } else {
-        savingsElem.innerText = 'No savings';
+        // Insert below the price
+        currentPriceElement.parentNode.appendChild(savingsElement);
       }
     }
-  });
-}
 
-// Call the function to calculate savings when the page loads
-document.addEventListener('DOMContentLoaded', calculateSavings);
-
-  
-  document.addEventListener("DOMContentLoaded", function() {
-    // Get the sale end date from the schema settings
+    // Countdown Timer Logic
     var saleEndDate = new Date("{{ section.settings.sale_end_time }}").getTime();
 
     function updateCountdown() {
