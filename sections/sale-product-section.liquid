@@ -20,6 +20,8 @@
           {% endif %}
           <span class="current-price">{{ product.price | money }}</span>
         </p>
+
+        
         <div class="product-description">
           {{ product.description | strip_html | truncate: 150 }}
         </div>
