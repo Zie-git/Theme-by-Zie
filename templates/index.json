@@ -325,7 +325,7 @@
     "sale_product_section_eacxjf": {
       "type": "sale-product-section",
       "settings": {
-        "product_handle": "gg-watch",
+        "product_handle": "gg-watch-version-2",
         "sale_end_time": "2024-12-10T23:59:59"
       }
     }
