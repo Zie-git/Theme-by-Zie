@@ -37,6 +37,12 @@
         </div>
         
         <h2>{{ product.title }}</h2>
+
+                <div class="product-description">
+          {{ product.description | strip_html | truncate: 150 }}
+        </div>
+
+        
         <p class="product-price">
           {% if product.compare_at_price > product.price %}
             <span class="old-price">{{ product.compare_at_price | money }}</span>
@@ -45,9 +51,6 @@
         </p>
 
         
-        <div class="product-description">
-          {{ product.description | strip_html | truncate: 150 }}
-        </div>
 
         <a href="{{ product.url }}" class="btn btn-primary">View Product</a>
       </div>
