@@ -161,10 +161,9 @@
       if (compareAtPrice > currentPrice) {
         var savingsPercentage = ((compareAtPrice - currentPrice) / compareAtPrice * 100).toFixed(2);
 
-        // Create and insert the savings percentage element
-        var savingsElement = document.createElement("p");
-        savingsElement.classList.add("savings-percentage");
-        savingsElement.textContent = `Sale<br>${savingsPercentage}% Off`;
+  var savingsElement = document.createElement("p");
+savingsElement.classList.add("savings-percentage");
+savingsElement.innerHTML = `Sale<br>${savingsPercentage}% Off`;
 
 
   // Insert below the countdown timer
