@@ -6,6 +6,7 @@
 <div class="featured-product">
   {% if product %}
     <div class="featured-product-container">
+      <p>Deals For Today</p>
       <!-- Left Column: Product Image -->
       <div class="product-image-column">
         <img src="{{ product.featured_image | img_url: '2048x2048' }}" alt="{{ product.title }}">
