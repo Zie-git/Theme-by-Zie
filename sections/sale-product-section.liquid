@@ -16,20 +16,8 @@
       <div class="product-info-column">
 
            <p class="deals">Deals For Today</p>
-        
-        <h2>{{ product.title }}</h2>
-        <p class="product-price">
-          {% if product.compare_at_price > product.price %}
-            <span class="old-price">{{ product.compare_at_price | money }}</span>
-          {% endif %}
-          <span class="current-price">{{ product.price | money }}</span>
-        </p>
-
-        
-        <div class="product-description">
-          {{ product.description | strip_html | truncate: 150 }}
-        </div>
-        <div class="countdown-timer" id="countdown">
+<p class="deals-subs">Hurry Ends in</p>
+                <div class="countdown-timer" id="countdown">
           <div class="time-c">
             <span id="days">00</span>
             <p>Days</p>
@@ -47,6 +35,20 @@
             <p>Secs</p>
           </div>
         </div>
+        
+        <h2>{{ product.title }}</h2>
+        <p class="product-price">
+          {% if product.compare_at_price > product.price %}
+            <span class="old-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+          <span class="current-price">{{ product.price | money }}</span>
+        </p>
+
+        
+        <div class="product-description">
+          {{ product.description | strip_html | truncate: 150 }}
+        </div>
+
         <a href="{{ product.url }}" class="btn btn-primary">View Product</a>
       </div>
     </div>
