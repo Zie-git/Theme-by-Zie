@@ -44,9 +44,9 @@
 
         
         <p class="product-price">
-          {% if product.compare_at_price > product.price %}
+        <!--  {% if product.compare_at_price > product.price %}
             <span class="old-price">{{ product.compare_at_price | money }}</span>
-          {% endif %}
+          {% endif %}  -->
           <span class="current-price">{{ product.price | money }}</span>
         </p>
 
