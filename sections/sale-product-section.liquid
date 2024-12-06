@@ -166,8 +166,10 @@
         savingsElement.classList.add("savings-percentage");
         savingsElement.textContent = `Save ${savingsPercentage}%!`;
 
-        // Insert below the price
-        currentPriceElement.parentNode.appendChild(savingsElement);
+
+  // Insert below the countdown timer
+  var countdownTimerElement = document.querySelector(".countdown-timer");
+  countdownTimerElement.parentNode.insertBefore(savingsElement, countdownTimerElement.nextSibling);
       }
     }
 
