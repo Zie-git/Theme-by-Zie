@@ -138,60 +138,83 @@
   }
 
   .slides {
-    position: relative;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease-in-out;
   }
 
   .slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    flex: 0 0 100%;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
     opacity: 0;
-    transform: scale(0.95);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.5s ease-in-out; /* Fade transition for the entire slide */
   }
 
   .slide.active {
+    display: flex;
     opacity: 1;
-    transform: scale(1);
-    z-index: 1;
-  }
-
-  .slide-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
   }
 
   .slide-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
     padding: 20px;
+  }
+
+  .slide-image {
+    flex: 1;
+    text-align: left;
+  }
+
+  .slide-image img {
+    max-width: 100%;
+    height: auto;
     border-radius: 8px;
-    max-width: 80%;
   }
 
-  .slide-content h3 {
-    font-size: 2rem;
-    margin: 10px 0;
+  .slide-text {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+    opacity: 0;
+    animation: fade-in-text 0.5s ease-in-out forwards; /* Animation for text */
   }
 
-  .slide-content p {
-    font-size: 1rem;
-    margin: 10px 0;
+  .slide.active .slide-text {
+    opacity: 1; /* Ensure text becomes fully visible when slide is active */
+    animation: fade-in-text 0.5s ease-in-out forwards;
+  }
+
+  @keyframes fade-in-text {
+    0% {
+      opacity: 0;
+      transform: translateY(10px); /* Optional slight movement for added effect */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-text h3 {
+    margin: 0 0 10px;
+    font-size: 1.8rem;
+  }
+
+  .slide-text p {
+    margin: 0 0 15px;
+    color: #666;
   }
 
   .slide-button {
     display: inline-block;
     background-color: #007bff;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 15px;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
@@ -204,7 +227,7 @@
   .slider-indicators {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .indicator {
@@ -225,7 +248,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -240,14 +263,30 @@
   .slider-button.next {
     right: 10px;
   }
+
+  @media (max-width: 768px) {
+    .slide-content {
+      flex-direction: column;
+    }
+
+    .slide-text {
+      text-align: center;
+      padding-left: 0;
+    }
+
+    .slide-image {
+      text-align: center;
+    }
+  }
 </style>
 
+
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const slides = document.querySelectorAll(".slide");
-    const indicators = document.querySelectorAll(".indicator");
-    const prevButton = document.querySelector(".slider-button.prev");
-    const nextButton = document.querySelector(".slider-button.next");
+  document.addEventListener('DOMContentLoaded', function () {
+    const slides = document.querySelectorAll('.slide');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevButton = document.querySelector('.slider-button.prev');
+    const nextButton = document.querySelector('.slider-button.next');
     const autoPlay = {{ section.settings.auto_play }};
     const autoPlayInterval = {{ section.settings.auto_play_interval }};
     let currentSlideIndex = 0;
@@ -255,11 +294,11 @@
 
     function updateSlides() {
       slides.forEach((slide, index) => {
-        slide.classList.toggle("active", index === currentSlideIndex);
+        slide.classList.toggle('active', index === currentSlideIndex);
       });
 
       indicators.forEach((indicator, index) => {
-        indicator.classList.toggle("active", index === currentSlideIndex);
+        indicator.classList.toggle('active', index === currentSlideIndex);
       });
     }
 
@@ -285,21 +324,20 @@
     }
 
     indicators.forEach((indicator, index) => {
-      indicator.addEventListener("click", () => {
+      indicator.addEventListener('click', () => {
         currentSlideIndex = index;
         updateSlides();
       });
     });
 
-    nextButton.addEventListener("click", nextSlide);
-    prevButton.addEventListener("click", prevSlide);
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
 
-    const sliderContainer = document.querySelector(".slider-container");
-    sliderContainer.addEventListener("mouseover", stopAutoPlay);
-    sliderContainer.addEventListener("mouseout", startAutoPlay);
+    const sliderContainer = document.querySelector('.slider-container');
+    sliderContainer.addEventListener('mouseover', stopAutoPlay);
+    sliderContainer.addEventListener('mouseout', startAutoPlay);
 
     updateSlides();
     startAutoPlay();
   });
 </script>
-
