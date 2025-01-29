@@ -1,56 +1,410 @@
+<div class="contact-us-container">
+  <div class="contact-us-section">
+
+    <div class="contact-form1">
+      <h1 class="title-contacts">Send us a message</h1>
+      <div id="contact-message"></div> <!-- Notification message div -->
+      {%- form 'contact', class: form_class -%}
+
+          {%- if form.posted_successfully? -%}
+    <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
+      {% render 'icon-success' %}
+      Message Sent. We will be in touch with you soon.
+       {% comment %}  
+      {{ 'templates.contact.form.post_success' | t }}
+      {% endcomment %} 
+    </h2>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Hide the form since success message is displayed
+        document.getElementById('conts').style.display = 'none';
+        document.getElementById('ContactFooter-success').style.display = 'none';
+      });
+    </script>
+  {%- elsif form.errors -%}
+    <div class="form__message">
+      <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+        {% render 'icon-error' %}
+        {{ 'templates.contact.form.error_heading' | t }}
+      </h2>
+    </div>
+    <ul class="form-status-list caption-large" role="list">
+      <li>
+        <a href="#ContactForm-email" class="link">
+          {{ form.errors.translated_fields.email | capitalize }}
+          {{ form.errors.messages.email }}
+        </a>
+      </li>
+    </ul>
+  {%- endif -%}
+        
+        <div class="form-row">
+
+          
+          <div class="field">
+            <input type="email" id="contact_email" name="contact[email]" placeholder="Email" required>
+          </div>
+
+          <div class="field">
+            <input type="text" id="contact_name" name="contact[name]" placeholder="Name" required>
+          </div>
+          
+        </div>
+        
+        <div class="form-row">
+          <div class="field">
+            <input type="text" id="contact_address" name="contact[address]" placeholder="Subject" required>
+          </div>
+
+        </div>
+        
+        <div class="field">
+          <textarea id="contact_message" name="contact[body]" rows="5" placeholder="Message" required></textarea>
+        </div>
+        <button class="btns" type="submit">Send Message</button>
+            <div id="contact-success-message" class="success-message"></div> <!-- Success message area -->
+      {%- endform -%}
+    </div>
+
+
+<div class="contact-info">
+  
+  <h2>Get in touch</h2>
+  
+  <p>{{ section.settings.contact_description }}</p>
+
+    <div class="info-text">
+  <p class="icons">
+    <i class="fas fa-map-marker-alt"></i> 
+    </p>
+      
+  <div class="infos">
+    
+       <h3>Address:</h3>
+    <p>
+    {{ section.settings.contact_address }}
+  </p>
+    </div>
+</div>
+
+  
+      
+    <div class="info-text">
+   <p class="icons">
+    <i class="fas fa-phone-alt"></i> 
+     </p>
+      
+  <div class="infos">
+     <h3>Phone:</h3>
+     <p>
+     
+    {{ section.settings.contact_phone }}
+  </p>
+    </div>
+</div>
+
+    <div class="info-text">
+   <p class="icons">
+    <i class="fas fa-envelope"></i> 
+    </p>
+      
+    <div class="infos">
+       <h3>Email:</h3>
+      <p>
+    <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+  </p>
+      </div>
+</div>
+
+  <div class="info-text">
+   <p class="icons">
+    <i class="fas fa-globe"></i> 
+    </p>
+
+  <div class="infos">
+     <h3>Website:</h3>
+   <p>
+    <a href="https://{{ section.settings.contact_website }}" target="_blank">{{ section.settings.contact_website }}</a>
+  </p>
+    </div>
+
+</div>
+
+
+
+
+    
+  </div>
+</div>
+
+<!-- Font Awesome Integration -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+  .fas{
+    font-size: 24px;
+  }
+  h3{
+    font-size: 15px;
+  }
+  .info-text{
+        padding-bottom: 25px;
+  }
+  .infos{
+        line-height: 18px;
+  }
+  .icons{
+    padding-right: 50px;
+  }
+  .info-text{
+display: flex;
+    align-items: center;
+}
+  .title-contacts {
+    font-size: 2.125rem;
+  }
+  .contact-us-container {
+    max-width: 1560px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+    position: relative;
+  }
+
+  .contact-us-section {
+    display: flex;
+    position: relative;
+        height: 765px;
+  }
+
+  .contact-info {
+        row-gap: 30px;
+    display: flex;
+    flex-direction: column;
+     flex: 1;
+    min-width: 300px;
+    padding: 70px;
+    /* position: absolute; */
+    left: 0;
+    top: 47px;
+    /* height: 460px; */
+    /* max-width: 350px; */
+    box-shadow: 2px 0px 10px rgb(0 0 0 / 82%);
+    background: white;
+    font-size: 20px;
+    line-height: 35px;
+    color: #78777a;
+  }
+
+  .contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #78777a !important;
+  }
+
+  .contact-form1 {
+    flex: 1;
+        row-gap: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: #787a7b;
+    padding: 70px;
+    /* margin-left: 161px; */
+    z-index: 1;
+    background: #787a7b;
+    box-shadow: -3px 2px 10px rgb(0 0 0 / 82%);
+    color: white;
+  }
+  input::placeholder, 
+textarea::placeholder {
+  color: white; /* Replace with your desired color */
+  opacity: 1; /* Ensures the color is fully applied */
+  font-size: 18px;
+}
+.infos p{
+  font-size: 13px;
+}
+  .form-row {
+  }
+
+  .field {
+    flex: 1;
+    margin-bottom: 15px;
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #D52525;
+     background: #787a7b;
+    color: white;
+  }
+
+  .btns {
+    padding: 10px 20px;
+    background-color: #D52525;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+        display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+  }
+#contact_message{
+  border: 1px solid #D52525 !important;
+  margin-top: 20px;
+}
+  .btns:hover {
+    background-color: #555;
+  }
+
+  #shopify-section-template--17293229785279__custom_contact_page_tn3kqN {
+   /* background: linear-gradient(to right, #81818a 50%, #962841 50%) !important;*/
+  }
+
+  #contact-message {
+    color: green;
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+  }
+
+ /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .contact-us-section {
+      flex-direction: column;
+    }
+
+    .contact-info, .contact-form1 {
+      padding: 20px;
+      width: 100%;
+    }
+
+    .icons {
+      padding-right: 10px;
+    }
+
+    .title-contacts {
+      font-size: 1.75rem;
+      text-align: center;
+    }
+
+    .btns {
+      width: 100%;
+    }
+    .contact-us-section {
+    height: auto;
+}
+
+
+    
+  }
+
+
+  
+  /* Success message styling */
+  .success-message {
+    display: none;
+    margin-top: 15px;
+    font-size: 1.125rem;
+    color: black; /* For the contact form */
+    align-items: center;
+  }
+
+  .success-message i {
+    color: green; /* Green check icon */
+    margin-right: 10px;
+  }
+  
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector('.contact-form1 form');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Simulate form submission
+      setTimeout(function() {
+        form.reset();  // Clear the form fields after submission
+
+        // Display the success message
+        const successMessage = document.getElementById('contact-success-message');
+        successMessage.innerHTML = '<i class="fas fa-check-circle"></i>Message Sent, Thank you for contacting us!';
+        successMessage.style.display = 'flex';  // Show the success message
+      }, 1000); // Simulate a delay in form processing
+    });
+  });
+</script>
+
+
 {% schema %}
 {
-  "name": "Contact Form",
+  "name": "Contact Section",
   "settings": [
     {
       "type": "text",
-      "id": "form_heading",
-      "label": "Form Heading",
-      "default": "Get in Touch"
+      "id": "contact_heading",
+      "label": "Contact Heading",
+      "default": "Contact Us"
     },
     {
       "type": "textarea",
-      "id": "form_description",
-      "label": "Form Description",
-      "default": "We would love to hear from you!"
+      "id": "contact_description",
+      "label": "Contact Description",
+      "default": "Get in touch with us using the form below or find us at our office."
     },
     {
-      "type": "checkbox",
-      "id": "show_phone",
-      "label": "Show Phone Field",
-      "default": true
+      "type": "text",
+      "id": "contact_address",
+      "label": "Address",
+      "default": "123 grillfighter Street, Pastry City, CA 90210"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone Number",
+      "default": "(123) 456-7890"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email",
+      "default": "contact@grillfighter.com"
+    },{
+  "type": "text",
+  "id": "contact_website",
+  "label": "Website",
+  "default": "https://grillfighter-tools.myshopify.com"
+},
+    {
+      "type": "textarea",
+      "id": "contact_additional_info",
+      "label": "Additional Information",
+      "default": "We are open Monday to Friday from 9 AM to 5 PM."
+    },
+    {
+      "type": "number",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 20
     }
   ],
   "presets": [
     {
-      "name": "Inquirt Form",
-      "category": "Custom"
+      "name": "Custom Contact Form",
+      "category": "Contact"
     }
   ]
 }
 {% endschema %}
-
-<div class="contact-form">
-  <h2>{{ section.settings.form_heading }}</h2>
-  <p>{{ section.settings.form_description }}</p>
-  
-  <form method="post" action="/contact">
-    <input type="hidden" name="form_type" value="contact">
-    
-    <label for="name">Name</label>
-    <input type="text" id="name" name="contact[name]" required>
-    
-    <label for="email">Email</label>
-    <input type="email" id="email" name="contact[email]" required>
-    
-    {% if section.settings.show_phone %}
-      <label for="phone">Phone</label>
-      <input type="tel" id="phone" name="contact[phone]">
-    {% endif %}
-    
-    <label for="message">Message</label>
-    <textarea id="message" name="contact[body]" required></textarea>
-    
-    <button type="submit">Submit</button>
-  </form>
-</div>
