@@ -328,6 +328,14 @@
         "product_handle": "gg-watch-version-2",
         "sale_end_time": "2024-12-10T23:59:59"
       }
+    },
+    "product_inquiry_VfnFzL": {
+      "type": "product-inquiry",
+      "settings": {
+        "form_heading": "Get in Touch",
+        "form_description": "We would love to hear from you!",
+        "show_phone": true
+      }
     }
   },
   "order": [
@@ -344,6 +352,7 @@
     "image_gallery_qE4XBy",
     "slider_animation_t4qBJc",
     "product_modal_RtDLDW",
-    "sale_product_section_eacxjf"
+    "sale_product_section_eacxjf",
+    "product_inquiry_VfnFzL"
   ]
 }
