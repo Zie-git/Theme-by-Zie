@@ -1,27 +1,49 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "template": {
       "type": "template-page",
-      "settings": {
-      }
+      "settings": {}
     },
     "featured_product": {
       "type": "featured_product",
       "settings": {
+        "product": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "max_width": 1200,
+        "pre_order_url": "https://your-site-url.com/pre-order",
+        "title_font_size": 4.4,
+        "text_font_size": 1,
+        "price_font_size": 2.5
+      }
+    },
+    "product_inquiry_NrbrD6": {
+      "type": "product-inquiry",
+      "settings": {
+        "contact_heading": "Contact Us",
+        "contact_description": "Get in touch with us using the form below or find us at our office.",
+        "contact_address": "123 grillfighter Street, Pastry City, CA 90210",
+        "contact_phone": "(123) 456-7890",
+        "contact_email": "contact@grillfighter.com",
+        "contact_website": "https://grillfighter-tools.myshopify.com",
+        "contact_additional_info": "We are open Monday to Friday from 9 AM to 5 PM.",
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     }
   },
   "order": [
     "template",
-    "featured_product"
+    "featured_product",
+    "product_inquiry_NrbrD6"
   ]
 }
