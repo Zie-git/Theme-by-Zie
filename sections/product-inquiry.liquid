@@ -1,6 +1,56 @@
 {% schema %}
-  {
-    "name": "Section name",
-    "settings": []
-  }
+{
+  "name": "Contact Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form Heading",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "form_description",
+      "label": "Form Description",
+      "default": "We would love to hear from you!"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show Phone Field",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inquirt Form",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
+
+<div class="contact-form">
+  <h2>{{ section.settings.form_heading }}</h2>
+  <p>{{ section.settings.form_description }}</p>
+  
+  <form method="post" action="/contact">
+    <input type="hidden" name="form_type" value="contact">
+    
+    <label for="name">Name</label>
+    <input type="text" id="name" name="contact[name]" required>
+    
+    <label for="email">Email</label>
+    <input type="email" id="email" name="contact[email]" required>
+    
+    {% if section.settings.show_phone %}
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="contact[phone]">
+    {% endif %}
+    
+    <label for="message">Message</label>
+    <textarea id="message" name="contact[body]" required></textarea>
+    
+    <button type="submit">Submit</button>
+  </form>
+</div>
