@@ -61,11 +61,13 @@
         </div>
       </div>
         
-      <div class="form-row">
-        <div class="field">
-          <input type="tel" id="contact_phone" name="contact[phone]" placeholder="Phone Number" required pattern="[0-9]{10}" title="Enter a valid 10-digit phone number">
+        <div class="form-row">
+          <div class="field">
+            <input type="tel" id="contact_phone" name="contact[phone]" placeholder="Phone Number" required 
+              pattern="[0-9]*" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+          </div>
         </div>
-      </div>
+        
 
         
         <div class="field">
