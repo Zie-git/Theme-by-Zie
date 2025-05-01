@@ -1,0 +1,487 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.js' | asset_url | script_tag }}
+
+<style>
+  .custom-collection-slider {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .custom-collection-slider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70%; /* Gradient stops at 70% */
+    pointer-events: none; /* Allows clicks to pass through */
+    background: linear-gradient(
+      to bottom, 
+      #FF2675 0%, 
+      #E0407A00 70%
+    );
+    z-index: 1; /* Ensure it stays above the slider content */
+    pointer-events: none;
+  }
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-wrapper{
+    align-items: center;
+    padding: 0 5%;
+  }
+
+  .swiper-slide {
+    width: 280px!important;
+    height: 370px;
+    background: white;
+    display: flex;
+    justify-content: center;
+  }
+
+  .title-card {
+    background-color: #FF2675;
+    color: white;
+    text-align: left;
+    border-radius: 8px;
+    padding: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center-center;
+  }
+  .title-card h2 {
+    color: white;
+    font-family: "Tungsten Narrow"!important;
+    font-weight: bold;
+    line-height: .85;
+    font-size: 70px;
+    text-transform: uppercase;
+  }
+
+  .product-card {
+    text-align: left;
+    border-radius: 8px;
+    background: #FFFFFF;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  img.product-image{
+    border-radius: 10px;
+    background-color: white;
+    min-height: 280px
+  }
+
+  .product-image img {
+    border-radius: 8px;
+    background: white;
+
+  }
+  .product-infobox{
+    background-color: rgba(36, 36, 36, 0.11);
+    border-radius: 8px;
+    padding: 10px;
+    backdrop-filter: blur(90px);
+  }
+
+  .product-title {
+    font-family: "Tungsten"!important;
+    font-weight: 600;
+    line-height: 1;
+    font-size: 25px;
+    margin: 10px 0 5px;
+    color: #2b2b2b;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-vendor {
+    font-family: "Tungsten Narrow"!important;
+    font-weight: 200;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 1;
+    color: #888;
+    margin: 0;
+  }
+  .button-price-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .product-price {
+    font-family: "Tungsten"!important;
+    font-size: 25px;
+    line-height: 1;
+    font-weight: bold;
+    color: #000;
+    margin: 10px 0;
+  }
+
+  .add-to-cart-button {
+    font-family: "Tungsten"!important;
+    background: rgba(255, 255, 255, 0.88);
+    color: #2b2b2b;
+    border: none;
+    padding: 10px;
+    font-size: 21px;
+    line-height: 0.85;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+  }
+  
+  .add-to-cart-button:hover {
+    background: #333;
+    color: #f3f3f3;
+  }
+
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: black;
+
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) skew(-10deg) scale(1.5);
+    z-index: 10; /* Ensure they're above the gradient */
+    transform: 
+
+  }
+
+
+  .swiper-button-prev {
+    left: 20px;
+  }
+  
+  .swiper-button-next {
+    right: 20px;
+  }
+  
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  
+  .swiper-button-prev:empty,
+.swiper-button-next:empty {
+  display: flex !important;
+}
+
+  @media screen and (max-width: 767px) {
+  .custom-collection-slider {
+    height: auto;
+    padding: 20px 0;
+  }
+
+  .swiper-slide {
+    width: 90% !important;
+    height: auto;
+    margin: 0 auto;
+    padding: 12px;
+  }
+
+  .title-card {
+    padding: 15px;
+  }
+
+  .title-card h2 {
+    font-size: 40px;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .product-card {
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  img.product-image {
+    max-width: 120px;
+    max-height; 120px;
+
+    object-fit: cover;
+  }
+
+  .product-infobox {
+    padding: 8px;
+    border-radius: 6px;
+    backdrop-filter: blur(30px);
+  }
+
+  .product-title {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  .product-vendor {
+    font-size: 12px;
+  }
+
+  .product-price {
+    font-size: 18px;
+    margin: 8px 0;
+  }
+
+  .add-to-cart-button {
+    font-size: 16px;
+    padding: 8px 10px;
+    margin-top: 8px;
+  }
+
+  .button-price-div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 32px;
+    height: 32px;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 16px;
+  }
+}
+
+
+
+</style>
+
+<div class="custom-collection-slider">
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <!-- Title Card -->
+      <div class="swiper-slide title-card" style="background-image: url('{{ section.settings.bg_image | img_url: 'original' }}'); background-repeat: no-repeat;">
+        <h2>{{ section.settings.title }}</h2>
+      </div>
+
+      <!-- Product Cards - Limited to 10 -->
+      {% assign collection = collections[section.settings.collection] %}
+      {% assign product_count = 0 %}
+      {% for product in collection.products %}
+        {% if product_count < 10 %}
+          <div class="swiper-slide product-card" onclick="window.location.href='{{ product.url }}';" style="cursor: pointer;">
+            <img class="product-image" src="{{ product.featured_image | img_url: '800x800' }}" alt="{{ product.title }}">
+            <div class="product-infobox">
+              <p class="product-vendor">{{ product.vendor }}</p>
+              <h3 class="product-title">{{ product.title }}</h3>
+              <div class="button-price-div">
+                <p class="product-price">{{ product.price | money }}</p>
+                <a href="{{ product.url }}" class="add-to-cart-button">
+                  Add to Cart
+                  <img src="{{ 'race arrow.png' | asset_url }}" alt="Icon" style="width: 11px; height: 15px; vertical-align: middle; margin-left: 5px;">
+                </a>
+              </div>
+            </div>
+          </div>
+          {% assign product_count = product_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
+
+<script>
+class CollectionSlider {
+  constructor(container) {
+    this.container = container;
+    this.sectionId = container.dataset.sectionId;
+    this.init();
+  }
+
+  init() {
+    // Clean up any existing instance
+    if (this.container.swiperInstance) {
+      this.container.swiperInstance.destroy();
+    }
+
+    // Initialize new Swiper instance
+    this.swiper = new Swiper(this.container.querySelector('.swiper'), {
+      slidesPerView: 'auto',
+      spaceBetween: 20,
+      navigation: {
+        nextEl: this.container.querySelector('.swiper-button-next'),
+        prevEl: this.container.querySelector('.swiper-button-prev'),
+      },
+      breakpoints: {
+        320: { slidesPerView: 1 },
+        640: { slidesPerView: 2 },
+        768: { slidesPerView: 3 },
+        1024: { slidesPerView: 4 },
+        1280: { slidesPerView: 5 }
+      },
+      on: {
+        init: function() {
+          this.navigation.init();
+          this.navigation.update();
+        },
+        slideChange: function() {
+          this.navigation.update();
+        }
+      }
+    });
+
+    // Store instance reference
+    this.container.swiperInstance = this.swiper;
+    
+    // Force buttons to be visible
+    const buttons = this.container.querySelectorAll('.swiper-button-prev, .swiper-button-next');
+    buttons.forEach(btn => btn.style.display = 'flex');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof Swiper === 'undefined') {
+    console.error('Swiper library not loaded');
+    return;
+  }
+
+  // Initialize all sliders on the page
+  document.querySelectorAll('.custom-collection-slider').forEach(container => {
+    new CollectionSlider(container);
+  });
+});
+
+// For Shopify section reloading
+if (typeof document.dispatchEvent === 'function') {
+  document.addEventListener('shopify:section:load', function(event) {
+    const container = event.target.querySelector('.custom-collection-slider');
+    if (container && typeof Swiper !== 'undefined') {
+      new CollectionSlider(container);
+    }
+  });
+}
+</script>
+
+{% schema %}
+{
+  "name": "Custom Collection Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured Collections"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image for Title Card"
+    },
+    {
+      "type": "select",
+      "id": "bg_size",
+      "label": "Background Size",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        },
+        {
+          "value": "auto",
+          "label": "Auto"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "id": "bg_position",
+      "label": "Background Position",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "top left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top right",
+          "label": "Top Right"
+        },
+        {
+          "value": "center left",
+          "label": "Center Left"
+        },
+        {
+          "value": "center right",
+          "label": "Center Right"
+        },
+        {
+          "value": "bottom left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Collection Slider",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
