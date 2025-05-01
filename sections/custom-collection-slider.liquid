@@ -336,8 +336,11 @@ class CollectionSlider {
 
     // Initialize new Swiper instance
     this.swiper = new Swiper(this.container.querySelector('.swiper'), {
-      slidesPerView: 'auto',
+      slidesPerView: 1, // base view
       spaceBetween: 20,
+      loop: false,
+      centeredSlides: false,
+      watchSlidesProgress: true,
       navigation: {
         nextEl: this.container.querySelector('.swiper-button-next'),
         prevEl: this.container.querySelector('.swiper-button-prev'),
@@ -350,15 +353,16 @@ class CollectionSlider {
         1280: { slidesPerView: 5 }
       },
       on: {
-        init: function() {
+        init: function () {
           this.navigation.init();
           this.navigation.update();
         },
-        slideChange: function() {
+        slideChange: function () {
           this.navigation.update();
         }
       }
     });
+
 
     // Store instance reference
     this.container.swiperInstance = this.swiper;
