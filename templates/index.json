@@ -37,6 +37,7 @@
       "name": "Custom Collection Slider",
       "settings": {
         "title": "Featured Collections",
+        "bg_image": "shopify://shop_images/variety-of-watches-lined-up-in-rows.jpg",
         "bg_size": "cover",
         "bg_position": "center center",
         "collection": "t-shirts"
