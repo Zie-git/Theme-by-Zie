@@ -335,33 +335,22 @@ class CollectionSlider {
     }
 
     // Initialize new Swiper instance
-    this.swiper = new Swiper(this.container.querySelector('.swiper'), {
-      slidesPerView: 1, // base view
-      spaceBetween: 20,
-      loop: false,
-      centeredSlides: false,
-      watchSlidesProgress: true,
-      navigation: {
-        nextEl: this.container.querySelector('.swiper-button-next'),
-        prevEl: this.container.querySelector('.swiper-button-prev'),
-      },
-      breakpoints: {
-        320: { slidesPerView: 1 },
-        640: { slidesPerView: 2 },
-        768: { slidesPerView: 3 },
-        1024: { slidesPerView: 4 },
-        1280: { slidesPerView: 5 }
-      },
-      on: {
-        init: function () {
-          this.navigation.init();
-          this.navigation.update();
-        },
-        slideChange: function () {
-          this.navigation.update();
-        }
-      }
-    });
+this.swiper = new Swiper(this.container.querySelector('.swiper'), {
+  slidesPerView: 5,
+  spaceBetween: 20,
+  cssMode: true, // allows native scroll with snapping
+  navigation: {
+    nextEl: this.container.querySelector('.swiper-button-next'),
+    prevEl: this.container.querySelector('.swiper-button-prev'),
+  },
+  breakpoints: {
+    320: { slidesPerView: 1 },
+    640: { slidesPerView: 2 },
+    768: { slidesPerView: 3 },
+    1024: { slidesPerView: 4 },
+    1280: { slidesPerView: 5 }
+  },
+});
 
 
     // Store instance reference
