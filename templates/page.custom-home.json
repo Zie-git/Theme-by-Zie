@@ -11,10 +11,36 @@
   "sections": {
     "template": {
       "type": "template-page",
+      "disabled": true,
       "settings": {}
+    },
+    "image_3JwUbb": {
+      "type": "image",
+      "name": "Image",
+      "settings": {
+        "title": "Heading Text",
+        "description": "Description of the image and text",
+        "image": "shopify://shop_images/classic-quartz-wrist-watch.jpg",
+        "image_alt": "Default Alt Text",
+        "image_view": "cover",
+        "image_height": "medium",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "button_text": "Click Here",
+        "button_link": "",
+        "heading_font_size": 24,
+        "text_font_size": 16,
+        "heading_font_weight": "400",
+        "overlay_brightness": 50,
+        "text_alignment": "center-center",
+        "text_container_width": "1200"
+      }
     }
   },
   "order": [
-    "template"
+    "template",
+    "image_3JwUbb"
   ]
 }
