@@ -11,7 +11,6 @@
   "sections": {
     "image_DMaHcK": {
       "type": "image",
-      "disabled": true,
       "settings": {
         "title": "PH",
         "description": "Description of the image and text",
@@ -35,7 +34,6 @@
     },
     "image_WKpH6n": {
       "type": "image",
-      "disabled": true,
       "settings": {
         "title": "JP",
         "description": "Description of the image and text",
@@ -59,7 +57,6 @@
     },
     "image_xCF8ep": {
       "type": "image",
-      "disabled": true,
       "settings": {
         "title": "CA",
         "description": "Description of the image and text",
@@ -83,7 +80,6 @@
     },
     "image_WdEAap": {
       "type": "image",
-      "disabled": true,
       "settings": {
         "title": "NA",
         "description": "Description of the image and text",
