@@ -37,25 +37,27 @@ document.addEventListener('DOMContentLoaded', function () {
   getCountryLive({ ipInfoToken: 'b53e036b187230' }).then(country => {
     console.log('Live country:', country);
 
+    // helper
+    function show(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'block';
+    }
+
     if (country === 'PH') {
-      document.getElementById('menu-ph').style.display = 'block !important';
-      document.getElementById('PH').style.display = 'inline-block !important';
-      document.getElementById('badge1').style.display = 'block !important';
+      show('menu-ph');
+      show('menu-ph-mobile');
 
     } else if (country === 'JP') {
-      document.getElementById('menu-jp').style.display = 'block !important';
-      document.getElementById('JP').style.display = 'inline-block !important';
-      document.getElementById('badge2').style.display = 'block !important';
+      show('menu-jp');
+      show('menu-jp-mobile');
 
     } else if (country === 'CA') {
-      document.getElementById('menu-ca').style.display = 'block !important';
-      document.getElementById('CA').style.display = 'inline-block !important';
-      document.getElementById('badge3').style.display = 'block !important';
+      show('menu-ca');
+      show('menu-ca-mobile');
 
     } else {
-      document.getElementById('menu-na').style.display = 'block !important';
-      document.getElementById('NA').style.display = 'inline-block !important';
-      document.getElementById('badge4').style.display = 'block !important';
+      show('menu-na');
+      show('menu-na-mobile');
     }
   });
 });
