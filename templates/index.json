@@ -12,7 +12,76 @@
     "image_DMaHcK": {
       "type": "image",
       "settings": {
-        "title": "Heading Text",
+        "title": "PH",
+        "description": "Description of the image and text",
+        "image": "shopify://shop_images/pexels-pixabay-267391.jpg",
+        "image_alt": "Default Alt Text",
+        "image_view": "cover",
+        "image_height": "medium",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "button_text": "Click Here",
+        "button_link": "",
+        "heading_font_size": 24,
+        "text_font_size": 16,
+        "heading_font_weight": "400",
+        "overlay_brightness": 50,
+        "text_alignment": "center-center",
+        "text_container_width": "1200"
+      }
+    },
+    "image_WKpH6n": {
+      "type": "image",
+      "settings": {
+        "title": "JP",
+        "description": "Description of the image and text",
+        "image": "shopify://shop_images/pexels-pixabay-267391.jpg",
+        "image_alt": "Default Alt Text",
+        "image_view": "cover",
+        "image_height": "medium",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "button_text": "Click Here",
+        "button_link": "",
+        "heading_font_size": 24,
+        "text_font_size": 16,
+        "heading_font_weight": "400",
+        "overlay_brightness": 50,
+        "text_alignment": "center-center",
+        "text_container_width": "1200"
+      }
+    },
+    "image_xCF8ep": {
+      "type": "image",
+      "settings": {
+        "title": "CA",
+        "description": "Description of the image and text",
+        "image": "shopify://shop_images/pexels-pixabay-267391.jpg",
+        "image_alt": "Default Alt Text",
+        "image_view": "cover",
+        "image_height": "medium",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "button_text": "Click Here",
+        "button_link": "",
+        "heading_font_size": 24,
+        "text_font_size": 16,
+        "heading_font_weight": "400",
+        "overlay_brightness": 50,
+        "text_alignment": "center-center",
+        "text_container_width": "1200"
+      }
+    },
+    "image_WdEAap": {
+      "type": "image",
+      "settings": {
+        "title": "NA",
         "description": "Description of the image and text",
         "image": "shopify://shop_images/pexels-pixabay-267391.jpg",
         "image_alt": "Default Alt Text",
@@ -343,6 +412,9 @@
   },
   "order": [
     "image_DMaHcK",
+    "image_WKpH6n",
+    "image_xCF8ep",
+    "image_WdEAap",
     "custom_collection_slider_Ukw4Pr",
     "featured_product_37FeLH",
     "slider_ERRfTm",
