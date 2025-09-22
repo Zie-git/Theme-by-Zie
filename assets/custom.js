@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (config.menus) {
       config.menus.forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.style.display = 'block';
+        if (el) el.style.display = 'block !important';
       });
     }
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (config.badges) {
       config.badges.forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.style.display = 'inline-block';
+        if (el) el.style.display = 'inline-block !important';
       });
     }
   });
