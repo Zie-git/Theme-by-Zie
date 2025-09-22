@@ -1,6 +1,6 @@
 <script>
 function getCountryLive({ ipInfoToken = '', timeoutMs = 4000, fallback = 'US' } = {}) {
-  // 1) Shopify server-side country (instant, no API needed)
+  // 1) Shopify server-side country (instant)
   if (window.SHOPIFY_COUNTRY) {
     return Promise.resolve(window.SHOPIFY_COUNTRY.toUpperCase());
   }
@@ -13,15 +13,13 @@ function getCountryLive({ ipInfoToken = '', timeoutMs = 4000, fallback = 'US' } 
   function fetchWithTimeout(url, opts = {}) {
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => reject(new Error('timeout')), timeoutMs);
-      fetch(url, opts)
-        .then(res => {
-          clearTimeout(timer);
-          resolve(res);
-        })
-        .catch(err => {
-          clearTimeout(timer);
-          reject(err);
-        });
+      fetch(url, opts).then(res => {
+        clearTimeout(timer);
+        resolve(res);
+      }).catch(err => {
+        clearTimeout(timer);
+        reject(err);
+      });
     });
   }
 
@@ -34,37 +32,31 @@ function getCountryLive({ ipInfoToken = '', timeoutMs = 4000, fallback = 'US' } 
     .catch(() => fallback);
 }
 
+// Run after DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
   getCountryLive({ ipInfoToken: 'b53e036b187230' }).then(country => {
     console.log('Live country:', country);
 
-    // Define rules
-    const countryMap = {
-      'PH': { menus: ['menu-ph', 'menu-ph-mobile'], badges: ['PH', 'badge1'] },
-      'JP': { menus: ['menu-jp', 'menu-jp-mobile'], badges: ['JP', 'badge2'] },
-      'CA': { menus: ['menu-ca', 'menu-ca-mobile'], badges: ['CA', 'badge3'] },
-      'US': { menus: ['menu-na', 'menu-na-mobile'], badges: ['NA', 'badge4'] }
-    };
+    if (country === 'PH') {
+      document.getElementById('menu-ph').style.display = 'block';
+      document.getElementById('PH').style.display = 'inline-block';
+      document.getElementById('badge1').style.display = 'block';
 
-    // Default fallback if not matched
-    const config = countryMap[country] || countryMap['US'];
+    } else if (country === 'JP') {
+      document.getElementById('menu-jp').style.display = 'block';
+      document.getElementById('JP').style.display = 'inline-block';
+      document.getElementById('badge2').style.display = 'block';
 
-    // Show menus
-    if (config.menus) {
-      config.menus.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'block !important';
-      });
-    }
+    } else if (country === 'CA') {
+      document.getElementById('menu-ca').style.display = 'block';
+      document.getElementById('CA').style.display = 'inline-block';
+      document.getElementById('badge3').style.display = 'block';
 
-    // Show badges
-    if (config.badges) {
-      config.badges.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'inline-block !important';
-      });
+    } else {
+      document.getElementById('menu-na').style.display = 'block';
+      document.getElementById('NA').style.display = 'inline-block';
+      document.getElementById('badge4').style.display = 'block';
     }
   });
 });
 </script>
-
